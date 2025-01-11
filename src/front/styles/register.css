@@ -1,0 +1,55 @@
+.bgForm {
+    border: none;
+    border-bottom: 1px solid red;
+    background: transparent;
+    color: white; 
+    border-radius: 6px;
+    font-family: 'DM Serif Text';
+}
+
+/* Cambia el estilo del dropdown cuando se enfoca */
+.bgForm:focus {
+    outline: none; /* Elimina el borde predeterminado al hacer focus */
+    background-color: transparent;
+    border-color: white; /* Cambia el color del borde al enfocar */
+    color: white;
+}
+
+
+
+.letterForm {
+    font-family: 'DM Serif Text', serif;
+    color: white;
+}
+
+.img-register{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.bg-container-register{
+    position: relative;
+    backdrop-filter: blur(2px);
+    width: 550px;
+    border-radius: 30px;
+}
+
+.register-btn{
+    background-color: transparent;
+    width: 250px;
+}
+
+.select-register{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid red;
+    color: white;
+}
+
+.select-text{
+    color: black;
+}
