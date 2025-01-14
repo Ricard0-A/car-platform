@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User,Seller
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,7 +17,7 @@ CORS(api)
 @api.route("/register",methods=["POST"])
 def add_new_user():
     try:
-        body_froms=request.form
+        body_froms=request.json
 
         name=body_froms.get("name",None)
         email=body_froms.get("email",None)
@@ -26,14 +26,14 @@ def add_new_user():
         country=body_froms.get("country",None)
         print(body_froms)
         if name is None or email is None or password is None or phone_number is None or country is None:
-            return jsonify({"warning":"Incomplete Credential"}),400
+            return jsonify({"warning":"Incomplete Credential"}),401
         else: 
             user=User()
             user_exist=user.query.filter_by(email=email).one_or_none()
             print(user_exist)
             if user_exist is not None:
                 
-                return jsonify({"warning":"User Exist"}),400
+                return jsonify({"warning":"User Exist"}),401
                 
             else:
                 salt=b64encode(os.urandom(32)).decode("utf-8")
@@ -79,42 +79,45 @@ def login():
     except Exception as err:
         return jsonify(f"Error{err.args}")
 
-# @api.route("/register/sellers", methods=["POST"])
-# def register_sellers():
-#    try:
-#     body_forms=request.form
+@api.route("/register/sellers", methods=["POST"])
+def register_sellers():
+   try:
+    body_froms=request.json
+    
+    name = body_froms.get("name", None)
+    email = body_froms.get("email", None)
+    password = body_froms.get("password", None)
+    country = body_froms.get("country", None)
+    print(body_froms)
+    if name is None or email is None or password is None or country is None:
+       
+        return jsonify({"warning":"Incomplete Credentials"}),401
+    else:
+        sellers=Seller()
+        sellers_exist=sellers.query.filter_by(email=email).one_or_none()
 
-#     name=body_forms.get("name, None")
-#     email=body_forms.get("email",None)
-#     password=body_forms.get("password",None)
+        if sellers_exist is not None:
+            return jsonify({"warning":"User already exist"}),401
 
-#     if name is None or email is None or password is None:
-#         return jsonify({"warning":"Incomplete Credentials"}),401
-#     else:
-#         sellers=Sellers()
-#         sellers_exist=sellers.query.filter_by(email=email).one_or_none()
+        else:
+            salt=b64encode(os.urandom(32)).decode("utf-8")
+            password=generate_password_hash(f'{password}{salt}')
 
-#         if sellers_exist is not None:
-#             return jsonify({"warning":"User already exist"}),401
+            sellers.name=name
+            sellers.email=email
+            sellers.password=password
+            sellers.salt=salt
+            sellers.country=country
 
-#         else:
-#             salt=b64encode(os.urandom(32)).decode("utf-8")
-#             password=generate_password_hash(f'{password}{salt}')
-
-#             sellers.name=name
-#             sellers.email=email
-#             sellers.password=password
-#             sellers.salt=salt
-
-#             db.session.add()
-#             try:
-#                 db.session.commit()
-#                 return jsonify("User create"),200
-#             except Exception as error:
-#                 db.session.rollback()
-#                 return jsonify(error.args),500
-#    except Exception as err:
-#     return jsonify(err.args),500
+            db.session.add(sellers)
+            try:
+                db.session.commit()
+                return jsonify("User create"),200
+            except Exception as error:
+                db.session.rollback()
+                return jsonify(error.args),500
+   except Exception as err:
+    return jsonify(err.args),500
 
 
 # body=request.json
