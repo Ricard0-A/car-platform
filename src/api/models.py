@@ -60,7 +60,7 @@ class  Seller(db.Model):
     salt=db.Column(db.String(140), nullable=False)
     country=db.Column(db.Enum(Sellers_Country), nullable=False)
 
-    cars = db.relationship("Car", back_populates="seller")
+    cars = db.relationship("Car", back_populates="sellers")
 
     def serialize(self):
         return {
@@ -114,6 +114,7 @@ class Car(db.Model):
 
 
     seller_id = db.Column(db.Integer, db.ForeignKey("sellers.id"))
+    sellers =  db.relationship("Seller",back_populates="cars")
     
     
     def serialize(self):

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f7292c480452
+Revision ID: d7a8a010dd03
 Revises: 
-Create Date: 2025-01-12 21:55:32.597780
+Create Date: 2025-01-14 00:24:46.414190
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f7292c480452'
+revision = 'd7a8a010dd03'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('email', sa.String(length=180), nullable=False),
-    sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('password', sa.String(length=180), nullable=False),
     sa.Column('salt', sa.String(length=140), nullable=False),
     sa.Column('country', sa.Enum('USA', 'Canada', 'Ecuador', 'Argentina', 'Chile', 'Brazil', 'Germany', 'Spain', 'Japan', 'China', name='sellers_country'), nullable=False),
     sa.PrimaryKeyConstraint('id'),
@@ -48,7 +48,7 @@ def upgrade():
     sa.Column('model_trim', sa.String(length=180), nullable=False),
     sa.Column('model_year', sa.String(length=180), nullable=False),
     sa.Column('model_body', sa.String(length=180), nullable=False),
-    sa.Column('model_engine_position', sa.String(length=180), nullable=False),
+    sa.Column('model_engine_position', sa.String(length=180), nullable=True),
     sa.Column('model_engine_cc', sa.String(length=180), nullable=False),
     sa.Column('model_engine_cyl', sa.String(length=180), nullable=True),
     sa.Column('model_engine_type', sa.String(length=180), nullable=True),
@@ -79,7 +79,7 @@ def upgrade():
     sa.Column('model_co2', sa.String(length=180), nullable=True),
     sa.Column('model_make_display', sa.String(length=180), nullable=True),
     sa.Column('make_display', sa.String(length=180), nullable=True),
-    sa.Column('make_country', sa.String(length=180), nullable=True),
+    sa.Column('make_country', sa.String(length=180), nullable=False),
     sa.Column('seller_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['seller_id'], ['sellers.id'], ),
     sa.PrimaryKeyConstraint('id')
