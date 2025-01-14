@@ -46,6 +46,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			},
+
+			// registerSellers:async(sellers)=>{
+			// 	try {
+			// 		const response = await fetch(`${process.env.BACKEND_URL}/register/sellers`,{
+			// 			method:"POST", 
+			// 			body:sellers
+			// 		})	
+			// 		return response.status
+			// 	} catch (error) {
+			// 		console.log(error)
+			// 		return response.status
+			// 	}
+			// },
+
+			// loginSellers:async(sellers)=>{
+
+			// }
 		}
 	};
 };

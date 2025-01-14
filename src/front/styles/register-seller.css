@@ -1,0 +1,31 @@
+.img-seller{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.letter-seller{
+    font-family: 'DM Serif Text', serif;
+    color: white;
+}
+
+.bg-seller{
+    position: relative;
+    backdrop-filter: blur(2px);
+    width: 550px;
+    border-radius: 30px;
+}
+
+.bg-input-seller{
+    background-color: transparent;
+    border:  none;
+    border-bottom: 2px solid rgb(0, 174, 255);
+}
+
+.btn-register-seller{
+    background-color: transparent;
+    width: 250px;
+}

@@ -37,11 +37,11 @@ const Register = () => {
 
         if (response === 200) {
             setUser(initialUser);
-            alert("El usuario se ha creado correctamente");
+            alert("User create");
         } else if (response === 400) {
-            alert("El usuario ya existe");
+            alert("Already exist this user");
         } else {
-            alert("Inténtelo más tarde");
+            alert("Please try later");
         }
     };
 
