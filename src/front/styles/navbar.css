@@ -1,0 +1,38 @@
+/* Estilos generales */
+.green {
+  color : #7AAD46;
+}
+
+
+/* navbar.css */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+nav {
+  font-size: 23px;
+  font-family: "Lora", serif;
+}
+
+.log {
+  font-size: 21px;
+}
+
+/* Estilo para el tamano colapsado de de los elementos */
+@media (max-width: 768px) {
+  #navGround {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 2px !important;
+  }
+  /* Segundo argumento de media no acepta mas de una propiedad ? */
+  .navbar-nav {
+    gap: 5px; /* Espaciado entre los enlaces */
+  }
+}
