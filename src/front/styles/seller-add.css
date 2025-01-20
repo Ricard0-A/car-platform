@@ -1,0 +1,24 @@
+body{
+    background-color: hsl(0, 0%, 93%);
+}
+
+.text-font{
+    font-family: "DM Serif Text", serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.bg-container{
+    background-color: rgb(230, 230, 230);
+    box-shadow: 3px 10px 76px 9px rgba(244, 244, 244, 0.75);
+    border-radius: 40px;
+}
+
+.img-car-add{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}

@@ -49,7 +49,7 @@ const Login = () => {
                                 <input
                                     type="email"
                                     className="form-control bg-form-login"
-                                    placeholder="Name"
+                                    placeholder="Email"
                                     name="email"
                                     value={user.email}
                                     onChange={handleChange}

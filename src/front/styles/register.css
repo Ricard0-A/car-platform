@@ -7,11 +7,11 @@
     font-family: 'DM Serif Text';
 }
 
-/* Cambia el estilo del dropdown cuando se enfoca */
+
 .bgForm:focus {
-    outline: none; /* Elimina el borde predeterminado al hacer focus */
+    outline: none; 
     background-color: transparent;
-    border-color: white; /* Cambia el color del borde al enfocar */
+    border-color: white; 
     color: white;
 }
 

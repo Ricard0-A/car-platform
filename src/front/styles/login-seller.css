@@ -7,3 +7,35 @@
     z-index: -1;
     
 }
+
+.bg-login{
+    position: relative;
+    top: 150px;
+    backdrop-filter: blur(2px);
+    width: 550px;
+    border-radius: 30px;
+}
+
+.bg-input{
+    background-color: transparent;
+    border:  none;
+    color: white;
+    border-bottom: 2px solid rgb(71, 252, 113);
+}
+
+.login-letter{
+    font-family: 'DM Serif Text', serif;
+    color: white;
+}
+
+
+.login-letter :focus {
+    outline: none; 
+    background-color: transparent;
+    border-color: white; 
+    color: white;
+}
+
+.btn-login{
+    background-color: transparent;
+}

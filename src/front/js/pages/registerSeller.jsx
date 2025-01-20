@@ -23,7 +23,7 @@ const RegisterSellers = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = FormData();
+        const formData = new FormData();
         formData.append("name", seller.name);
         formData.append("email", seller.email);
         formData.append("password", seller.password);
@@ -60,7 +60,7 @@ const RegisterSellers = () => {
                                     <label className="letter-seller">Name</label>
                                     <input
                                         type="text"
-                                        className="form-control bg-input-seller"
+                                        className="form-control bg-input-seller letter-seller"
                                         placeholder="Name"
                                         name="name"
                                         value={seller.name}
@@ -71,7 +71,7 @@ const RegisterSellers = () => {
                                     <label className="letter-seller">Email</label>
                                     <input
                                         type="email"
-                                        className="form-control bg-input-seller "
+                                        className="form-control bg-input-seller letter-seller "
                                         placeholder="Email"
                                         name="email"
                                         value={seller.email}
@@ -82,7 +82,7 @@ const RegisterSellers = () => {
                                     <label className="letter-seller">Password</label>
                                     <input
                                         type="password"
-                                        className="form-control bg-input-seller"
+                                        className="form-control bg-input-seller letter-seller"
                                         placeholder="Password"
                                         name="password"
                                         value={seller.password}
@@ -99,37 +99,37 @@ const RegisterSellers = () => {
                                             value={seller.country}
                                             onChange={handleChange}
                                         >
-                                            <option className="select-text " value="">
+                                            <option className="select-text" value="">
                                                 Choose...
                                             </option>
-                                            <option value="USA">
+                                            <option className="select-text" value="USA">
                                                 USA
                                             </option>
-                                            <option value="Canada">
+                                            <option className="select-text" value="Canada">
                                                 Canada
                                             </option>
-                                            <option value="Ecuador">
+                                            <option className="select-text" value="Ecuador">
                                                 Ecuador
                                             </option>
-                                            <option value="Argentina">
+                                            <option className="select-text" value="Argentina">
                                                 Argentina
                                             </option>
-                                            <option value="Chile">
+                                            <option className="select-text" value="Chile">
                                                 Chile
                                             </option>
-                                            <option value="Brazil">
+                                            <option className="select-text"  value="Brazil">
                                                 Brazil
                                             </option>
-                                            <option value="Germany">
+                                            <option className="select-text" value="Germany">
                                                 Germany
                                             </option>
-                                            <option value="Spain">
+                                            <option className="select-text" value="Spain">
                                                 Spain
                                             </option>
-                                            <option value="Japan">
+                                            <option className="select-text" value="Japan">
                                                 Japan
                                             </option>
-                                            <option value="China">
+                                            <option className="select-text" value="China">
                                                 China
                                             </option>
                                         </select>
