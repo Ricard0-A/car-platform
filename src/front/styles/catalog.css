@@ -1,0 +1,55 @@
+
+/* 
+Estilos row de todo el catalogo (Solo su seccion especifica0 */
+
+/* ROW 1  */
+
+.row .catalog-filter{
+    margin-top: 40px;
+    padding-top: 40px;
+    background-color: #F5F5F5;
+}
+
+.catalog-filter .col-3 {
+    background-color: #F5F5F5;
+}
+
+.div-filter {
+    /* Border Rounded (Later)*/
+    /* Posicionamiento */
+    margin-left: 1rem;
+    padding-top: 8px;
+    padding-left: 11px;
+    padding-bottom: 8px;
+    width: 72%;
+    background-color: white;
+}
+
+
+.div-filter h5 {
+    color: rgb(27, 177, 104);
+}
+
+.div-filter input {
+    width: 90%;
+    height: 1.5rem;
+}
+
+.div-filter select {
+    width: 90%;
+}
+
+
+
+/* Price padding fix */
+.catalog-filter .col-3 :first-child h5 {
+    padding-left: 0;
+}
+
+.row .col-3 input {
+    display: block;
+}
+
+
+
+/* ROW 2  */

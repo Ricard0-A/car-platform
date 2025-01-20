@@ -2,7 +2,12 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
-import vsgAuto from "../../img/vsgAuto.png";
+
+// Category Cars
+import suv from "../../img/category/suv.png"
+import hatchback from "../../img/category/hatchback.png"
+import sport from "../../img/category/sport.png"
+import sedan from "../../img/category/sedan.png"
 
 // Suggested images
 import ford1 from "../../img/suggested/ford-1.jpg"; // id: 82769
@@ -63,9 +68,9 @@ export const Home = () => {
           <div className="col-12 col-md-8 text-center position-relative">
             {/* Contenedor para input y su button */}
             <div className="d-flex justify-content-center">
-              <input 
+              <input
                 type="text"
-                className="form-control main-input"
+                className="form-control"
                 placeholder="What car are you looking for?"
                 style={inputMod}
               />
@@ -79,7 +84,7 @@ export const Home = () => {
           </div>
         </div>
         {/* SEGUNDA ROW  */}
-        <div className="row second-row h-100 justify-content-center align-items-center">
+        <div className="row h-100 second-row justify-content-center align-items-center">
           <div className="col-12 second-page col-md-8 position-relative">
             <div className="before-reasons">
               <h1>100% Secure Purchase</h1>
@@ -101,6 +106,9 @@ export const Home = () => {
                   <li>
                     <i class="fa-solid fa-check"></i> Faster
                   </li>
+                  <li>
+                    <button className="mt-5 ms-5 btn btn-dark"><h6 style={{fontWeight: "500", padding : "6px"}}>View all the cars</h6></button>
+                  </li>
                 </ul>
                 {/* Imagen a la derecha */}
                 <img src={backgroundCarTwo} alt="Auto" className="img-fluid" />
@@ -120,62 +128,82 @@ export const Home = () => {
           <div className="col-12 fourth-page col-md-8 position-relative">
             <h1 className="text-center "> How it works?</h1>
             <p className="mt-4">
-              Buying a car is super easy, we guide you through the entire
+              Buying a car is super easy, we gu`i`de you through the entire
               process with no hassle. Check the car’s mechanical conditions and
               much more at our Safe Points of DrivenS. We’ll also assist you
               through the Vehicle Transfer process.
             </p>
           </div>
         </div>
-        {/* CUARTA ROW */}
-        <div className="row h-100 fourth-row justify-content-center align-items-center ">
-          <div className="col-12 col-md-8">
-            <h1 className="text-center search-by"> Search by category</h1>
-          </div>
-          {/* CARROS CATEGORIA */}
-          <div
-            className="h-100 category col-12 col-md-8 d-flex justify-content-center align-items-center"
-            style={{ gap: "30px" }}
-          >
-            <div className="one">
-              <h1>SUV</h1>
+        {/* CUARTA ROW  */}
+        <div className="row fourth-row ">
+            <div className="col-3">
+              <i style={{color:"#2D749B"}} class="fa-solid fa-gear" ></i>
+              <p className="fs-5">Vehicle inspection</p>
             </div>
-            <div className="two">
-              <h1>Hatchback</h1>
+            <div className="col-3">
+              <i style={{color:"#113162"}} class="fa-solid fa-shield"></i>
+              <p className="fs-5" style={{marginLeft:"-11px"}}>Safe Payment System</p>
             </div>
-            <div className="three">
-              <h1>Sport</h1>
+            <div className="col-3">
+              <i style={{color:"#2D749B"}} class="fa-brands fa-paypal"></i>
+              <p className="fs-5" style={{marginLeft:"-50px"}}>Easy payment through PayPal</p>
             </div>
-            <div className="four">
-              <h1>Hybrid</h1>
-            </div>
-            <div className="five">
-              <h1>Sedan</h1>
-            </div>
-          </div>
-          {/* CARRITO IMAGEN LOGO */}
-          <div className="h-50 col-12 category-img col-md-8 justify-content-center">
-            {/* ICONO */}
-            <div>
-              <img src={vsgAuto} alt="" />
-            </div>
-          </div>
+            
         </div>
         {/* QUINTA ROW */}
-        {/* DELETED */}
+        <div className="row fifth-row justify-content-center align-items-center ">
+          <div className="col-12">
+            <h1 className="text-center search-by"> Search by category</h1>
+          </div>
+          {/* CARROS CATEGORIA SUV HATCHBACK SPORT SEDAN HYBRID*/} 
+          <div
+            className=" category mt-5 col-12 col-md-8 d-flex justify-content-center align-items-center"
+            style={{ gap: "100px" }}
+          >
+            <div className="one">
+              <img className="h-2" src={suv} alt="Suv Car" />
+              <h4 className="text-center">SUV</h4>
+            </div>
+            <div className="two">
+              <img src={hatchback} alt="Hatchback Car" />
+              <h4 className="text-center" >Hatchback</h4>
+            </div>
+            <div className="three">
+              <img src={sport} alt="Sport Car" />
+              <h4 className="text-center" >Sport</h4>
+            </div>
+            <div className="four">
+              <img src={sedan} alt="Sedan Car" />
+              <h4 className="text-center" >Sedan</h4>
+            </div>
+          </div>
+          {/* LOW BACKGROUND PARA MIS CATEGORY CARS */}
+            <div className="background"></div>
+            <div className="col-12 h-25 col-md-8 d-flex justify-content-center align-items-center">
+              <h1 className="text-center " style={{marginTop: "-20vh", color : "#252e7e"}}>Suggested</h1>
+            </div>
+        </div>
 
+{/* ---------------------------------------------------------------------------------------- */}
+        
         {/* SEXTA ROW SIN H-109*/}
         {/* PRIMERA LINEA DE AUTOS RECOMENDADOS */}
-        <div className="row h-100 sixth-row justify-content-center align-items-center g-0">
-          <h1
-            className="text-center position-relative"
-            style={{ bottom: "70px", color: "#252e7e" }}
-          >
-            Suggested
-          </h1>
+        <div className="row sixth-row g-0 align-items-start">
           {/* 1 */}
-          <div className="col-3 col-md-3">
-            <img src={ford1} alt="kah" />
+          <div className="col-12">
+            <div className="popular">
+              <h3>Popular</h3>
+            </div>
+
+          </div>
+          <div className=" col-3 position-relative">
+            {/* Heart Pick */}
+            <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            
+            <img src={ford1} alt="Car"/>
             <h6>Hatchback</h6>
             <h2>Ford </h2>
             <h5>C-Max Energi</h5>
@@ -193,8 +221,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 2 */}
-          <div className="col-3 col-md-3">
-            <img src={acura1} alt="kah" />
+          <div className="col-3 position-relative">
+          <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={acura1} alt="Car" />
             <h6>Sedan</h6>
             <h2>Acura </h2>
             <h5>ILX</h5>
@@ -212,8 +243,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 3 */}
-          <div className="col-3 col-md-3">
-            <img src={audi1} alt="kah" />
+          <div className="col-3 position-relative">
+          <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={audi1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Audi </h2>
             <h5>A3</h5>
@@ -231,8 +265,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 4 */}
-          <div className="col-3 col-md-3">
-            <img src={bentley1} alt="kah" />
+          <div className="col-3 position-relative">
+          <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={bentley1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Bentley </h2>
             <h5>Continental-GT</h5>
@@ -251,10 +288,19 @@ export const Home = () => {
           </div>
         </div>
         {/* SEGUNDA LINEA DE AUTOS RECOMENDADOS */}
-        <div className="row seventh-row mt-5 justify-content-center align-items-center g-0">
+        <div className="row seventh-row justify-content-center align-items-center g-0">
           {/* 1 */}
-          <div className="col-3 col-md-3">
-            <img src={cadillac1} alt="kah" />
+          {/* ACA MRD */}
+          <div className="col-12">
+            <div className="arrival">
+              <h3>New arrivals</h3>
+              </div>
+            </div>
+          <div className="col-3 position-relative">
+          <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={cadillac1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Cadillac </h2>
             <h5>ATS</h5>
@@ -272,8 +318,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 2 */}
-          <div className="col-3 col-md-3">
-            <img src={buick1} alt="kah" />
+          <div className="col-3 position-relative">
+          <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={buick1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Buick </h2>
             <h5>Encore</h5>
@@ -291,8 +340,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 3 */}
-          <div className="col-3 col-md-3">
-            <img src={ford2} alt="kah" />
+          <div className="col-3 position-relative">
+           <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={ford2} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Ford </h2>
             <h5>Edge</h5>
@@ -310,8 +362,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 4 */}
-          <div className="col-3 col-md-3">
-            <img src={lyser1} alt="kah" />
+          <div className="col-3 position-relative">
+            <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={lyser1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Chrysler </h2>
             <h5>200</h5>
@@ -332,8 +387,16 @@ export const Home = () => {
         {/* TECERA LINEA DE AUTOS RECOMENDADOS  */}
         <div className="row eight-row mt-5 justify-content-center align-items-center g-0 ">
           {/* 1 */}
-          <div className="col-3 col-md-3">
-            <img src={chevrolet1} alt="kah" />
+          <div className="col-12">
+            <div className="selled">
+              <h3>Most selled</h3>
+            </div>
+          </div>
+          <div className="col-3 position-relative">
+          <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={chevrolet1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Chevrolet </h2>
             <h5>Spark</h5>
@@ -351,8 +414,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 2 */}
-          <div className="col-3 col-md-3">
-            <img src={bentley2} alt="kah" />
+          <div className="col-3 position-relative">
+            <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={bentley2} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Bentley </h2>
             <h5>Continental Flying Spur</h5>
@@ -370,8 +436,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 3 */}
-          <div className="col-3 col-md-3">
-            <img src={acura2} alt="kah" />
+          <div className="col-3 position-relative">
+            <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={acura2} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Acura </h2>
             <h5>RDX</h5>
@@ -389,8 +458,11 @@ export const Home = () => {
             </div>
           </div>
           {/* 4 */}
-          <div className="col-3 col-md-3">
-            <img src={cadillac2} alt="kah" />
+          <div className="col-3 position-relative">
+            <div className="favorites">
+                <i class="fs-4 fa-regular fa-heart"></i>
+            </div>
+            <img src={cadillac2} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Cadillac </h2>
             <h5>CTS</h5>
@@ -409,16 +481,60 @@ export const Home = () => {
           </div>
         </div>
         {/* ROW DE PUNTOS DE ENCUENTROS ( IDK )*/}
-        <div className="row  nineth-row mt-5 justify-content-center align-items-center">
-          <div className="col-12 text-center ">
-            <h1>Take a look at our partner Dealerships.</h1>
+        <div className="row nineth-row justify-content-center align-items-center">
+          {/* take a look aur Partner DealerShips */}
+          <div className="col-12 text-center">
+            <h1 style={{color:"rgb(37, 46, 126)", fontSize:"45px"}}>Take a look at our partner Dealerships</h1>
           </div>
-          {/* <div className="col-12 ">
-
-          </div> */}
+          {/* LOGOS  */}
+          <div className="col-12 d-flex justify-content-center" style={{gap : "200px"}}>
+            <h1> <i class="fa-brands fa-digg"></i> </h1>
+            <h1> <i class="fa-brands fa-pied-piper-pp"></i></h1>
+            <h1> <i class="fa-brands fa-joomla"></i></h1>
+            <h1> <i class="fa-brands fa-pied-piper"></i></h1>
+          </div>
+          <div className="col-12 d-flex justify-content-center" style={{gap : "200px"}}>
+            <h1> <i class="fa-brands fa-square-pied-piper"></i> </h1>
+            <h1> <i class="fa-solid fa-trademark"></i> </h1>
+            <h1> <i class="fa-solid fa-copyright"></i></h1>
+          </div>
         </div>
         {/* ROW DE FOOTER */}
-        <div></div>
+        <div className="row tenth-row">
+          <div className="col-3 first-line">
+            <h4> Home </h4>
+            <h4> Sell my Car </h4>
+            <h4> To look for a Car </h4>
+          </div>
+          <div className="col-3">
+            <h4> I dunno </h4>
+            <h4> Contact </h4>
+            <h4> To look for a Car </h4>
+          </div>
+          <div className="col-3">
+            <h4> To Ask </h4>
+            <h4> Terms and conditions</h4>
+            <h4> How Trust ?</h4>
+          </div>
+          <div className="col-3">
+            <h4> Monday | 9AM - 10PM </h4>
+            <h4> Tuesday | 9AM - 10PM </h4>
+            <h4> Wednesday | 9AM - 10PM </h4>
+            <h4> Thursday | 9AM - 10PM </h4>
+            <h4> Friday | 9AM - 10PM </h4>
+          </div>
+          <div className="final-line">
+          </div>
+          <div className="col-12 final-logo">
+            <div className="text-center">
+              <i className="green fa-brands fa-drupal fs-1"></i>
+              <i className="fa-brands fa-stumbleupon fs-2"></i>
+              DrivenS
+            </div>
+          </div>
+
+        </div>
+        {/* FIN DE LA PAGINA  */}
       </div>
     </>
   );

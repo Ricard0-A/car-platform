@@ -1,5 +1,17 @@
 /* home.css */
 
+/* Evitar colapso de rows */
+.container-fluid {
+  overflow: auto;
+}
+
+.puto {
+  display: flex;
+  justify-content: center !important;
+}
+
+/* STARTING */
+
 .first-row {
   max-height: 1200px;
   height: 750px;
@@ -81,6 +93,7 @@
 }
 
 .fourth-page {
+  margin-top: -9vh;
   font-size: 24px;
 }
 
@@ -90,168 +103,106 @@
 
 /* ESTILOS DE LA CUARTA ROW */
 
-/* CRAZY LINES */
-
 .fourth-row {
-  position: relative;
-  top: 160px;
+  margin-top: 2vh;
 }
 
-.category {
-  position: relative;
-  top: -100px;
+
+.fourth-row i {
+  font-size: 10vh;
 }
 
-.one,
-.two,
-.three,
-.four,
-.five {
-  position: relative;
-  top: -62px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 100px;
-  border-radius: 10px;
-  text-align: center;
-  background-color: gray;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.fourth-row :nth-child(1) {
+  margin-left: 17%;
+  
 }
 
-.one h1,
-.two h1,
-.three h1,
-.four h1,
-.five h1 {
-  font-size: 24px !important;
-}
 
-.one:hover,
-.two:hover,
-.three:hover,
-.four:hover,
-.five:hover {
-  background-color: #3b833e;
-}
-
-.one:hover::after,
-.two:hover::after,
-.three:hover::after,
-.four:hover::after,
-.five:hover::after {
-  background-color: #3b833e; /* Color base antes de hovver */
-}
-
-.one::after,
-.two::after,
-.three::after,
-.four::after,
-.five::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  background-color: rgba(128, 128, 128, 0.3); /* Transparencia */
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.one::before,
-.two::before,
-.three::before,
-.four::before,
-.five::before {
-  content: "";
-  position: absolute;
-  width: 50%;
-  height: 2px;
-  background-color: rgba(
-    128,
-    128,
-    128,
-    0.5
-  ); /* Ajustar opacidad  -> 0.5 = 50% */
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.one::before,
-.two::before,
-.three::before,
-.four::before,
-.five::before {
-  content: "";
-  position: absolute;
-  width: 50%;
-  height: 2px;
-  background-color: gray;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: all 0.3s ease;
-}
-
-.one::after {
-  transform: translateX(-50%) rotate(-40deg);
-  height: 300%;
-  bottom: -265%;
-  left: 170px;
-}
-
-.two::after {
-  transform: translateX(-50%) rotate(-30deg);
-  height: 250%;
-  bottom: -230%;
-  left: 140px;
-}
-
-.three::after {
-  transform: translateX(-50%) rotate(0deg);
-  height: 200%;
-  bottom: -200%;
-}
-
-.four::after {
-  transform: translateX(-50%) rotate(25deg);
-  height: 225%;
-  bottom: -212%;
-  left: 40px;
-}
-
-.five::after {
-  transform: translateX(-50%) rotate(39deg);
-  height: 305%;
-  bottom: -269%;
-  left: -10px;
-}
+/* QUINTA ROW PARA (Tipos de Autos)  */
 
 .search-by {
+  margin-top: -10vh;
   color: #252e7e;
 }
 
-.category-img img {
-  position: relative;
-  bottom: 50vh;
-  left: 47vh;
-  height: 300px;
-  width: 300px;
+
+.one img {
+  height: 11vh;
+  color: greenyellow;
 }
 
-/* FIN DE LA QUINTA ROW  */
+.two img {
+  height: 11vh;
+}
+
+.three img {
+  height: 11vh;
+}
+
+.four img {
+  height: 11vh;
+}
+
+.background {
+  z-index: -1;
+  margin-top: -33vh;
+  border-radius: 33%;
+  background: linear-gradient(to bottom, #d1e8d1, #f9fff9);
+  height: 11%;
+  width: 86%;
+}
+
+.fifth-row {
+  height: 100%;
+  margin-top: 25vh;
+}
+
 
 /* ========================================================================================== */
 
-/* ESTILO DE LA SEXTA ROW  */
-
-/* ESTILOS DE AUTOS SUGGESTED */
+/* ESTILO DE LA SEXTA ROW (Autos Catalogo (Preview)) */
 
 .sixth-row {
+  position: relative;
+  margin-top: -3rem;
   margin-left: 3%;
+}
+
+.popular {
+  z-index: 1;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  height: 12%;
+  width: 15%;
+  background-color: red;
+  border-top-right-radius: 34px;
+  border-bottom-right-radius: 34px;
+}
+
+.popular h3 {
+  color: white;
+  padding-top: 0.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Estilo de corazon/favoritos */
+
+.favorites {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 19%;
+  width: 33px;
+  border-radius: 50%;
+  background : whitesmoke;
+}
+
+.favorites i {
+  color: darkgreen;
+  padding-top: 4px;
+  padding-left: 4px;
 }
 
 .sixth-row h2 {
@@ -280,17 +231,54 @@
 
 /* PRECIO */
 .price {
+  height: 40%;
   width: 87%;
   background-color: #ffffff;
 }
+
+/* Negamos todos los lower prices  */
+.price :first-child {
+  color: rgb(176, 19, 19);
+  text-decoration: line-through;
+}
+
+/* Encedemos los higher prices  */
+.price :nth-child(2) {
+  color: #03ad64;
+}
+
 
 /* ------------------------------------------------------------------------------------ */
 
 /* SEPTIMA ROW */
 
 .seventh-row {
+  margin-top: 5rem;
+  position: relative;
   margin-left: 3%;
 }
+
+
+.arrival {
+  z-index: 1;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  height: 12%;
+  width: 18%;
+  background-color: #1ccfc9;
+  border-top-right-radius: 34px;
+  border-bottom-right-radius: 34px;
+}
+
+.arrival h3 {
+  color: white;
+  padding-top: 0.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+
 
 .seventh-row h2 {
   color: rgb(27, 177, 104);
@@ -301,9 +289,35 @@
   height: 28vh;
 }
 
+/* OCTAVA ROW  */
+
+
 .eight-row {
+  position: relative;
   margin-left: 3%;
 }
+
+
+.selled {
+  z-index: 1;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  height: 12%;
+  width: 18%;
+  background-color: #1ccfc9;
+  border-top-right-radius: 34px;
+  border-bottom-right-radius: 34px;
+}
+
+.selled h3 {
+  color: white;
+  padding-top: 0.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+
 
 .eight-row h2 {
   color: rgb(27, 177, 104);
@@ -315,3 +329,58 @@
 }
 
 /* ============================================================================== */
+
+/* PARTE DE LOGO/CONSESIONARIOS */
+
+/* NOVENA ROW  */
+
+.nineth-row {
+  margin-top: 10vh;
+}
+
+.nineth-row .col-12 {
+  margin-top: 22vh;
+}
+
+.nineth-row i {
+  font-size: 100px;
+}
+
+
+
+/* DECIMA ROW  */
+
+.tenth-row {
+  color: white;
+  background-color: #006454;
+  margin-top: 22vh;
+}
+
+.first-line h4 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.tenth-row .col-3 {
+  padding-top: 50px;
+  padding-left: 60px;
+}
+
+.tenth-row h4 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
+
+
+/* FINAL  */
+
+.final-line {
+  background-color: rgba(229, 229, 225, 0.957);
+  height: 1vh;
+  width: 100%;
+}
+
+.final-logo {
+  font-size: 20px;
+}
