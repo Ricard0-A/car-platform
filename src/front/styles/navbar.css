@@ -1,14 +1,9 @@
 /* Estilos generales */
 .green {
-  color : #7AAD46;
+  color: #7aad46;
 }
 
-
-/* navbar.css */
 .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
   z-index: 1000;
 }
 
@@ -21,18 +16,15 @@ nav {
   font-size: 21px;
 }
 
-/* Estilo para el tamano colapsado de de los elementos */
-@media (max-width: 768px) {
-  #navGround {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    gap: 2px !important;
+/* Estilo para el tamaño colapsado de los elementos (centrado) */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    justify-content: center !important;
   }
-  /* Segundo argumento de media no acepta mas de una propiedad ? */
   .navbar-nav {
-    gap: 5px; /* Espaciado entre los enlaces */
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 10px !important;
   }
 }

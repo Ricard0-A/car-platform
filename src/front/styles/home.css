@@ -1,24 +1,26 @@
-/* home.css */
+/* Preload... */
+
+/* Variables Css */
+:root {
+  --any: Green;
+}
 
 /* Evitar colapso de rows */
 .container-fluid {
   overflow: auto;
 }
 
-.puto {
-  display: flex;
-  justify-content: center !important;
+.position-relative {
+  position: relative;
 }
+
+/* ------------------------------------------------------- */
 
 /* STARTING */
 
 .first-row {
   max-height: 1200px;
   height: 750px;
-}
-
-.position-relative {
-  position: relative;
 }
 
 .message {
@@ -107,16 +109,13 @@
   margin-top: 2vh;
 }
 
-
 .fourth-row i {
   font-size: 10vh;
 }
 
 .fourth-row :nth-child(1) {
   margin-left: 17%;
-  
 }
-
 
 /* QUINTA ROW PARA (Tipos de Autos)  */
 
@@ -124,7 +123,6 @@
   margin-top: -10vh;
   color: #252e7e;
 }
-
 
 .one img {
   height: 11vh;
@@ -146,7 +144,7 @@
 .background {
   z-index: -1;
   margin-top: -33vh;
-  border-radius: 33%;
+  border-radius: 50%;
   background: linear-gradient(to bottom, #d1e8d1, #f9fff9);
   height: 11%;
   width: 86%;
@@ -157,10 +155,9 @@
   margin-top: 25vh;
 }
 
-
 /* ========================================================================================== */
 
-/* ESTILO DE LA SEXTA ROW (Autos Catalogo (Preview)) */
+/* ESTILO DE LA SEXTA ROW (Autos Catalogo (Suggesteds)) */
 
 .sixth-row {
   position: relative;
@@ -196,7 +193,7 @@
   right: 19%;
   width: 33px;
   border-radius: 50%;
-  background : whitesmoke;
+  background: whitesmoke;
 }
 
 .favorites i {
@@ -215,38 +212,36 @@
   font-weight: 400;
 }
 
-/* ESTILO PARA TODAS LAS IMAGENES (SUGGESTED )*/
-
+/* Estilo para todas las imagenes (Suggested )*/
 .sixth-row img {
   width: 46vh;
   height: 28vh;
 }
 
-/* BANNER */
-
+/* Banner */
 .sixth-row .location-1 {
   font-size: 20px;
   font-weight: 400;
 }
 
-/* PRECIO */
+/* Precio */
 .price {
-  height: 40%;
-  width: 87%;
-  background-color: #ffffff;
+  background-color: white;
+  width: 45vh;
+  height: 13%;
+  padding-top: 1.2vh;
 }
 
-/* Negamos todos los lower prices  */
+/* Negamos todos los bajos precios  */
 .price :first-child {
-  color: rgb(176, 19, 19);
+  color: #ec7f64;
   text-decoration: line-through;
 }
 
-/* Encedemos los higher prices  */
+/* Encedemos los altos precios  */
 .price :nth-child(2) {
   color: #03ad64;
 }
-
 
 /* ------------------------------------------------------------------------------------ */
 
@@ -257,7 +252,6 @@
   position: relative;
   margin-left: 3%;
 }
-
 
 .arrival {
   z-index: 1;
@@ -278,8 +272,6 @@
   text-align: center;
 }
 
-
-
 .seventh-row h2 {
   color: rgb(27, 177, 104);
 }
@@ -291,12 +283,10 @@
 
 /* OCTAVA ROW  */
 
-
 .eight-row {
   position: relative;
   margin-left: 3%;
 }
-
 
 .selled {
   z-index: 1;
@@ -316,8 +306,6 @@
   font-weight: 700;
   text-align: center;
 }
-
-
 
 .eight-row h2 {
   color: rgb(27, 177, 104);
@@ -346,8 +334,6 @@
   font-size: 100px;
 }
 
-
-
 /* DECIMA ROW  */
 
 .tenth-row {
@@ -370,8 +356,6 @@
   font-weight: 400;
   font-size: 22px;
 }
-
-
 
 /* FINAL  */
 

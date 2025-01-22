@@ -4,10 +4,10 @@ import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
 
 // Category Cars
-import suv from "../../img/category/suv.png"
-import hatchback from "../../img/category/hatchback.png"
-import sport from "../../img/category/sport.png"
-import sedan from "../../img/category/sedan.png"
+import suv from "../../img/category/suv.png";
+import hatchback from "../../img/category/hatchback.png";
+import sport from "../../img/category/sport.png";
+import sedan from "../../img/category/sedan.png";
 
 // Suggested images
 import ford1 from "../../img/suggested/ford-1.jpg"; // id: 82769
@@ -58,7 +58,6 @@ export const Home = () => {
 
   return (
     <>
-      {/* Padre de rows */}
       <div className="container-fluid vh-100">
         {/* PRIMERA ROW */}
         <div
@@ -107,7 +106,11 @@ export const Home = () => {
                     <i class="fa-solid fa-check"></i> Faster
                   </li>
                   <li>
-                    <button className="mt-5 ms-5 btn btn-dark"><h6 style={{fontWeight: "500", padding : "6px"}}>View all the cars</h6></button>
+                    <button className="mt-5 ms-5 btn btn-dark">
+                      <h6 style={{ fontWeight: "500", padding: "6px" }}>
+                        View all the cars
+                      </h6>
+                    </button>
                   </li>
                 </ul>
                 {/* Imagen a la derecha */}
@@ -122,7 +125,8 @@ export const Home = () => {
             <h1 className="text-center "> What is DrivenS ?</h1>
             <p className="mt-4">
               DrivenS, Find your dream car quickly and securely. We accept all
-              makes and models.
+              makes and models, e accept all makes and models u accept all makes
+              and m.
             </p>
           </div>
           <div className="col-12 fourth-page col-md-8 position-relative">
@@ -137,26 +141,29 @@ export const Home = () => {
         </div>
         {/* CUARTA ROW  */}
         <div className="row fourth-row ">
-            <div className="col-3">
-              <i style={{color:"#2D749B"}} class="fa-solid fa-gear" ></i>
-              <p className="fs-5">Vehicle inspection</p>
-            </div>
-            <div className="col-3">
-              <i style={{color:"#113162"}} class="fa-solid fa-shield"></i>
-              <p className="fs-5" style={{marginLeft:"-11px"}}>Safe Payment System</p>
-            </div>
-            <div className="col-3">
-              <i style={{color:"#2D749B"}} class="fa-brands fa-paypal"></i>
-              <p className="fs-5" style={{marginLeft:"-50px"}}>Easy payment through PayPal</p>
-            </div>
-            
+          <div className="col-3">
+            <i style={{ color: "#2D749B" }} class="fa-solid fa-gear"></i>
+            <p className="fs-5">Vehicle inspection</p>
+          </div>
+          <div className="col-3">
+            <i style={{ color: "#113162" }} class="fa-solid fa-shield"></i>
+            <p className="fs-5" style={{ marginLeft: "-11px" }}>
+              Safe Payment System
+            </p>
+          </div>
+          <div className="col-3">
+            <i style={{ color: "#2D749B" }} class="fa-brands fa-paypal"></i>
+            <p className="fs-5" style={{ marginLeft: "-50px" }}>
+              Easy payment through PayPal
+            </p>
+          </div>
         </div>
         {/* QUINTA ROW */}
         <div className="row fifth-row justify-content-center align-items-center ">
           <div className="col-12">
             <h1 className="text-center search-by"> Search by category</h1>
           </div>
-          {/* CARROS CATEGORIA SUV HATCHBACK SPORT SEDAN HYBRID*/} 
+          {/* Div Category Cars */}
           <div
             className=" category mt-5 col-12 col-md-8 d-flex justify-content-center align-items-center"
             style={{ gap: "100px" }}
@@ -167,27 +174,31 @@ export const Home = () => {
             </div>
             <div className="two">
               <img src={hatchback} alt="Hatchback Car" />
-              <h4 className="text-center" >Hatchback</h4>
+              <h4 className="text-center">Hatchback</h4>
             </div>
             <div className="three">
               <img src={sport} alt="Sport Car" />
-              <h4 className="text-center" >Sport</h4>
+              <h4 className="text-center">Sport</h4>
             </div>
             <div className="four">
               <img src={sedan} alt="Sedan Car" />
-              <h4 className="text-center" >Sedan</h4>
+              <h4 className="text-center">Sedan</h4>
             </div>
           </div>
-          {/* LOW BACKGROUND PARA MIS CATEGORY CARS */}
-            <div className="background"></div>
-            <div className="col-12 h-25 col-md-8 d-flex justify-content-center align-items-center">
-              <h1 className="text-center " style={{marginTop: "-20vh", color : "#252e7e"}}>Suggested</h1>
-            </div>
+          {/* Fade Background  for category Cars */}
+          <div className="background"></div>
+          <div className="col-12 h-25 col-md-8 d-flex justify-content-center align-items-center">
+            <h1
+              className="text-center "
+              style={{ marginTop: "-20vh", color: "#252e7e" }}
+            >
+              Suggested
+            </h1>
+          </div>
         </div>
 
-{/* ---------------------------------------------------------------------------------------- */}
-        
-        {/* SEXTA ROW SIN H-109*/}
+        {/* ---------------------------------------------------------------------------------------- */}
+
         {/* PRIMERA LINEA DE AUTOS RECOMENDADOS */}
         <div className="row sixth-row g-0 align-items-start">
           {/* 1 */}
@@ -195,15 +206,14 @@ export const Home = () => {
             <div className="popular">
               <h3>Popular</h3>
             </div>
-
           </div>
           <div className=" col-3 position-relative">
             {/* Heart Pick */}
             <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
-            
-            <img src={ford1} alt="Car"/>
+
+            <img src={ford1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Ford </h2>
             <h5>C-Max Energi</h5>
@@ -214,7 +224,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS New York
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -222,8 +232,8 @@ export const Home = () => {
           </div>
           {/* 2 */}
           <div className="col-3 position-relative">
-          <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={acura1} alt="Car" />
             <h6>Sedan</h6>
@@ -236,7 +246,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Dallas
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -244,8 +254,8 @@ export const Home = () => {
           </div>
           {/* 3 */}
           <div className="col-3 position-relative">
-          <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={audi1} alt="Car" />
             <h6>Hatchback</h6>
@@ -258,7 +268,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Detroit
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -266,8 +276,8 @@ export const Home = () => {
           </div>
           {/* 4 */}
           <div className="col-3 position-relative">
-          <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={bentley1} alt="Car" />
             <h6>Hatchback</h6>
@@ -280,7 +290,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Dallas
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -290,15 +300,14 @@ export const Home = () => {
         {/* SEGUNDA LINEA DE AUTOS RECOMENDADOS */}
         <div className="row seventh-row justify-content-center align-items-center g-0">
           {/* 1 */}
-          {/* ACA MRD */}
           <div className="col-12">
             <div className="arrival">
               <h3>New arrivals</h3>
-              </div>
             </div>
+          </div>
           <div className="col-3 position-relative">
-          <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={cadillac1} alt="Car" />
             <h6>Hatchback</h6>
@@ -311,7 +320,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Houston
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -319,8 +328,8 @@ export const Home = () => {
           </div>
           {/* 2 */}
           <div className="col-3 position-relative">
-          <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={buick1} alt="Car" />
             <h6>Hatchback</h6>
@@ -333,7 +342,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Chicago
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -341,8 +350,8 @@ export const Home = () => {
           </div>
           {/* 3 */}
           <div className="col-3 position-relative">
-           <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={ford2} alt="Car" />
             <h6>Hatchback</h6>
@@ -355,7 +364,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Dallas
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -364,7 +373,7 @@ export const Home = () => {
           {/* 4 */}
           <div className="col-3 position-relative">
             <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={lyser1} alt="Car" />
             <h6>Hatchback</h6>
@@ -377,7 +386,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS New York
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000 </h5>
@@ -393,8 +402,8 @@ export const Home = () => {
             </div>
           </div>
           <div className="col-3 position-relative">
-          <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+            <div className="favorites">
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={chevrolet1} alt="Car" />
             <h6>Hatchback</h6>
@@ -407,7 +416,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Phoenix
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -416,7 +425,7 @@ export const Home = () => {
           {/* 2 */}
           <div className="col-3 position-relative">
             <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={bentley2} alt="Car" />
             <h6>Hatchback</h6>
@@ -429,7 +438,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS New York
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -438,7 +447,7 @@ export const Home = () => {
           {/* 3 */}
           <div className="col-3 position-relative">
             <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={acura2} alt="Car" />
             <h6>Hatchback</h6>
@@ -451,7 +460,7 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS New York
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
@@ -460,7 +469,7 @@ export const Home = () => {
           {/* 4 */}
           <div className="col-3 position-relative">
             <div className="favorites">
-                <i class="fs-4 fa-regular fa-heart"></i>
+              <i class="fs-4 fa-regular fa-heart"></i>
             </div>
             <img src={cadillac2} alt="Car" />
             <h6>Hatchback</h6>
@@ -473,66 +482,63 @@ export const Home = () => {
             <h5 className="location-1 pt-2">
               <i class="fa-solid fa-location-dot"></i> DrivenS Miami
             </h5>
-            {/* Price con FLEX  */}
+            {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
               <h5>$ 29,000</h5>
             </div>
           </div>
         </div>
-        {/* ROW DE PUNTOS DE ENCUENTROS ( IDK )*/}
+
+        {/* -------------------------------------------------------------------------------------- */}
+
+        {/* ROW DE CONSESIONARIOS */}
         <div className="row nineth-row justify-content-center align-items-center">
           {/* take a look aur Partner DealerShips */}
           <div className="col-12 text-center">
-            <h1 style={{color:"rgb(37, 46, 126)", fontSize:"45px"}}>Take a look at our partner Dealerships</h1>
+            <h1 style={{ color: "rgb(37, 46, 126)", fontSize: "45px" }}>
+              Take a look at our partner Dealerships
+            </h1>
           </div>
           {/* LOGOS  */}
-          <div className="col-12 d-flex justify-content-center" style={{gap : "200px"}}>
-            <h1> <i class="fa-brands fa-digg"></i> </h1>
-            <h1> <i class="fa-brands fa-pied-piper-pp"></i></h1>
-            <h1> <i class="fa-brands fa-joomla"></i></h1>
-            <h1> <i class="fa-brands fa-pied-piper"></i></h1>
+          <div
+            className="col-12 d-flex justify-content-center"
+            style={{ gap: "200px" }}
+          >
+            <h1>
+              {" "}
+              <i class="fa-brands fa-digg"></i>{" "}
+            </h1>
+            <h1>
+              {" "}
+              <i class="fa-brands fa-pied-piper-pp"></i>
+            </h1>
+            <h1>
+              {" "}
+              <i class="fa-brands fa-joomla"></i>
+            </h1>
+            <h1>
+              {" "}
+              <i class="fa-brands fa-pied-piper"></i>
+            </h1>
           </div>
-          <div className="col-12 d-flex justify-content-center" style={{gap : "200px"}}>
-            <h1> <i class="fa-brands fa-square-pied-piper"></i> </h1>
-            <h1> <i class="fa-solid fa-trademark"></i> </h1>
-            <h1> <i class="fa-solid fa-copyright"></i></h1>
+          <div
+            className="col-12 d-flex justify-content-center"
+            style={{ gap: "200px" }}
+          >
+            <h1>
+              {" "}
+              <i class="fa-brands fa-square-pied-piper"></i>{" "}
+            </h1>
+            <h1>
+              {" "}
+              <i class="fa-solid fa-trademark"></i>{" "}
+            </h1>
+            <h1>
+              {" "}
+              <i class="fa-solid fa-copyright"></i>
+            </h1>
           </div>
-        </div>
-        {/* ROW DE FOOTER */}
-        <div className="row tenth-row">
-          <div className="col-3 first-line">
-            <h4> Home </h4>
-            <h4> Sell my Car </h4>
-            <h4> To look for a Car </h4>
-          </div>
-          <div className="col-3">
-            <h4> I dunno </h4>
-            <h4> Contact </h4>
-            <h4> To look for a Car </h4>
-          </div>
-          <div className="col-3">
-            <h4> To Ask </h4>
-            <h4> Terms and conditions</h4>
-            <h4> How Trust ?</h4>
-          </div>
-          <div className="col-3">
-            <h4> Monday | 9AM - 10PM </h4>
-            <h4> Tuesday | 9AM - 10PM </h4>
-            <h4> Wednesday | 9AM - 10PM </h4>
-            <h4> Thursday | 9AM - 10PM </h4>
-            <h4> Friday | 9AM - 10PM </h4>
-          </div>
-          <div className="final-line">
-          </div>
-          <div className="col-12 final-logo">
-            <div className="text-center">
-              <i className="green fa-brands fa-drupal fs-1"></i>
-              <i className="fa-brands fa-stumbleupon fs-2"></i>
-              DrivenS
-            </div>
-          </div>
-
         </div>
         {/* FIN DE LA PAGINA  */}
       </div>

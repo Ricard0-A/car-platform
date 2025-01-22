@@ -7,7 +7,7 @@ import { Home } from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/Navbar.jsx";
-import { Footer } from "./component/footer";
+import Footer from "./component/Footer.jsx";
 
 //create your first component
 const Layout = () => {
@@ -24,12 +24,12 @@ const Layout = () => {
         <ScrollToTop>
           <Navbar />
           <Routes>
-            <Route element={<Home />} path="/home" />
-            <Route element={<Catalog />} path="/" />
+            <Route element={<Home />} path="/" />
+            <Route element={<Catalog />} path="/catalog" />
             <Route element={<h1>Not found!</h1>} path="*" />
           </Routes>
           '{/* Proximamente... */}
-          {/* <Footer /> */}
+          <Footer />
         </ScrollToTop>
       </BrowserRouter>
     </div>
