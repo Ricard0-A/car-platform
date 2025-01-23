@@ -5,7 +5,7 @@ import "../../styles/navbar-seller.css"
 const NavbarSeller = () => {
 	return (
 		<>
-			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+			<nav className="col-12 navbar navbar-expand-lg navbar-dark bg-dark">
 				<div className="container-fluid">
 					<div className="navbar-brand d-flex ">
 						<div className="ms-3 d-flex ">

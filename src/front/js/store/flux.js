@@ -1,8 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			currentUser: null,
-			currentSeller: null,
+			currentUser:localStorage.getItem("currentUser")|| null,
+			currentSeller:localStorage.getItem("currentUser")|| null,
 			cars: []
 		},
 		actions: {
@@ -76,11 +76,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					console.log(response)
 					if (response.status==200) {
+						
 						setStore({
+
 							currentSeller: data.seller
 						
 						})
 						localStorage.setItem("token", data.token)
+						localStorage.setItem("currentUser",data.seller)
 					}
 					return response.status
 				} catch (error) {
@@ -92,15 +95,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addCar: async (cars) => {
 				try {
-			
+					
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`,{
 						method: "POST",
 						headers: {
-							"Content-Type": "application/json",
 							"Authorization": `Bearer ${localStorage.getItem("token")}`,
 							
 						},
-						body: JSON.stringify(cars)
+						body: cars
 					})
 					const data = await response.json()
 					
@@ -108,6 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({
 							cars: data.car
 						})
+						return response.status
 					} else
 					
 						return response.status
@@ -122,13 +125,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`, {
 
 						method: "GET",
-						"Authorization": `Bearer ${localStorage.getItem("token")}`,
+						headers:{
+							"Authorization": `Bearer ${localStorage.getItem("token")}`
+						}
+						
 					})
 
 					const data = await response.json()
 					if (response.ok) {
 						setStore({
-							cars: data.cars
+							cars: data
 						})
 						return true || 200
 					} else {
@@ -169,6 +175,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false || 500
 				}
 
+
+			},
+
+			deleteCar: async(car_id)=>{
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${car_id}`,{
+
+						method:"DELETE",
+						headers:{
+							"Authorization":`Bearer${localStorage.getItem("token")}`
+						},
+					})
+					if (response.ok){
+						getActions().getCar()
+						alert("Car delete")
+					}else{
+						return("Failed to delete the car")
+					}
+					
+				} catch (error) {
+					console.log(error)
+				}
+				
 
 			},
 

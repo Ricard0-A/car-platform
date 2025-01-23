@@ -140,7 +140,8 @@ def login_sellers():
             if check_password_hash(seller.password,f"{password}{seller.salt}"):
         
                 token=create_access_token(identity=str(seller.id))
-                return jsonify(token=token, seller=seller.serialize())
+                return jsonify({"token":token, 
+                                "seller":seller.serialize()})
             else:
                 return jsonify({"warning":"Invalid Credentials"}),401
    except Exception as err:
@@ -180,7 +181,7 @@ def add_cars():
         make_country = body_froms.get("make_country",None) 
         print(model_make_id, model_name, model_trim, model_year, model_body, make_country)
         if not all([model_make_id, model_name, model_trim, model_year, model_body, make_country]):
-            return jsonify({"warning":"Incomplete Credentials"}),401
+            return jsonify({"warning":"Incomplete Values"}),400
         else:
             car=Car()
             car.model_make_id=model_make_id
@@ -205,8 +206,9 @@ def add_cars():
 @jwt_required()
 def get_cars():
     seller_id = int(get_jwt_identity())
-    seller = Seller.query.filter_by(id=seller_id)
-
+    seller = Seller.query.filter_by(id=seller_id).one_or_none()
+    print(seller_id)
+    print(seller)
     if seller is None:
         return jsonify({"warning":"Seller Not Found"}),401
     else:
@@ -216,12 +218,12 @@ def get_cars():
 @jwt_required()
 def edit_car(car_id):
     seller_id = int(get_jwt_identity())
-    seller = Seller.query.filter_by(id=seller_id)
+    seller = Seller.query.filter_by(id=seller_id).one_or_none()
 
     if seller is None:
         return jsonify({"warning":"Seller Not Found"}),401
     try:
-        car=Car.query.filter_by(id=car_id, seller_id=seller_id).one_or_none()
+        car=Car.query.filter_by(id=car_id).one_or_none()
         if car is None:
             return jsonify({"warning":"Car Not Found"}),401
         else:
@@ -241,6 +243,20 @@ def edit_car(car_id):
         db.rollback()
         return jsonify(err.args)
     
+@api.route("/seller/cars<int:car_id>", methods=["DELETE"])
+def delete_car(car_id): 
 
+    seller_id=int(get_jwt_identity())
+    seller=Seller.query.filter_by(id=seller_id).oner_or_none()
 
-                    
+    if seller is None:
+        return jsonify("This account don't exist"),400
+    try:
+        car=Car.quer.filter.by(id=car_id).one_or_none()
+        if car is None:
+            return jsonify("This car doesn't exist"),400
+        db.session.delete(car)
+        db.session.commit()
+    except Exception as err:
+        db.session.rollback()
+        return jsonify(err)
