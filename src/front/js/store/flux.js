@@ -1,8 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			currentUser:localStorage.getItem("currentUser")|| null,
-			currentSeller:localStorage.getItem("currentUser")|| null,
+			currentUser: localStorage.getItem("currentUser") || null,
+			currentSeller: localStorage.getItem("currentUser") || null,
 			cars: []
 		},
 		actions: {
@@ -13,43 +13,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: user
 					})
 					return response.status
-
 				} catch (error) {
 					console.log(error)
-					return response.status
+					return false
 				}
 			},
 
 			login: async (user) => {
 				try {
-					console.log(user)
+					console.log(user);
 					const response = await fetch(`${process.env.BACKEND_URL}/login`, {
 						method: "POST",
 						headers: {
-							"Content-Type": "application/json"
+							"Content-Type": "application/json",
 						},
-						body: JSON.stringify(user)
-					})
+						body: JSON.stringify(user),
+					});
 
-					const data = await response.json()
+					const data = await response.json();
 					if (response.ok) {
 						setStore({
-							currentUser: data.user
-						})
+							currentUser: data.user,
+						});
 
-						localStorage.setItem("token", data.token)
-
+						localStorage.setItem("token", data.token);
 					}
-					return response.status
+					return response.status;
 				} catch (error) {
-					console.log(error)
-					return false
+					console.log(error);
+					return false;
 				}
-
-
 			},
-
-			
 
 			registerSellers: async (sellers) => {
 				try {
@@ -75,15 +69,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					const data = await response.json()
 					console.log(response)
-					if (response.status==200) {
-						
+					if (response.status == 200) {
+
 						setStore({
 
 							currentSeller: data.seller
-						
+
 						})
 						localStorage.setItem("token", data.token)
-						localStorage.setItem("currentUser",data.seller)
+						localStorage.setItem("currentUser", data.seller)
 					}
 					return response.status
 				} catch (error) {
@@ -95,24 +89,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addCar: async (cars) => {
 				try {
-					
-					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`,{
+
+					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`, {
 						method: "POST",
 						headers: {
 							"Authorization": `Bearer ${localStorage.getItem("token")}`,
-							
+
 						},
 						body: cars
 					})
 					const data = await response.json()
-					
+
 					if (response.ok) {
 						setStore({
 							cars: data.car
 						})
 						return response.status
 					} else
-					
+
 						return response.status
 
 				} catch (error) {
@@ -120,15 +114,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false || 500
 				}
 			},
+
 			getCar: async (cars) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`, {
 
 						method: "GET",
-						headers:{
+						headers: {
 							"Authorization": `Bearer ${localStorage.getItem("token")}`
 						}
-						
+
 					})
 
 					const data = await response.json()
@@ -178,26 +173,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			deleteCar: async(car_id)=>{
+			deleteCar: async (car_id) => {
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${car_id}`,{
+					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${car_id}`, {
 
-						method:"DELETE",
-						headers:{
-							"Authorization":`Bearer${localStorage.getItem("token")}`
+						method: "DELETE",
+						headers: {
+							"Authorization": `Bearer${localStorage.getItem("token")}`
 						},
 					})
-					if (response.ok){
+					if (response.ok) {
 						getActions().getCar()
 						alert("Car delete")
-					}else{
-						return("Failed to delete the car")
+					} else {
+						return ("Failed to delete the car")
 					}
-					
+
 				} catch (error) {
 					console.log(error)
 				}
-				
+
 
 			},
 
@@ -205,4 +200,4 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 	}
 };
-	export default getState;
+export default getState;

@@ -1,3 +1,17 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
+
 */
+
+/* * {
+    border: dashed red 1px;
+    
+} */
+
+body {
+  /* background-color: gray; */
+  background-color: hsl(0, 0%, 93%);
+}
+
+/* Darker mode, but not dark lel */
+/* background-color: hsl(0, 0%, 93%); */

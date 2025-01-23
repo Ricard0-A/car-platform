@@ -1,0 +1,30 @@
+/* Estilos generales */
+.green {
+  color: #7aad46;
+}
+
+.navbar {
+  z-index: 1000;
+}
+
+nav {
+  font-size: 23px;
+  font-family: "Lora", serif;
+}
+
+.log {
+  font-size: 21px;
+}
+
+/* Estilo para el tamaño colapsado de los elementos (centrado) */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    justify-content: center !important;
+  }
+  .navbar-nav {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 10px !important;
+  }
+}
