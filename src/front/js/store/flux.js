@@ -1,63 +1,62 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
-    store: {
-      message: null,
-      demo: [
-        {
-          title: "FIRST",
-          background: "white",
-          initial: "white",
-        },
-        {
-          title: "SECOND",
-          background: "white",
-          initial: "white",
-        },
-      ],
-    },
+    store: {},
     actions: {
-      // Use getActions to call a function within a fuction
-      getFetch: async () => {
-        const url =
-          "https://cors-anywhere.herokuapp.com/https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getTrims";
+      register: async (user) => {
         try {
-          const response = await fetch(url, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
+          const response = await fetch(`${process.env.BACKEND_URL}/register`, {
+            method: "POST",
+            body: user,
           });
-          const data = await response.json();
-          console.log(data);
+          return response.status;
         } catch (error) {
           console.log(error);
+          return response.status;
         }
       },
 
-      getMessage: async () => {
+      login: async (user) => {
         try {
-          // fetching data from the backend
-          const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
-          const data = await resp.json();
-          setStore({ message: data.message });
-          // don't forget to return something, that is how the async resolves
-          return data;
+          console.log(user);
+          const response = await fetch(`${process.env.BACKEND_URL}/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            setStore({
+              currentUser: data.user,
+            });
+
+            localStorage.setItem("token", data.token);
+          }
+          return response.status;
         } catch (error) {
-          console.log("Error loading message from backend", error);
+          console.log(error);
+          return false;
         }
       },
-      changeColor: (index, color) => {
-        //get the store
-        const store = getStore();
 
-        //we have to loop the entire demo array to look for the respective index
-        //and change its color
-        const demo = store.demo.map((elm, i) => {
-          if (i === index) elm.background = color;
-          return elm;
-        });
+      // registerSellers:async(sellers)=>{
+      // 	try {
+      // 		const response = await fetch(`${process.env.BACKEND_URL}/register/sellers`,{
+      // 			method:"POST",
+      // 			body:sellers
+      // 		})
+      // 		return response.status
+      // 	} catch (error) {
+      // 		console.log(error)
+      // 		return response.status
+      // 	}
+      // },
 
-        //reset the global store
-        setStore({ demo: demo });
-      },
+      // loginSellers:async(sellers)=>{
+
+      // }
     },
   };
 };

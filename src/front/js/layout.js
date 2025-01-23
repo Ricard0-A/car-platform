@@ -5,6 +5,11 @@ import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
+
+import Register from "./pages/register.jsx";
+import Login from "./pages/login.jsx";
+import RegisterSellers from "./pages/registerSeller.jsx";
+import LoginSellers from "./pages/loginSeller.jsx";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/Navbar.jsx";
 import Footer from "./component/Footer.jsx";
@@ -26,10 +31,12 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Catalog />} path="/catalog" />
-            <Route element={<h1>Not found!</h1>} path="*" />
+            <Route element={<Register />} path="/register" />
+            <Route element={<Login />} path="/login" />
+            <Route element={<RegisterSellers />} path="/register/sellers" />
+            <Route element={<LoginSellers />} path="/login/sellers" />
+            <Route element={<h1>Not found!</h1>} />
           </Routes>
-          '{/* Proximamente... */}
-          <Footer />
         </ScrollToTop>
       </BrowserRouter>
     </div>
