@@ -10,9 +10,11 @@ import Register from "./pages/register.jsx";
 import Login from "./pages/login.jsx";
 import RegisterSellers from "./pages/registerSeller.jsx";
 import LoginSellers from "./pages/loginSeller.jsx";
+import AddCar from "./pages/seller-add.jsx";
+import GetCar from "./pages/seller-get.jsx";
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/Navbar.jsx";
-import Footer from "./component/Footer.jsx";
+import NavbarSeller from "./component/navbar-seller.jsx";
+// import { Footer } from "./component/footer";
 
 //create your first component
 const Layout = () => {
@@ -23,24 +25,29 @@ const Layout = () => {
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
 
-  return (
-    <div>
-      <BrowserRouter basename={basename}>
-        <ScrollToTop>
-          <Navbar />
-          <Routes>
-            <Route element={<Home />} path="/" />
-            <Route element={<Catalog />} path="/catalog" />
-            <Route element={<Register />} path="/register" />
-            <Route element={<Login />} path="/login" />
-            <Route element={<RegisterSellers />} path="/register/sellers" />
-            <Route element={<LoginSellers />} path="/login/sellers" />
-            <Route element={<h1>Not found!</h1>} />
-          </Routes>
-        </ScrollToTop>
-      </BrowserRouter>
-    </div>
-  );
+
+    return (
+        <div>
+            <BrowserRouter basename={basename}>
+                <ScrollToTop>
+                <NavbarSeller />
+                    <Routes>
+                        <Route element={<Home />} path="/" />
+                        <Route element={<Catalog />} path="/catalog" />
+                        <Route element={<Register/>} path="/register"/>
+                        <Route element={<Login/>} path="/login"/>
+                        <Route element={<RegisterSellers/>} path="/register/sellers"/>
+                        <Route element={<LoginSellers/>} path="/login/sellers"/>
+                        
+                        <Route element={<AddCar/>} path="/seller/cars"/>
+                        <Route element={<GetCar/>} path="seller/cars/get"/>
+                        <Route element={<h1>Not found!</h1>} />
+                    </Routes>
+                </ScrollToTop>
+            </BrowserRouter>
+        </div>
+    );
+
 };
 
 export default injectContext(Layout);

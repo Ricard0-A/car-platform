@@ -17,7 +17,7 @@ class Country(Enum):
     Other = "Other"
 
 class User(db.Model):
-    __tablename__ = "user"
+    __tablename__ = "user"   
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(90), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -26,6 +26,7 @@ class User(db.Model):
     phone_number = db.Column(db.String(15), nullable=False)  
     country = db.Column(db.Enum(Country), nullable=False, default=Country.Other)
 
+    
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -59,8 +60,8 @@ class  Seller(db.Model):
     password=db.Column(db.String(180), nullable=False)
     salt=db.Column(db.String(140), nullable=False)
     country=db.Column(db.Enum(Sellers_Country), nullable=False)
-
-    cars = db.relationship("Car", back_populates="sellers")
+      
+    cars = db.relationship("Car", back_populates="seller", lazy=True)
 
     def serialize(self):
         return {
@@ -70,6 +71,12 @@ class  Seller(db.Model):
             "country":self.country.value
            
         }
+    def serialize_seller_cars(self):
+        return [car.serialize() for car in self.cars]
+
+class Transmission(Enum):
+    Automatic="automatic"
+    Manual="manual"
 
 class Car(db.Model):
     __tablename__="cars"
@@ -80,7 +87,7 @@ class Car(db.Model):
     model_year=db.Column(db.String(180),nullable=False, unique=False )
     model_body=db.Column(db.String(180), nullable=False, unique=False)
     model_engine_position=db.Column(db.String(180), unique=False)
-    model_engine_cc=db.Column(db.String(180), nullable=False, unique=False)
+    model_engine_cc=db.Column(db.String(180), unique=False)
     model_engine_cyl=db.Column(db.String(180), unique=False)
     model_engine_type=db.Column(db.String(180), unique=False)
     model_engine_valves_per_cyl=db.Column(db.String(180), unique=False)
@@ -94,7 +101,7 @@ class Car(db.Model):
     model_top_speed_kph=db.Column(db.String(180), unique=False)
     model_0_to_100_kph=db.Column(db.String(180), unique=False)
     model_drive=db.Column(db.String(180), unique=False)
-    model_transmission_type=db.Column(db.String(180), unique=False)
+    model_transmission_type=db.Column(db.Enum(Transmission), unique=False)
     model_seats=db.Column(db.String(180), unique=False)
     model_doors=db.Column(db.String(180), unique=False)
     model_weight_kg=db.Column(db.String(180), unique=False)
@@ -113,8 +120,8 @@ class Car(db.Model):
     make_country=db.Column(db.String(180), nullable=False,unique=False )
 
 
-    seller_id = db.Column(db.Integer, db.ForeignKey("sellers.id"))
-    sellers =  db.relationship("Seller",back_populates="cars")
+    seller_id = db.Column(db.Integer, db.ForeignKey("sellers.id"),nullable=False)
+    seller =  db.relationship("Seller",back_populates="cars")
     
     
     def serialize(self):
