@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../styles/seller-get.css"
+import NavbarSeller from "../component/navbar-seller.jsx";
 const GetCar = () => {
 
     const { store, actions } = useContext(Context)
@@ -13,6 +14,8 @@ const GetCar = () => {
         <>
             {
                 store.currentSeller ? (
+                    <>
+                    <NavbarSeller/>
                     <div className="container get-orientation">
                         <h1>Car List</h1>
                         <div className="row">
@@ -36,6 +39,7 @@ const GetCar = () => {
                         </div>
 
                     </div>
+                    </>
                 ) : store.currentSeller === null ? (
                     <h1>Loading Private Route</h1>
                 ) : (

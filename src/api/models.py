@@ -25,6 +25,7 @@ class User(db.Model):
     salt = db.Column(db.String(130), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)  
     country = db.Column(db.Enum(Country), nullable=False, default=Country.Other)
+    avatar =db.Column(db.String(120), default="https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3407.jpg")
 
     
     def __repr__(self):
@@ -118,6 +119,8 @@ class Car(db.Model):
     model_make_display=db.Column(db.String(180), unique=False)
     make_display=db.Column(db.String(180), unique=False)
     make_country=db.Column(db.String(180), nullable=False,unique=False )
+    model_amount=db.Column(db.String(120), nullable=False)
+    model_picture=db.Column(db.String, default="https://img.freepik.com/vector-premium/foto-proximamente-plantilla-blanco-plantilla-vectorial-imagen-perfil-icono-album-fotos_849264-66.jpg")
 
 
     seller_id = db.Column(db.Integer, db.ForeignKey("sellers.id"),nullable=False)
@@ -163,7 +166,9 @@ class Car(db.Model):
                 "model_co2": self.model_co2,
                 "model_make_display": self.model_make_display,
                 "make_display": self.make_display,
-                "make_country": self.make_country
+                "make_country": self.make_country,
+                "model_amount":self.model_pictureamount,
+                "model_picture":self.model_picture
             }
 
         
