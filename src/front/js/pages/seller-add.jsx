@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import bgCarAdd from "../../img/bg-car-add.jpg"
 import "../../styles/seller-add.css";
+import NavbarSeller from "../component/navbar-seller.jsx";
 
 
 const initialCar = {
@@ -59,8 +60,10 @@ const AddCar = () => {
     return (
         <>
             {
-                store.currentSeller ?
 
+                store.currentSeller ?
+                <>
+                <NavbarSeller/>
                     <div>
                         <img src={bgCarAdd} className="img-car-add" />
                         <h1 className="text-font">Welcome {store.currentSeller["name"]}</h1>
@@ -149,11 +152,13 @@ const AddCar = () => {
                             <button className="btn btn-primary">See the cars</button>
                         </Link>
                     </div>
+                    </>
                     : store.currentSeller == null ?
                         <h1>Cargando ruta privada</h1>
                         :
                         store.currentSeller == false &&
                         < Navigate to={"/login/sellers"} />
+
             }
 
 
