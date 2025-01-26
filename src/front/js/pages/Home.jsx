@@ -200,19 +200,17 @@ export const Home = () => {
         {/* ---------------------------------------------------------------------------------------- */}
 
         {/* PRIMERA LINEA DE AUTOS RECOMENDADOS */}
-        <div className="row sixth-row g-0 align-items-start">
+        <div className="row sixth-row g-0 align-items-center">
           {/* 1 */}
           <div className="col-12">
             <div className="popular">
               <h3>Popular</h3>
             </div>
           </div>
-          <div className=" col-3 position-relative">
-            {/* Heart Pick */}
+          <div className="col-3 position-relative">
             <div className="favorites">
               <i class="fs-4 fa-regular fa-heart"></i>
             </div>
-
             <img src={ford1} alt="Car" />
             <h6>Hatchback</h6>
             <h2>Ford </h2>
