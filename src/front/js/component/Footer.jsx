@@ -1,10 +1,18 @@
 import React, { Component } from "react";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
 
   const modding = {
     color: "white",
     backgroundColor: "#006454",
+  }
+
+  const location = useLocation();
+  const pathdenied = ["/login"]
+
+  if (pathdenied.includes(location.pathname)) {
+    return null
   }
 
   return (
