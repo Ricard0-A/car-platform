@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 224ea7b946e0
+Revision ID: 7a5a43168a53
 Revises: 
-Create Date: 2025-01-19 02:03:23.957386
+Create Date: 2025-01-26 03:08:57.322897
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '224ea7b946e0'
+revision = '7a5a43168a53'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,6 +37,7 @@ def upgrade():
     sa.Column('salt', sa.String(length=130), nullable=False),
     sa.Column('phone_number', sa.String(length=15), nullable=False),
     sa.Column('country', sa.Enum('USA', 'Canada', 'Ecuador', 'Argentina', 'Chile', 'Brazil', 'Germany', 'Spain', 'Japan', 'China', 'Other', name='country'), nullable=False),
+    sa.Column('avatar', sa.String(length=120), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('name')
@@ -63,7 +64,7 @@ def upgrade():
     sa.Column('model_top_speed_kph', sa.String(length=180), nullable=True),
     sa.Column('model_0_to_100_kph', sa.String(length=180), nullable=True),
     sa.Column('model_drive', sa.String(length=180), nullable=True),
-    sa.Column('model_transmission_type', sa.Enum('Automatic', 'Manual', name='transmission'), nullable=False),
+    sa.Column('model_transmission_type', sa.Enum('Automatic', 'Manual', name='transmission'), nullable=True),
     sa.Column('model_seats', sa.String(length=180), nullable=True),
     sa.Column('model_doors', sa.String(length=180), nullable=True),
     sa.Column('model_weight_kg', sa.String(length=180), nullable=True),
@@ -80,6 +81,8 @@ def upgrade():
     sa.Column('model_make_display', sa.String(length=180), nullable=True),
     sa.Column('make_display', sa.String(length=180), nullable=True),
     sa.Column('make_country', sa.String(length=180), nullable=False),
+    sa.Column('model_amount', sa.String(length=120), nullable=False),
+    sa.Column('model_picture', sa.String(), nullable=True),
     sa.Column('seller_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['seller_id'], ['sellers.id'], ),
     sa.PrimaryKeyConstraint('id')

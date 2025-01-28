@@ -140,7 +140,7 @@ const RegisterSellers = () => {
                                 </button>
                             </form>
                             <div>
-                                <p className="letter-seller">Already have an acoount?<Link to={"/login"} className="ms-2 link-success">Log in</Link></p>
+                                <p className="letter-seller">Already have an acoount?<Link to={"/login/sellers"} className="ms-2 link-success">Log in</Link></p>
                             </div>
                         </div>
                     </div>
