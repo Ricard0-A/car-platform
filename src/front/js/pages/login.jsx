@@ -35,7 +35,7 @@ const Login = () => {
     }
     return (
         <>
-        <img src={bgLogin} className="img-login"/>
+            <img src={bgLogin} className="img-login" />
             <div className="container mt-5 bg-container-login">
                 <div className="row justify-content-center">
                     <h1 className="text-center text-login">Login</h1>
@@ -58,12 +58,12 @@ const Login = () => {
                             <div className="form-group mt-3">
                                 <label className="text-login">Password</label>
                                 <input
-                                type="password"
-                                className="form-control bg-form-login"
-                                placeholder="Password"
-                                name="password"
-                                value={user.password}
-                                onChange={handleChange}
+                                    type="password"
+                                    className="form-control bg-form-login"
+                                    placeholder="Password"
+                                    name="password"
+                                    value={user.password}
+                                    onChange={handleChange}
                                 />
 
                             </div>
