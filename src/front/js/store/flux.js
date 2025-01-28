@@ -1,8 +1,10 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: localStorage.getItem("token") || null,
 			currentUser: localStorage.getItem("currentUser") || null,
 			currentSeller: localStorage.getItem("currentUser") || null,
+			image: "",
 			cars: []
 		},
 		actions: {
@@ -33,10 +35,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json();
 					if (response.ok) {
 						setStore({
+							token: data.token,
 							currentUser: data.user,
 						});
 
 						localStorage.setItem("token", data.token);
+						localStorage.setItem("currentUser", data.user)
 					}
 					return response.status;
 				} catch (error) {
@@ -72,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.status == 200) {
 
 						setStore({
-
+							token: data.token,
 							currentSeller: data.seller
 
 						})
@@ -86,22 +90,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
-
-			addCar: async (cars) => {
+			logOutSeller: () => {
+				setStore({
+					token: null,
+					currentSeller: null
+				})
+				localStorage.removeItem("token")
+				localStorage.removeItem("currentSeller")
+			},
+			addCar: async (car) => {
 				try {
-
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`, {
 						method: "POST",
 						headers: {
 							"Authorization": `Bearer ${localStorage.getItem("token")}`,
-
 						},
-						body: cars
+						body: car
 					})
 					const data = await response.json()
 
 					if (response.ok) {
 						setStore({
+							...getStore(),
 							cars: data.car
 						})
 						return response.status
@@ -115,7 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getCar: async (cars) => {
+			getCar: async () => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`, {
 
@@ -125,9 +135,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 
 					})
-
 					const data = await response.json()
 					if (response.ok) {
+						console.log(data)
 						setStore({
 							cars: data
 						})
@@ -196,7 +206,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+			addCarImage: async (payload) => {
+				try {
 
+					const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
+						method: "POST",
+						body: payload
+					})
+					const data = await response.json()
+					return data.secure_url
+
+				} catch (error) {
+					console.log(error)
+					return false || 500
+				}
+			},
 		},
 	}
 };

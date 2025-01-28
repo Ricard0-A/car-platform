@@ -13,10 +13,10 @@ import Register from "./pages/register.jsx";
 import Login from "./pages/login.jsx";
 import RegisterSellers from "./pages/registerSeller.jsx";
 import LoginSellers from "./pages/loginSeller.jsx";
-import AddCar from "./pages/seller-add.jsx";
-import GetCar from "./pages/seller-get.jsx";
+import AddCar from "./pages/sellerAdd.jsx";
+import GetCar from "./pages/sellerGet.jsx";
 import injectContext from "./store/appContext";
-import NavbarSeller from "./component/navbar-seller.jsx";
+import navbarSeller from "./component/navbarSeller.jsx";
 import Footer from "./component/Footer.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 
@@ -49,7 +49,6 @@ const Layout = () => {
                         <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
                     </Routes>
-                    <Footer />
                 </ScrollToTop>
             </BrowserRouter>
         </div>

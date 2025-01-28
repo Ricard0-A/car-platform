@@ -9,7 +9,8 @@ const initialUser = {
     email: "",
     password: "",
     phone_number: "",
-    country: ""
+    country: "",
+    avatar: ""
 };
 
 const Register = () => {
@@ -19,7 +20,7 @@ const Register = () => {
     const handleChange = ({ target }) => {
         setUser({
             ...user,
-            [target.name]: target.value 
+            [target.name]: target.value
         });
     };
 
@@ -32,6 +33,7 @@ const Register = () => {
         formData.append("password", user.password);
         formData.append("phone_number", user.phone_number);
         formData.append("country", user.country);
+        formData.append("avatar", user.avatar)
 
         const response = await actions.register(formData);
 
@@ -47,7 +49,7 @@ const Register = () => {
 
     return (
         <>
-        <img src={bgRegister} className="img-register"/>
+            <img src={bgRegister} className="img-register" />
             <div className="container mt-5 bg-container-register">
                 <div className="row justify-content-center">
                     <h1 className="text-center letterForm">Register</h1>
@@ -111,13 +113,13 @@ const Register = () => {
                                             value={user.country}
                                             onChange={handleChange}
                                         >
-                                            <option className="select-text"  value="">
+                                            <option className="select-text" value="">
                                                 Choose...
                                             </option>
                                             <option className="select-text" value="USA">
                                                 USA
                                             </option>
-                                            <option className="select-text"  value="Canada">
+                                            <option className="select-text" value="Canada">
                                                 Canada
                                             </option>
                                             <option className="select-text" value="Ecuador">
@@ -149,10 +151,22 @@ const Register = () => {
                                             </option>
                                         </select>
                                     </div>
-                                </div>
+                                    <div>
+                                    <label>Imagen de perfil</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        placeholder="Deimian Vásquez"
+                                        // value={user.file}
+                                        onChange={(event) => {
+                                            setUser({ ...user, avatar: event.target.files[0] })
+                                        }}
+                                        />
+                                    </div>
                                 <button type="submit" className="btn btn-danger mt-3 mb-2 register-btn">
                                     Register
                                 </button>
+                                </div>
                             </form>
                             <div>
                                 <p className="letterForm">Already have an acoount?<Link to={"/login"} className="ms-2 link-danger">Log in</Link></p>
