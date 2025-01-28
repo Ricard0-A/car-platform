@@ -18,6 +18,7 @@ import GetCar from "./pages/sellerGet.jsx";
 import injectContext from "./store/appContext";
 import navbarSeller from "./component/navbarSeller.jsx";
 import Footer from "./component/Footer.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
 
 //create your first component
 const Layout = () => {
@@ -45,7 +46,8 @@ const Layout = () => {
 
                         <Route element={<AddCar />} path="/seller/cars" />
                         <Route element={<GetCar />} path="seller/cars/get" />
-                        <Route element={<h1>Not found!</h1>} path="*" />
+                        <Route element={<ContactUs />} path="/contact-us" />
+                        <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>
