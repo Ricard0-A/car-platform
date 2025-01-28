@@ -13,10 +13,10 @@ import Register from "./pages/register.jsx";
 import Login from "./pages/login.jsx";
 import RegisterSellers from "./pages/registerSeller.jsx";
 import LoginSellers from "./pages/loginSeller.jsx";
-import AddCar from "./pages/seller-add.jsx";
-import GetCar from "./pages/seller-get.jsx";
+import AddCar from "./pages/sellerAdd.jsx";
+import GetCar from "./pages/sellerGet.jsx";
 import injectContext from "./store/appContext";
-import NavbarSeller from "./component/navbar-seller.jsx";
+import navbarSeller from "./component/navbarSeller.jsx";
 import Footer from "./component/Footer.jsx";
 
 //create your first component
@@ -47,7 +47,6 @@ const Layout = () => {
                         <Route element={<GetCar />} path="seller/cars/get" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer />
                 </ScrollToTop>
             </BrowserRouter>
         </div>

@@ -37,7 +37,8 @@ class User(db.Model):
             "name": self.name,
             "email": self.email,
             "phone_number": self.phone_number,
-            "country": self.country.value 
+            "country": self.country.value,
+            "avatar":self.avatar
         }
 
 class Sellers_Country(Enum):
@@ -120,7 +121,7 @@ class Car(db.Model):
     make_display=db.Column(db.String(180), unique=False)
     make_country=db.Column(db.String(180), nullable=False,unique=False )
     model_amount=db.Column(db.String(120), nullable=False)
-    model_picture=db.Column(db.String, default="https://img.freepik.com/vector-premium/foto-proximamente-plantilla-blanco-plantilla-vectorial-imagen-perfil-icono-album-fotos_849264-66.jpg")
+    model_picture=db.Column(db.String(180), default="https://img.freepik.com/vector-premium/foto-proximamente-plantilla-blanco-plantilla-vectorial-imagen-perfil-icono-album-fotos_849264-66.jpg")
 
 
     seller_id = db.Column(db.Integer, db.ForeignKey("sellers.id"),nullable=False)
@@ -167,7 +168,7 @@ class Car(db.Model):
                 "model_make_display": self.model_make_display,
                 "make_display": self.make_display,
                 "make_country": self.make_country,
-                "model_amount":self.model_pictureamount,
+                "model_amount":self.model_amount,
                 "model_picture":self.model_picture
             }
 
