@@ -22,6 +22,7 @@ import chevrolet1 from "../../img/suggested/chevrolet-1.jpg"; // id: 81090
 import bentley2 from "../../img/suggested/bentley-2.jpg"; // id: 4029
 import acura2 from "../../img/suggested/acura-2.jpg"; // id: 69160
 import cadillac2 from "../../img/suggested/cadillac-2.jpg"; // id: 73295
+
 // Styles
 import "../../styles/home.css";
 
