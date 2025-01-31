@@ -152,20 +152,20 @@ const Register = () => {
                                         </select>
                                     </div>
                                     <div>
-                                    <label>Imagen de perfil</label>
-                                    <input
-                                        type="file"
-                                        className="form-control"
-                                        placeholder="Deimian Vásquez"
-                                        // value={user.file}
-                                        onChange={(event) => {
-                                            setUser({ ...user, avatar: event.target.files[0] })
-                                        }}
+                                        <label>Imagen de perfil</label>
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            placeholder="Deimian Vásquez"
+                                            // value={user.file}
+                                            onChange={(event) => {
+                                                setUser({ ...user, avatar: event.target.files[0] })
+                                            }}
                                         />
                                     </div>
-                                <button type="submit" className="btn btn-danger mt-3 mb-2 register-btn">
-                                    Register
-                                </button>
+                                    <button type="submit" className="btn btn-danger mt-3 mb-2 register-btn">
+                                        Register
+                                    </button>
                                 </div>
                             </form>
                             <div>

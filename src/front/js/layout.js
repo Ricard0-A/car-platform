@@ -51,6 +51,7 @@ const Layout = () => {
                         <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
                     </Routes>
+                    <Footer />
                 </ScrollToTop>
             </BrowserRouter>
         </div>

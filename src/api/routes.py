@@ -67,7 +67,7 @@ def add_new_user():
 @api.route("/login",methods=["POST"])
 def login():
     try:
-        body=request.json
+        body=request.json   #Esto es lo que el usuario me mando 
         email=body.get("email", None)
         password=body.get("password", None)
 

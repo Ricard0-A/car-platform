@@ -1,23 +1,13 @@
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
-import bgFooter from "../../img/footer-bg.jpg"
-
+import book from "../../img/book.png"
+import "../../styles/footer.css"
 
 const Footer = () => {
 
   const rowMod = {
     color: "white",
     backgroundColor: "#006454",
-  }
-
-  const backgroundImg = {
-    borderRadius: "10px",
-    height: "135px",
-    width: "270px",
-    backgroundImage: `url(${bgFooter})`,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Oscurece la imagen
-    backgroundBlendMode: "overlay", // Fusiona la imagen con el sombreado
-
   }
 
   const location = useLocation();
@@ -33,12 +23,20 @@ const Footer = () => {
         <h4> Home </h4>
         <h4> Sell my Car </h4>
         <h4> To look for a Car </h4>
-      </div>
-      <div className="col-3">
         <h4> Publish your Car </h4>
-        <h4> Contact </h4>
+        <div className="mt-5">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-youtube"></i>
+          <i class="fa-brands fa-twitter"></i>
+        </div>
+
+
+      </div>
+      <div className="col-3 second-line">
         <h4> Our Car Dealerships </h4>
-        <div style={backgroundImg}></div>
+        <h4 > Contact </h4>
+        <h3 > Complaints Book </h3>
+        <img src={book} alt="BOOK" />
 
       </div>
       <div className="col-3">
@@ -47,15 +45,15 @@ const Footer = () => {
         <h4> Terms and conditions for User Buyers</h4>
         <h4> Frequently Asked Questions</h4>
       </div>
-      <div className="col-3">
-        <h3 className="fs-4" style={{ marginBottom: "16px" }}> Our business hours </h3>
+      <div className="col-3 fourth-line">
+        <h3> Our business hours </h3>
         <h4> Monday | 9AM - 10PM </h4>
         <h4> Tuesday | 9AM - 10PM </h4>
         <h4> Wednesday | 9AM - 10PM </h4>
         <h4> Thursday | 9AM - 10PM </h4>
         <h4> Friday | 9AM - 10PM </h4>
       </div>
-      <div className="final-line" style={{ marginTop: "22px" }}>
+      <div className="final-line" >
       </div>
       <div className="col-12 final-logo">
         <div className="text-center">
