@@ -16,6 +16,7 @@ const initialCar = {
     model_body: "",
     make_country: "",
     model_amount: "",
+    model_price:"",
     model_picture: ""
 }
 const AddCar = () => {
@@ -56,6 +57,7 @@ const AddCar = () => {
             formData.append("model_body", car.model_body)
             formData.append("make_country",car.make_country)
             formData.append("model_amount",car.model_amount)
+            formData.append("model_price",car.model_price)
             formData.append("model_picture", car.model_picture)
 
             const response = await actions.addCar(formData)
@@ -160,11 +162,22 @@ const AddCar = () => {
                                             <div className="mb-3">
                                                 <label className="form-label">Model Amount</label>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     className="form-control"
                                                     placeholder="Model Amount"
                                                     name="model_amount"
                                                     value={car.model_amount}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label className="form-label">Model Price</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    placeholder="Model Price"
+                                                    name="model_price"
+                                                    value={car.model_price}
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -177,7 +190,7 @@ const AddCar = () => {
                                                     onChange={handleGetImage}
                                                 />
                                             </div>
-                                            <button type="submit" className="btn btn-warning w-100">Add Car</button>
+                                            <button type="submit" className="btn btn-success w-100">Add Car</button>
                                         </form>
                                     </div>
                                 </div>

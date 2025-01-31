@@ -169,7 +169,7 @@ const Register = () => {
                                 </div>
                             </form>
                             <div>
-                                <p className="letterForm">Already have an acoount?<Link to={"/login"} className="ms-2 link-danger">Log in</Link></p>
+                                <p className="letterForm">Already have an acoount?<Link to={"/login"} className="ms-2 link-warning">Log in</Link></p>
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { use, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 import "../../styles/navbar-seller.css"
 
 const NavbarSeller = () => {
+	const { store, actions } = useContext(Context)
 	return (
 		<>
 
@@ -51,9 +53,18 @@ const NavbarSeller = () => {
 								<i className="fa-solid fa-right-to-bracket nav-link"></i>
 							</li>
 							<li className="nav-item">
-								<Link className="nav-link" to="/">
-									Login
-								</Link>
+								{
+									store.currentSeller ? (
+										<button className="nav-btn" to="/" onClick={() => { actions.logOutSeller() }}>
+											<Link to="/" className="nav-link">LogOut</Link>
+										</button>
+									) :
+										<button className="nav-btn" to="/">
+											Login
+										</button>
+
+								}
+
 							</li>
 						</ul>
 					</div>
