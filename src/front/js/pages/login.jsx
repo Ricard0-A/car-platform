@@ -69,6 +69,7 @@ const Login = () => {
                             </div>
                             <button className="btn btn-warning btn-login mt-3 mb-3">Log in</button>
                         </form>
+                        <p className="text-login">Don't have an account?<Link to={"/register"} className="link-danger ms-1">Register</Link></p>
                     </div>
                 </div>
 

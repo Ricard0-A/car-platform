@@ -19,16 +19,22 @@ const GetCar = () => {
                     <>
                         <NavbarSeller />
                         <div className="container get-orientation">
-                            <h1>Car List</h1>
+                            <h1 className="get-text">Car List</h1>
                             <div className="row">
                                 {store.cars.length > 0 ? (
                                     store.cars.map((car, index) => (
-                                        <div className="col-12 col-6 col-md-3">
-                                            <div className="card cards-decoration" style={{ width: "18rem" }}>
-                                                <img src={car.model_picture} className="card-img-top" alt="..." />
+                                        <div className="col-12 col-md-3 col-sm-6">
+                                            <div className="d-flex justify-content-center card cards-decoration  " style={{ width: "18rem" }}>
+                                                <img src={car.model_picture} className="card-img-top image-cards" alt="..." />
                                                 <div className="card-body">
                                                     <h5 className="card-title">{car.model_name}</h5>
                                                     <p className="card-text">{car.model_year}</p>
+                                                    {car.model_amount<=0 ?(
+                                                        <p className="card-text">Out of stock</p>  
+                                                    ):
+                                                    <p className="card-text">{car.model_amount}</p>
+                                                      
+                                                }
                                                     <Link to={`/car/${car.id}`} className="btn btn-danger" >Go somewhere</Link>
                                                 </div>
                                             </div>

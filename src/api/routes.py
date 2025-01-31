@@ -189,12 +189,13 @@ def add_cars():
     model_body = body_froms.get("model_body",None)
     make_country = body_froms.get("make_country",None) 
     model_amount=body_froms.get("model_amount",None)
+    model_price=body_froms.get("model_price",None)
     model_picture=body_files.get("model_picture",None)
     
     print(body_files)
     print(body_froms)
         
-    if model_make_id is None or model_name is None or model_trim is None or model_year is None or model_body is None or make_country is None or model_amount is None:
+    if model_make_id is None or model_name is None or model_trim is None or model_year is None or model_body is None or make_country is None or model_amount is None or model_price is None:
         return jsonify({"warning":"Incomplete Values"}),400
     else:
         car=Car()
@@ -211,6 +212,7 @@ def add_cars():
         car.model_body=model_body
         car.make_country=make_country
         car.model_amount=model_amount
+        car.model_price=model_price
         car.seller_id=seller_id
         print(model_picture)
     try:

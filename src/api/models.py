@@ -121,6 +121,7 @@ class Car(db.Model):
     make_display=db.Column(db.String(180), unique=False)
     make_country=db.Column(db.String(180), nullable=False,unique=False )
     model_amount=db.Column(db.String(120), nullable=False)
+    model_price=db.Column(db.String(180), nullable=False)
     model_picture=db.Column(db.String(180), default="https://img.freepik.com/vector-premium/foto-proximamente-plantilla-blanco-plantilla-vectorial-imagen-perfil-icono-album-fotos_849264-66.jpg")
 
 
@@ -169,6 +170,7 @@ class Car(db.Model):
                 "make_display": self.make_display,
                 "make_country": self.make_country,
                 "model_amount":self.model_amount,
+                "model_price":self.model_price,
                 "model_picture":self.model_picture
             }
 
