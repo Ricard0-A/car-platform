@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9f743933744f
+Revision ID: 17142a7ddb28
 Revises: 
-Create Date: 2025-01-30 02:06:46.622305
+Create Date: 2025-02-02 01:02:03.802489
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9f743933744f'
+revision = '17142a7ddb28'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,13 +21,23 @@ def upgrade():
     op.create_table('sellers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
+    sa.Column('name_representative', sa.String(length=180), nullable=False),
+    sa.Column('license', sa.String(length=180), nullable=False),
+    sa.Column('license_expiration', sa.String(length=180), nullable=False),
     sa.Column('email', sa.String(length=180), nullable=False),
     sa.Column('password', sa.String(length=180), nullable=False),
     sa.Column('salt', sa.String(length=140), nullable=False),
+    sa.Column('phone_number', sa.String(length=40), nullable=False),
+    sa.Column('register_number', sa.String(length=180), nullable=False),
+    sa.Column('address', sa.String(length=180), nullable=False),
+    sa.Column('test_drive', sa.Enum('AVILABLE', 'UNAVAILABLE', name='sellers_test'), nullable=True),
     sa.Column('country', sa.Enum('USA', 'Canada', 'Ecuador', 'Argentina', 'Chile', 'Brazil', 'Germany', 'Spain', 'Japan', 'China', name='sellers_country'), nullable=False),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('address'),
     sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('name')
+    sa.UniqueConstraint('name'),
+    sa.UniqueConstraint('phone_number'),
+    sa.UniqueConstraint('register_number')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
