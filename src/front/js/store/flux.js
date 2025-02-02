@@ -221,6 +221,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false || 500
 				}
 			},
+
+			sendEmail:async(email)=>{
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/send-email`,{
+						method:"POST",
+						headers:{
+							"Content-Type":"application/json",	
+						},
+						body: JSON.stringify(email)
+					})	
+
+					console.log(response)
+				} catch (error) {
+					console.log(error)	
+				}
+			}
 		},
 	}
 };

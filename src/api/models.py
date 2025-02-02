@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from enum import Enum
+from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 
@@ -27,6 +28,10 @@ class User(db.Model):
     country = db.Column(db.Enum(Country), nullable=False, default=Country.Other)
     avatar =db.Column(db.String(120), default="https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3407.jpg")
 
+    # failed_attemps=db.Column(db.Integer, default=0)
+    # last_failed_attemp=db.Colun(db.DateTime, nullable=True)
+    # is_locked=db.Column(db.Boolean, default=False)
+    # lock_time=db.Column(db.DataTime, nullable=True)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -53,15 +58,31 @@ class Sellers_Country(Enum):
     Japan = "Japan"
     China = "China"
 
+class Sellers_Test(Enum):
+    AVILABLE = "True"
+    UNAVAILABLE = "False"
+    
 class  Seller(db.Model):
 
     __tablename__="sellers"
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(80), nullable=False, unique=True)
+    name_representative=db.Column(db.String(180), nullable=False)
+    license=db.Column(db.String(180),nullable=False)
+    license_expiration=db.Column(db.String(180),nullable=False)
     email=db.Column(db.String(180), nullable=False, unique=True)
     password=db.Column(db.String(180), nullable=False)
     salt=db.Column(db.String(140), nullable=False)
+    phone_number=db.Column(db.String(40),nullable=False, unique=True)
+    register_number=db.Column(db.String(180),nullable=False, unique=True)
+    address=db.Column(db.String(180),nullable=False, unique=True)
+    test_drive=db.Column(db.Enum(Sellers_Test), default=False)
     country=db.Column(db.Enum(Sellers_Country), nullable=False)
+    
+    # failed_attemps=db.Column(db.Integer, default=0)
+    # last_failed_attemp=db.Colun(db.DateTime, nullable=True)
+    # is_locked=db.Column(db.Boolean, default=False)
+    # lock_time=db.Column(db.DataTime, nullable=True)
       
     cars = db.relationship("Car", back_populates="seller", lazy=True)
 
@@ -69,9 +90,15 @@ class  Seller(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "name_representative":self.name_representative,
+            "license":self.license,
+            "license_expiration":self.license_expiration,
             "email": self.email,
-            "country":self.country.value
-           
+            "phone_number":self.phone_number,
+            "register_number":self.register_number,
+            "address":self.address,
+            "test_drive":self.test_drive.value,
+            "country":self.country.value  
         }
     def serialize_seller_cars(self):
         return [car.serialize() for car in self.cars]
