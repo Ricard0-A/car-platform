@@ -226,6 +226,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -248,6 +249,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -270,6 +272,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -292,6 +295,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -322,6 +326,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -344,6 +349,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -366,6 +372,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -388,6 +395,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000 </h5>
             </div>
           </div>
@@ -418,6 +426,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -440,6 +449,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -462,6 +472,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
@@ -484,6 +495,7 @@ export const Home = () => {
             {/* Price con Flex  */}
             <div className="price d-flex justify-content-around mt-4">
               <h5> $ 35,000</h5>
+              <div className="price-line"></div>
               <h5>$ 29,000</h5>
             </div>
           </div>
