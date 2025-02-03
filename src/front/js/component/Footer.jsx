@@ -11,7 +11,7 @@ const Footer = () => {
   }
 
   const location = useLocation();
-  const pathdenied = ["/login", "/login/sellers", "/register", "/contact-us", "/car-detail"]
+  const pathdenied = ["/login", "/login/sellers", "/register", "/contact-us"]
 
   if (pathdenied.includes(location.pathname)) {
     return null

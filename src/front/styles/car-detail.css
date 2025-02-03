@@ -1,8 +1,38 @@
 .left-side {
+  position: relative;
   align-items: end;
   display: flex;
   flex-direction: column;
 }
+
+.left-side .big-favorites {
+  justify-content: center;
+  gap: 8px;
+  height: 2.1em;
+  padding: 7px 7px 1px 7px;
+  display: flex;
+  border-radius: 10px;
+  background: lightgray;
+  width: 4em;
+  right: 14.5em;
+  font-size: 27px;
+  z-index: 1;
+  top: 20px;
+  position: absolute;
+}
+
+.big-favorites i {
+  color: #198754;
+  height: 1.5em;
+  padding-top: 7px;
+}
+
+.big-favorites p {
+  height: 1.5em;
+  margin: 0;
+  font-size: 26px;
+}
+
 .left-side img {
   width: 33em;
   height: 27em;
@@ -142,8 +172,8 @@
 .box-features {
   background-color: #d0d0d0;
   margin-top: 62px;
-  padding-top: 99px;
-  height: 61vh;
+  padding-top: 65px;
+  height: 157vh;
 }
 
 .box-features .container {
@@ -151,13 +181,14 @@
 }
 
 .box-features .card-features {
-  background-color: hsl(0, 0%, 93%);
   padding: 60px 70px;
+  padding-top: 1px !important;
+  background-color: hsl(0, 0%, 93%);
 }
 
 .card-features .card-title {
-  padding-top: 24px;
-  font-size: 27px;
+  padding-top: 67px;
+  font-size: 28px;
   margin-bottom: 30px;
 }
 
@@ -169,6 +200,7 @@
 /* Estilos para Rows y de Features */
 
 .card-features {
+  padding-top: 1px;
   font-size: 20px;
 }
 
@@ -180,23 +212,88 @@
   padding-top: 20px;
 }
 
-/* Estilo para Equipment  */
+/* Row que apuntan a las descripciones de Equipment/Security */
 
-.equipment-row {
+.row-description {
   font-family: initial;
   font-size: 22px;
 }
 
-.equipment-row .col-4 {
+.row-description .col-4 {
   display: flex;
 }
-.equipment-row .col-4 i {
+.row-description .col-4 i {
   padding-right: 6px;
   padding-top: 6px;
 }
 
-/* Estilos para security  */
+/* Estilo de los autos recomendados extras */
 
-.security-row {
-  display: flex;
+.last-box {
+  padding-top: 46px;
+}
+.suggested-list {
+  padding-top: 62px;
+}
+
+.show-cars .col-lg-4 img {
+  border-radius: 10px;
+}
+
+.favorite {
+  background-color: white;
+  border-radius: 50%;
+  left: 15.6rem;
+  position: absolute;
+  top: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  z-index: 1;
+}
+
+.favorite i {
+  padding-top: 7px;
+  padding-left: 5.8px;
+  font-size: 27px;
+  color: green;
+}
+
+.show-cars img {
+  height: 11rem;
+  width: 18rem;
+}
+
+.show-cars .col-4 h2 {
+  color: #03ad64;
+}
+
+.price-v2 {
+  background-color: white;
+  width: 269px;
+  height: 13%;
+  padding-top: 12px;
+  position: relative;
+  right: -5%;
+}
+
+.price-v2 :first-child {
+  color: #ec7f64;
+  text-decoration: line-through;
+}
+
+.price-v2 :nth-child(2) {
+  color: #03ad64;
+}
+
+.price-line {
+  width: 0.1%;
+  margin-top: -7px;
+  margin-left: 6px !important;
+  background-color: rgb(160, 166, 163);
+  height: 45px;
+}
+
+.green-price {
+  color: #0ebc9b;
+  /* color: rgb(29, 161, 98); */
 }
