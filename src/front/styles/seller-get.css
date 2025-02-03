@@ -8,7 +8,7 @@
 .cards-decoration {
     border: 4px solid black;
     padding-bottom: 15px;
-    margin-top: 15px;
+    margin: 15px; /* Agrega margen en todos los lados */
     border-radius: 10%;
 }
 

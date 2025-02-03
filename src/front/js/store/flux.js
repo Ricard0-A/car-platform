@@ -223,13 +223,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			sendEmail:async(email)=>{
+				console.log(email)
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/send-email`,{
 						method:"POST",
 						headers:{
 							"Content-Type":"application/json",	
 						},
-						body: JSON.stringify(email)
+						body: JSON.stringify({email:email})
 					})	
 
 					console.log(response)

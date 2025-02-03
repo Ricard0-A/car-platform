@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import { useParams } from "react-router-dom";
 import NavbarSeller from "../component/navbarSeller.jsx";
-import "../../styles/car-detail.css"
+import "../../styles/car-detail-seller.css"
 
 
 const CarDetailSeller = () => {
@@ -25,7 +25,7 @@ const CarDetailSeller = () => {
             <div className="row ">
                 <div className="col-12 col-md-6 ">
                     <div className="main-bg-style">
-                        <div className="d-flex justify-content-center  ">
+                        <div className="d-flex justify-content-center">
                             <img className="img-orientation" src={carDetail?.model_picture} />
                             <div className="main-info-style">
                                 <h1 className="name-style"><b>{carDetail?.model_name}</b></h1>
