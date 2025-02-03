@@ -304,11 +304,11 @@ def delete_car(car_id):
 def become_seller():
     try:
         body = request.json
-        
+        print(body)
         message=f"""
-                    <h1>Bienvenido a DrivenS</h1>
-                    <h5>Para trabajar con nosotros porfavor registrese en:</h5>
-                    <a href="https://ominous-chainsaw-4jg4gvjjjqw625xx7-3000.app.github.dev/register/sellers">Registrarse para ser parte de nuestra familia</a>
+                    <h1>Welcome to DrivenS</h1>
+                    <h5>To start working with us please register in:</h5>
+                    <a href="https://ominous-chainsaw-4jg4gvjjjqw625xx7-3000.app.github.dev/register/sellers">To be part of our family register</a>
                  """
         response = send_mail("Invitacion para vendedor",body.get("email"),message)
         print(response)

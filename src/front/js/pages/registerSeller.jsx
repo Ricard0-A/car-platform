@@ -5,6 +5,13 @@ import bgRegisterSeller from "../../img/bg-register-seller.jpg"
 import "../../styles/register-seller.css"
 const initialSeller = {
     name: "",
+    name_representative:"",
+    license:"",
+    license_expiration:"",
+    phone_number:"",
+    register_number:"",
+    address:"",
+    test_drive:"",
     email: "",
     password: "",
     country: ""
@@ -25,6 +32,13 @@ const RegisterSellers = () => {
 
         const formData = new FormData();
         formData.append("name", seller.name);
+        formData.append("name_representative",seller.name_representative)
+        formData.append("license",seller.license)
+        formData.append("license_expiration", seller.license_expiration)
+        formData.append("phone_number", seller.phone_number)
+        formData.append("register_number", seller.register_number)
+        formData.append("address", seller.address)
+        formData.append("test_drive", seller.test_drive)
         formData.append("email", seller.email);
         formData.append("password", seller.password);
         formData.append("country", seller.country);
@@ -66,6 +80,94 @@ const RegisterSellers = () => {
                                         value={seller.name}
                                         onChange={handleChange}
                                     />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Name Representative</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Name Representative"
+                                        name="name_representative"
+                                        value={seller.name_representative}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">License</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="License"
+                                        name="license"
+                                        value={seller.license}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">License Expiration</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="License Expiration"
+                                        name="license_expiration"
+                                        value={seller.license_expiration}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Phone Number"
+                                        name="phone_number"
+                                        value={seller.phone_number}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Register Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Register Number"
+                                        name="register_number"
+                                        value={seller.register_number}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Address</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Address"
+                                        name="address"
+                                        value={seller.address}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Test Drive</label>
+                                    <div className="input-group mb-3">
+                                        <label className="input-group-text letter-seller bg-input-seller">Test Drive</label>
+                                        <select
+                                            className="form-select bg-input-seller "
+                                            name="test_drive"
+                                            value={seller.test_drive}
+                                            onChange={handleChange}
+                                        >
+                                            <option className="select-text" value="">
+                                                Choose...
+                                            </option>
+                                            <option className="select-text" value="AVILABLE">
+                                                AVILABLE
+                                            </option>
+                                            <option className="select-text" value="UNAVAILABLE">
+                                                UNAVAILABLE
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div className="form-group mt-3">
                                     <label className="letter-seller">Email</label>
