@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
@@ -17,9 +17,11 @@ import AddCar from "./pages/sellerAdd.jsx";
 import GetCar from "./pages/sellerGet.jsx";
 import injectContext from "./store/appContext";
 import navbarSeller from "./component/navbarSeller.jsx";
+import BecomeSeller from "./pages/becomeSeller.jsx";
 import Footer from "./component/Footer.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import CarDetail from "./pages/CarDetail.jsx";
+import CarDetailSeller from "./pages/CarDetailSeller.jsx";
 
 //create your first component
 const Layout = () => {
@@ -39,6 +41,7 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
+
                         <Route element={<Catalog />} path="/catalog" />
                         <Route element={<CarDetail />} path="/car-detail" />
                         <Route element={<Register />} path="/register" />
@@ -48,10 +51,12 @@ const Layout = () => {
 
                         <Route element={<AddCar />} path="/seller/cars" />
                         <Route element={<GetCar />} path="seller/cars/get" />
+                        <Route element={<BecomeSeller />} path="/become/seller" />
+                        <Route element={<CarDetailSeller />} path="car/:idCar" />
                         <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
                     </Routes>
-                    <Footer />
+                    {!["/become/seller", "/register/sellers"].includes(location.pathname) && <Footer />}
                 </ScrollToTop>
             </BrowserRouter>
         </div>

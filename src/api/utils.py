@@ -4,6 +4,7 @@ from email.mime.multipart import MIMEMultipart
 import smtplib, ssl
 import os
 
+
 class APIException(Exception):
     status_code = 400
 
@@ -73,6 +74,38 @@ def send_mail(subject, to, body):
             server.sendmail(smtp_host, to, message.as_string())
             return True
 
+    except Exception as err:
+        print(err.args)
+        return False
+    
+def send_mail(subject, to, body):
+    smtp_host=os.getenv("SMTP_HOST")
+    smtp_port=os.getenv("SMTP_PORT")
+    smtp_email=os.getenv("EMAIL_ADDRESS")
+    smtp_password=os.getenv("EMAIL_PASSWORD")
+
+    message=MIMEMultipart("alternative")
+    message["Subject"]=subject
+    message["Frome"]=smtp_email
+    message["To"]=to
+
+    html = """
+            <html>
+                <body>
+                     """ + body + """
+                </body>
+            </html>
+           """
+    html_mime = MIMEText(html, "html")
+
+    message.attach(html_mime)
+
+    try:
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_host,smtp_port,context=context) as server:
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_host, to, message.as_string())
+            return True
     except Exception as err:
         print(err.args)
         return False

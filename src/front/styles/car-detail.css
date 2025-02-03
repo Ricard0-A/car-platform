@@ -46,6 +46,7 @@
   width: 33em;
   height: 8.5em;
 }
+
 .inner-photos {
   flex-direction: column;
   display: flex;
@@ -55,11 +56,13 @@
   justify-content: center;
   align-items: center;
 }
+
 .inner-photos p {
   margin: 0;
   font-weight: 600;
   color: white;
 }
+
 .photos-number {
   height: 39%;
   border-radius: 50%;
@@ -113,6 +116,7 @@
   width: 577px;
   height: 2px;
 }
+
 .right-side .second-horizon-line {
   margin-top: -8.5px;
   background-color: #3838384d;
@@ -222,6 +226,7 @@
 .row-description .col-4 {
   display: flex;
 }
+
 .row-description .col-4 i {
   padding-right: 6px;
   padding-top: 6px;
@@ -232,6 +237,7 @@
 .last-box {
   padding-top: 46px;
 }
+
 .suggested-list {
   padding-top: 62px;
 }

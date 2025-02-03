@@ -3,16 +3,23 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User,Seller,Car
-from api.utils import generate_sitemap, APIException
+from api.utils import generate_sitemap, APIException,send_mail
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from base64 import b64encode
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import cloudinary.uploader as uploader
+from datetime import datetime, timedelta
 
+
+# MAX_FAILED_ATTEMPTS=5
+# LOCKOUT_TIME=15
 
 api = Blueprint('api', __name__)
+
+expire_in_minute = 15
+expire_delta=timedelta(minutes=expire_in_minute)
 
 # Allow CORS requests to this API
 CORS(api)
@@ -74,7 +81,7 @@ def login():
         if email is None or password is None:
             return jsonify({"Warning":"Incomplete Credentials"}),400
         else:
-            user=User.query.filter_by(email=email).one_or_none()
+            user=User.query.filter_by(email=email).first()
             if user is None:
                 return jsonify({"Warning":"Invalid Credentials"}),401
             else:
@@ -83,6 +90,7 @@ def login():
                     return jsonify(token=token, user=user.serialize())
                 else:
                     return jsonify({"Warning":"Invalid Credentials"}),401
+                    
     except Exception as err:
         return jsonify(f"Error{err.args}")
 
@@ -94,9 +102,16 @@ def register_sellers():
     name = body_froms.get("name", None)
     email = body_froms.get("email", None)
     password = body_froms.get("password", None)
+    name_representative=body_froms.get("name_representative",None)
+    license=body_froms.get("license",None)
+    license_expiration=body_froms.get("license_expiration",None)
+    phone_number=body_froms.get("phone_number",None)
+    register_number=body_froms.get("register_number",None)
+    address=body_froms.get("address",None)
+    test_drive=body_froms.get("test_drive",None)
     country = body_froms.get("country", None)
     print(body_froms)
-    if name is None or email is None or password is None or country is None:
+    if name is None or email is None or password is None or country is None or name_representative is None or license is None or license_expiration is None or phone_number is None or register_number is None or address is None or test_drive is None:
         return jsonify({"warning":"Incomplete Credentials"}),401
     else:
         sellers=Seller()
@@ -110,6 +125,13 @@ def register_sellers():
             password=generate_password_hash(f'{password}{salt}')
 
             sellers.name=name
+            sellers.name_representative=name_representative
+            sellers.license=license
+            sellers.license_expiration=license_expiration
+            sellers.phone_number=phone_number
+            sellers.register_number=register_number
+            sellers.address=address
+            sellers.test_drive=test_drive
             sellers.email=email
             sellers.password=password
             sellers.salt=salt
@@ -156,17 +178,6 @@ def login_sellers():
 
 
 
-@api.route("/private", methods=["GET"])
-@jwt_required()
-def private():
-    try:
-        user_id=get_jwt_identity()
-        user=User.query.filter_by(user_id)
-        if user is None:
-            return jsonify ({"warning":"User Not Found"}),401
-        return jsonify(user.serialize()),200
-    except Exception as err:
-        return jsonify(err.args)
 
 @api.route("/seller/cars", methods=["POST"])
 @jwt_required()
@@ -189,12 +200,13 @@ def add_cars():
     model_body = body_froms.get("model_body",None)
     make_country = body_froms.get("make_country",None) 
     model_amount=body_froms.get("model_amount",None)
+    model_price=body_froms.get("model_price",None)
     model_picture=body_files.get("model_picture",None)
     
     print(body_files)
     print(body_froms)
         
-    if model_make_id is None or model_name is None or model_trim is None or model_year is None or model_body is None or make_country is None or model_amount is None:
+    if model_make_id is None or model_name is None or model_trim is None or model_year is None or model_body is None or make_country is None or model_amount is None or model_price is None:
         return jsonify({"warning":"Incomplete Values"}),400
     else:
         car=Car()
@@ -211,6 +223,7 @@ def add_cars():
         car.model_body=model_body
         car.make_country=make_country
         car.model_amount=model_amount
+        car.model_price=model_price
         car.seller_id=seller_id
         print(model_picture)
     try:
@@ -286,3 +299,19 @@ def delete_car(car_id):
     except Exception as err:
         db.session.rollback()
         return jsonify(err)
+
+@api.route("/send-email",methods=["POST"])
+def become_seller():
+    try:
+        body = request.json
+        
+        message=f"""
+                    <h1>Bienvenido a DrivenS</h1>
+                    <h5>Para trabajar con nosotros porfavor registrese en:</h5>
+                    <a href="https://ominous-chainsaw-4jg4gvjjjqw625xx7-3000.app.github.dev/register/sellers">Registrarse para ser parte de nuestra familia</a>
+                 """
+        response = send_mail("Invitacion para vendedor",body.get("email"),message)
+        print(response)
+        return jsonify("Email Sended"),200
+    except Exception as err:
+     return jsonify(err.args)

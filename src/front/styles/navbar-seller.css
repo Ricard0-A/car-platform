@@ -27,3 +27,9 @@
       gap: 5px; /* Espaciado entre los enlaces */
     }
   }
+
+.nav-btn{
+  background-color: transparent;
+  color: rgb(154, 154, 154);
+  border: none;
+}

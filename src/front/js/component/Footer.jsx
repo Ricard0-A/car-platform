@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
 import book from "../../img/book.png"
+import { Link } from "react-router-dom";
 import "../../styles/footer.css"
 
 const Footer = () => {
@@ -21,7 +22,7 @@ const Footer = () => {
     <div className="row tenth-row" style={rowMod}>
       <div className="col-3 first-line">
         <h4> Home </h4>
-        <h4> Sell my Car </h4>
+        <Link to={"/become/seller"}> <h4> Become a Seller</h4></Link>
         <h4> To look for a Car </h4>
         <h4> Publish your Car </h4>
         <div className="mt-5">
