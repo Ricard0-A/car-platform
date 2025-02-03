@@ -1,5 +1,5 @@
 /* 
-Estilos row de todo el catalogo (Solo su seccion especifica0 */
+Estilos del lado de filtros 
 
 /* ROW 1  */
 .row .catalog-row {
@@ -13,8 +13,6 @@ Estilos row de todo el catalogo (Solo su seccion especifica0 */
 }
 
 .div-filter {
-  /* Border Rounded (Later)*/
-  /* Posicionamiento */
   margin-top: -12px;
   margin-left: 1.2rem;
   padding-top: 8px;
@@ -68,7 +66,7 @@ Estilos row de todo el catalogo (Solo su seccion especifica0 */
 .fav {
   background-color: white;
   border-radius: 50%;
-  left: 17.2rem;
+  left: 17rem;
   position: absolute;
   top: 1rem;
   height: 2.5rem;
@@ -88,7 +86,7 @@ Estilos row de todo el catalogo (Solo su seccion especifica0 */
   width: 18rem;
 }
 
-.show-cars .col-4 h2 {
+.show-cars h2 {
   color: #03ad64;
 }
 
@@ -101,13 +99,11 @@ Estilos row de todo el catalogo (Solo su seccion especifica0 */
   right: -10%;
 }
 
-/* Negamos todos los lower prices  */
 .price-v2 :first-child {
   color: #ec7f64;
   text-decoration: line-through;
 }
 
-/* Encedemos los higher prices  */
 .price-v2 :nth-child(2) {
   color: #03ad64;
 }

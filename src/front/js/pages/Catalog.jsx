@@ -25,7 +25,6 @@ const dataBase = [
     price: 50,
   },
 ];
-
 const Catalog = () => {
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -130,7 +129,7 @@ const Catalog = () => {
                   {dataBase.map((unit, index) => (
                     <>
                       <div
-                        className="col-lg-4 col-md-6 col-sm-6 position-relative"
+                        className="col-12 col-md-6 col-lg-4 position-relative"
                         key={index}
                       >
                         <div className="fav">
@@ -155,7 +154,7 @@ const Catalog = () => {
                         </div>
                       </div>
                       <div
-                        className="col-lg-4 col-md-6 col-sm-6 ms-1 position-relative"
+                        className="col-12 col-md-6 col-lg-4 ms-1 position-relative"
                         key={index}
                       >
                         <div className="fav">
@@ -182,7 +181,7 @@ const Catalog = () => {
                         </div>
                       </div>
                       <div
-                        className="col-lg-4 col-md-6 col-sm-6 ms-1 position-relative"
+                        className="col-12 col-md-6 col-lg-4 ms-1 position-relative"
                         key={index}
                       >
                         <div className="fav">

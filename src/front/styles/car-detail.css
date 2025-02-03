@@ -1,92 +1,305 @@
-.img-orientation {
-    display: block;
-    margin: 5% auto;
-    margin-top: 100px;
-    margin-left: 10px;
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.3);
-   
-}
-.main-info-style {
-    position: absolute;
-    display: flex;
-    font-size: 80%;
-    margin-left: 90%;
-    margin-top: 5%;
-    flex-direction: column;
-    
+.left-side {
+  position: relative;
+  align-items: end;
+  display: flex;
+  flex-direction: column;
 }
 
-.name-style{
-    margin-left: 200px;
-    font-family: "DM Serif Text", serif;
-    font-weight: 400px;
-    font-style: italic;
-    font-size: 80px;
-    
+.left-side .big-favorites {
+  justify-content: center;
+  gap: 8px;
+  height: 2.1em;
+  padding: 7px 7px 1px 7px;
+  display: flex;
+  border-radius: 10px;
+  background: lightgray;
+  width: 4em;
+  right: 14.5em;
+  font-size: 27px;
+  z-index: 1;
+  top: 20px;
+  position: absolute;
 }
 
-.trim-style{
-    margin-top: 30px;
-    margin-left: 50px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    
+.big-favorites i {
+  color: #198754;
+  height: 1.5em;
+  padding-top: 7px;
 }
 
-.price-style{
-
-    color: #04AFC2;
-    margin-top: 10px;
-    margin-left: 100px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-weight: bold;
-    font-size: 100px; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-shadow: 1px 4px 2px rgba(0,0,0,0.6);
+.big-favorites p {
+  height: 1.5em;
+  margin: 0;
+  font-size: 26px;
 }
 
-
-
-.main-bg-style{
-    position: absolute;
-    margin-left: 2.5%;
-    width: 95%;
-    display: flex;
-    background-color: white;
-    border-radius: 10px;
-   
+.left-side img {
+  width: 33em;
+  height: 27em;
 }
 
-.info-style{
-    position: absolute;
-    display: flex;
-    top: 500px;
-    left: 100px;
+.left-side .photos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c5c5c5;
+  width: 33em;
+  height: 8.5em;
 }
 
-.text-style{
-    font-size: 40px;
+.inner-photos {
+  flex-direction: column;
+  display: flex;
+  border: solid white;
+  width: 29%;
+  height: 72%;
+  justify-content: center;
+  align-items: center;
 }
 
-.amount-info-style{
-    position: absolute;
-    display: flex;
-    top: 610px;
-    left: 650px;
+.inner-photos p {
+  margin: 0;
+  font-weight: 600;
+  color: white;
 }
 
-.amount-text-style{
-    position: absolute;
-    display: flex;
-    left: 140px;
-    top: 70px;
+.photos-number {
+  height: 39%;
+  border-radius: 50%;
+  background-color: white;
+  justify-content: center;
+  width: 25%;
+  display: flex;
+}
+
+.photos-number p {
+  font-weight: 600;
+  padding-top: 6px;
+  color: black;
+}
+
+/* Estilos del lado derecho */
+
+.right-side {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+}
+
+.right-side .type-car {
+  padding: 10px 18px 10px 18px;
+  border: solid 0.5px rgb(188, 185, 185);
+}
+
+.right-side .socials {
+  font-size: 24px;
+  display: flex;
+  gap: 24px;
+}
+
+.right-side button {
+  border-color: darkgray;
+}
+
+.model-name {
+  margin-top: -8px;
+}
+
+.right-side h2 {
+  color: #006454;
+}
+
+.right-side .first-horizon-line {
+  background-color: #3838384d;
+  width: 577px;
+  height: 2px;
+}
+
+.right-side .second-horizon-line {
+  margin-top: -8.5px;
+  background-color: #3838384d;
+  width: 577px;
+  height: 2px;
+}
+
+.right-side .features-line {
+  gap: 43px;
+  font-family: "Quicksand", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.features-line {
+  margin: -6px;
+}
+
+.features-line .mini-line {
+  margin-top: 5px;
+  border-left: 2px solid #3838384d;
+  height: 25px;
+}
+
+.div-features {
+  font-family: "Quicksand", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 25px;
+  border-right: solid gray 1px;
+  margin-top: 21px;
+  width: 16em;
+}
+
+.div-features h1 {
+  color: rgb(27, 177, 104);
+  font-weight: 600;
+}
+
+.div-features button {
+  font-family: None;
+  font-weight: 500;
+  margin-top: 20px;
+  font-size: 22px;
+  height: 3em;
+  width: 11em;
+}
+
+/* Estilos de la siguiente box  */
+
+.box-features {
+  background-color: #d0d0d0;
+  margin-top: 62px;
+  padding-top: 65px;
+  height: 157vh;
+}
+
+.box-features .container {
+  background-color: hsl(0, 0%, 93%);
+}
+
+.box-features .card-features {
+  padding: 60px 70px;
+  padding-top: 1px !important;
+  background-color: hsl(0, 0%, 93%);
+}
+
+.card-features .card-title {
+  padding-top: 67px;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.card-title p {
+  padding-left: 4px;
+  margin: 0;
+}
+
+/* Estilos para Rows y de Features */
+
+.card-features {
+  padding-top: 1px;
+  font-size: 20px;
+}
+
+.card-features .row {
+  padding-left: 28px;
+}
+
+.line-2 {
+  padding-top: 20px;
+}
+
+/* Row que apuntan a las descripciones de Equipment/Security */
+
+.row-description {
+  font-family: initial;
+  font-size: 22px;
+}
+
+.row-description .col-4 {
+  display: flex;
+}
+
+.row-description .col-4 i {
+  padding-right: 6px;
+  padding-top: 6px;
+}
+
+/* Estilo de los autos recomendados extras */
+
+.last-box {
+  padding-top: 46px;
+}
+
+.suggested-list {
+  padding-top: 62px;
+}
+
+.show-cars .col-lg-4 img {
+  border-radius: 10px;
+}
+
+.favorite {
+  background-color: white;
+  border-radius: 50%;
+  left: 15.6rem;
+  position: absolute;
+  top: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  z-index: 1;
+}
+
+.favorite i {
+  padding-top: 7px;
+  padding-left: 5.8px;
+  font-size: 27px;
+  color: green;
+}
+
+.show-cars img {
+  height: 11rem;
+  width: 18rem;
+}
+
+.show-cars .col-4 h2 {
+  color: #03ad64;
+}
+
+.price-v2 {
+  background-color: white;
+  width: 269px;
+  height: 13%;
+  padding-top: 12px;
+  position: relative;
+  right: -5%;
+}
+
+.price-v2 :first-child {
+  color: #ec7f64;
+  text-decoration: line-through;
+}
+
+.price-v2 :nth-child(2) {
+  color: #03ad64;
+}
+
+.price-line {
+  width: 0.1%;
+  margin-top: -7px;
+  margin-left: 6px !important;
+  background-color: rgb(160, 166, 163);
+  height: 45px;
+}
+
+.green-price {
+  color: #0ebc9b;
+  /* color: rgb(29, 161, 98); */
 }
