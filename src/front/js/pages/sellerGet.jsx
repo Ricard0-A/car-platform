@@ -24,7 +24,7 @@ const GetCar = () => {
                                 {store.cars.length > 0 ? (
                                     store.cars.map((car, index) => (
                                         <div className="col-12 col-md-3 col-sm-6">
-                                            <div className="d-flex justify-content-center card cards-decoration  " style={{ width: "18rem" }}>
+                                            <div className="d-flex justify-content-center card cards-decoration  ms-4 me-4" style={{ width: "18rem" }}>
                                                 <img src={car.model_picture} className="card-img-top image-cards" alt="..." />
                                                 <div className="card-body">
                                                     <h5 className="card-title">{car.model_name}</h5>

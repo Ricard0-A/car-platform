@@ -12,7 +12,7 @@ const BecomeSeller = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-
+        console.log(email)
         const response = await actions.sendEmail(email)
     }
     return (
