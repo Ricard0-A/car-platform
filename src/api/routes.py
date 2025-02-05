@@ -205,7 +205,8 @@ def add_cars():
     
     print(body_files)
     print(body_froms)
-        
+
+    # Modificable
     if model_make_id is None or model_name is None or model_trim is None or model_year is None or model_body is None or make_country is None or model_amount is None or model_price is None:
         return jsonify({"warning":"Incomplete Values"}),400
     else:

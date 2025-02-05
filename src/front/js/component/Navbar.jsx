@@ -122,7 +122,7 @@ const Navbar = () => {
                   fontFamily: "sans-serif",
                   backgroundColor: "seagreen",
                 }}
-                to="/login-buyer"
+                to="/login"
                 onClick={handleModalToggle}
               >
                 <i className="fa-solid fa-user me-2"></i>
@@ -136,7 +136,7 @@ const Navbar = () => {
                   fontFamily: "sans-serif",
                   backgroundColor: "darkred",
                 }}
-                to="/login-dealer"
+                to="/login/sellers"
                 onClick={handleModalToggle}
               >
                 <i className="fa-solid fa-business-time me-2"></i>
