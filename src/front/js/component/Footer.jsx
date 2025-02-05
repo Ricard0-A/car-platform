@@ -31,7 +31,6 @@ const Footer = () => {
           <i class="fa-brands fa-twitter"></i>
         </div>
 
-
       </div>
       <div className="col-3 second-line">
         <h4> Our Car Dealerships </h4>
