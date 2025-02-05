@@ -144,6 +144,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 						// Solo para verificar los elementos de cars 
 						const cars = getStore().cars;
+						const seller = getStore().currentSeller;
+						console.log("Soy yo el consesionario Array:", seller);
 						console.log("Mis autos son: ", cars);
 						return true || 200
 

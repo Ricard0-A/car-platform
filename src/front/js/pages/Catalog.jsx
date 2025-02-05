@@ -1,6 +1,8 @@
 import React from "react";
+import { useContext } from "react";
+import { Context } from "../store/appContext";
+// Styles Css
 import "../../styles/catalog.css";
-
 // Test Cars
 import ford1 from "../../img/suggested/ford-1.jpg";
 import acura1 from "../../img/suggested/acura-1.png";
@@ -27,6 +29,11 @@ const dataBase = [
   },
 ];
 const Catalog = () => {
+
+  const { store, actions } = useContext(Context)
+
+
+
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
     borderRadius: "20px 0 0 20px", // Redondea solo borde izquierdo
@@ -127,88 +134,30 @@ const Catalog = () => {
               {/* Contenedor de todo el map para modificar su posicion */}
               <div>
                 <div className="row show-cars g-5">
-                  {dataBase.map((unit, index) => (
-                    <>
-                      <div
-                        className="col-12 col-md-6 col-lg-4 position-relative"
-                        key={index}
-                      >
-                        <div className="fav">
-                          <i class="fa-regular fa-heart"></i>
-                        </div>
-                        <img src={bentley2} alt="Car" />
-                        <h6>Hatchback</h6>
-                        <h2>Bentley</h2>
-                        <h5>Continental Flying Spur</h5>
-                        <br />
-                        <h5 className="year-km-1">
-                          2022<span className="mx-2">&#8226;</span> 8,000 Km
-                        </h5>
-                        <h5 className="location-1 pt-2">
-                          <i class="fa-solid fa-location-dot"></i> DrivenS New
-                          York
-                        </h5>
-                        <div className="price-v2 d-flex justify-content-around mt-4">
-                          <h5>$ 48,000</h5>
-                          <div className="price-line"></div>
-                          <h5 className="green-price">$ 32,000</h5>
-                        </div>
+                  {store.cars.map((car) => (
+                    <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
+                      <div className="fav">
+                        <i className="fa-regular fa-heart"></i>
                       </div>
-                      <div
-                        className="col-12 col-md-6 col-lg-4 ms-1 position-relative"
-                        key={index}
-                      >
-                        <div className="fav">
-                          <i class="fa-regular fa-heart"></i>
-                        </div>
-                        <img src={ford1} alt="Car" />
-                        <h6>Hatchback</h6>
-                        <h2>Volkswagen</h2>
-                        <h5>C-Max Energi</h5>
-                        <br />
-                        <h5 className="year-km-1">
-                          2022<span className="mx-2">&#8226;</span> 30,000 Km
-                        </h5>
-                        <h5 className="location-1 pt-2">
-                          <i class="fa-solid fa-location-dot"></i> DrivenS New
-                          York
-                        </h5>
-                        <div className="price-v2 d-flex justify-content-around mt-4">
-                          <h5>$ 35,000</h5>
-                          <div className="price-line">
-                            {/* Div estetico entre ambos numeros */}
-                          </div>
-                          <h5 className="green-price">$ 29,000</h5>
-                        </div>
+                      <img src={car.model_picture || acura1} alt="Car" />
+                      <h6>Hatchback</h6>
+                      <h2>{car.model_make_id}</h2>
+                      <h5>{car.model_name}</h5>
+                      <br />
+                      <h5 className="year-km-1">
+                        {car.model_year || "2022"}
+                        <span className="mx-2">&#8226;</span>
+                        {car.model_km || "10,000 Km"}
+                      </h5>
+                      <h5 className="location-1 pt-2">
+                        <i className="fa-solid fa-location-dot"></i> {car.location || "DrivenS New York"}
+                      </h5>
+                      <div className="price-v2 d-flex justify-content-around mt-4">
+                        <h5>$ {car.price || "48,000"}</h5>
+                        <div className="price-line"></div>
+                        <h5 className="green-price">$ {car.discount_price || "32,000"}</h5>
                       </div>
-                      <div
-                        className="col-12 col-md-6 col-lg-4 ms-1 position-relative"
-                        key={index}
-                      >
-                        <div className="fav">
-                          <i class="fa-regular fa-heart"></i>
-                        </div>
-                        <img src={acura1} alt="Car" />
-                        <h6>Hatchback</h6>
-                        <h2>Chevrolet</h2>
-                        <h5>Phoenix</h5>
-                        <br />
-                        <h5 className="year-km-1">
-                          2022<span className="mx-2">&#8226;</span> 10,000 Km
-                        </h5>
-                        <h5 className="location-1 pt-2">
-                          <i class="fa-solid fa-location-dot"></i> DrivenS New
-                          York
-                        </h5>
-                        <div className="price-v2 d-flex justify-content-around mt-4">
-                          <h5>$ 50,000</h5>
-                          <div className="price-line">
-                            {/* Div estetico entre ambos numeros */}
-                          </div>
-                          <h5 className="green-price">$ 41,000</h5>
-                        </div>
-                      </div>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>

@@ -29,12 +29,12 @@ const GetCar = () => {
                                                 <div className="card-body">
                                                     <h5 className="card-title">{car.model_name}</h5>
                                                     <p className="card-text">{car.model_year}</p>
-                                                    {car.model_amount<=0 ?(
-                                                        <p className="card-text">Out of stock</p>  
-                                                    ):
-                                                    <p className="card-text">{car.model_amount}</p>
-                                                      
-                                                }
+                                                    {car.model_amount <= 0 ? (
+                                                        <p className="card-text">Out of stock</p>
+                                                    ) :
+                                                        <p className="card-text">{car.model_amount}</p>
+
+                                                    }
                                                     <Link to={`/car/${car.id}`} className="btn btn-danger" >Go somewhere</Link>
                                                 </div>
                                             </div>
