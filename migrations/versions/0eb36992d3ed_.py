@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9e92212c1591
+Revision ID: 0eb36992d3ed
 Revises: 
-Create Date: 2025-02-03 22:42:49.313192
+Create Date: 2025-02-05 22:25:29.743443
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9e92212c1591'
+revision = '0eb36992d3ed'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,7 +56,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('model_make_id', sa.String(length=80), nullable=False),
     sa.Column('model_name', sa.String(length=180), nullable=False),
-    sa.Column('model_trim', sa.String(length=180), nullable=False),
+    sa.Column('model_type', sa.String(length=180), nullable=False),
     sa.Column('model_year', sa.String(length=180), nullable=False),
     sa.Column('model_body', sa.String(length=180), nullable=False),
     sa.Column('model_engine_position', sa.String(length=180), nullable=True),
@@ -90,7 +90,7 @@ def upgrade():
     sa.Column('model_co2', sa.String(length=180), nullable=True),
     sa.Column('model_make_display', sa.String(length=180), nullable=True),
     sa.Column('make_display', sa.String(length=180), nullable=True),
-    sa.Column('make_country', sa.String(length=180), nullable=False),
+    sa.Column('model_color', sa.String(length=180), nullable=False),
     sa.Column('model_amount', sa.String(length=120), nullable=False),
     sa.Column('model_price', sa.String(length=180), nullable=False),
     sa.Column('model_picture', sa.String(length=180), nullable=True),

@@ -13,7 +13,7 @@ const CarDetailSeller = () => {
 
     const findCar = () => {
         const result = store.cars.find((item) => item.id == idCar)
-        setCarDetail(result||{})
+        setCarDetail(result || {})
     }
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const CarDetailSeller = () => {
                         <p className="text-style"><b className="me-3">Model Make:</b>{carDetail?.model_make_id}</p>
                         <p className="ms-5 text-style"><b>Year:</b>{carDetail?.model_year}</p>
                         <p className="ms-5 text-style"><b>Body: </b>{carDetail?.model_body}</p>
-                        <p className="ms-5 text-style"><b className="me-1">Country:</b>{carDetail?.make_country}</p>
+                        <p className="ms-5 text-style"><b className="me-1">Country:</b>{carDetail?.make_country || "USA"}</p>
                     </div>
                     <div className="amount-info-style">
                         <p className="text-style"><b className="me-3">Available units:</b><br /></p>
