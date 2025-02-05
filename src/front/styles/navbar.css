@@ -21,10 +21,35 @@ nav {
   .navbar-collapse {
     justify-content: center !important;
   }
+
   .navbar-nav {
     flex-direction: column !important;
     align-items: center !important;
     text-align: center;
     gap: 10px !important;
   }
+}
+
+
+/* Estilos extra para el dropdown  */
+
+.modal-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+  z-index: 1050;
+}
+
+/* Solo activa esto para un Tag que tenga modal-custom con el show, por eso van pegados*/
+.modal-custom.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }

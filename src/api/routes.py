@@ -315,3 +315,20 @@ def become_seller():
         return jsonify("Email Sended"),200
     except Exception as err:
      return jsonify(err.args)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
