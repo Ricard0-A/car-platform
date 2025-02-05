@@ -142,7 +142,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({
 							cars: data
 						})
+						// Solo para verificar los elementos de cars 
+						const cars = getStore().cars;
+						console.log("Mis autos son: ", cars);
 						return true || 200
+
+
 					} else {
 						return false || 400
 					}
