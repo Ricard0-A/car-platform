@@ -115,7 +115,7 @@ class Car(db.Model):
     model_type=db.Column(db.String(180),nullable=False, unique=False)
     model_year=db.Column(db.String(180),nullable=False, unique=False )
     model_body=db.Column(db.String(180), nullable=False, unique=False)
-    model_engine_position=db.Column(db.String(180), unique=False)
+    dealership=db.Column(db.String(180), unique=False)
     model_engine_cc=db.Column(db.String(180), unique=False)
     model_engine_cyl=db.Column(db.String(180), unique=False)
     model_engine_type=db.Column(db.String(180), unique=False)
@@ -164,7 +164,7 @@ class Car(db.Model):
                 "model_type": self.model_type,   #Model trim replaced
                 "model_year": self.model_year,
                 "model_body": self.model_body,
-                "model_engine_position": self.model_engine_position,
+                "dealership": self.dealership,
                 "model_engine_cc": self.model_engine_cc,
                 "model_engine_cyl": self.model_engine_cyl,
                 "model_engine_type": self.model_engine_type,

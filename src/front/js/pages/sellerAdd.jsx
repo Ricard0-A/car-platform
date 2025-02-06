@@ -15,6 +15,7 @@ const initialCar = {
     model_amount: "",
     model_price: "",
     model_engine_fuel: "",
+    dealership: "",
     model_picture: "",
 };
 
@@ -55,6 +56,7 @@ const AddCar = () => {
             formData.append("model_amount", car.model_amount);
             formData.append("model_price", car.model_price);
             formData.append("model_engine_fuel", car.model_engine_fuel);
+            formData.append("dealership", car.dealership);
             formData.append("model_picture", car.model_picture);
 
             const response = await actions.addCar(formData);
@@ -182,6 +184,17 @@ const AddCar = () => {
                                                 placeholder="Model Engine Fuel"
                                                 name="model_engine_fuel"
                                                 value={car.model_engine_fuel}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Dealership</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Dealership"
+                                                name="dealership"
+                                                value={car.dealership}
                                                 onChange={handleChange}
                                             />
                                         </div>

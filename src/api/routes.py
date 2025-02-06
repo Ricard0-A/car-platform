@@ -189,25 +189,27 @@ def add_cars():
 
     model_make_id = body_froms.get("model_make_id", None)
     model_name = body_froms.get("model_name", None)
-    model_type = body_froms.get("model_type", None)  
+    model_type = body_froms.get("model_type", None)
     model_year = body_froms.get("model_year", None)
     model_body = body_froms.get("model_body", None)
-    model_color = body_froms.get("model_color", None)  
+    model_color = body_froms.get("model_color", None)
     model_amount = body_froms.get("model_amount", None)
     model_price = body_froms.get("model_price", None)
     model_picture = body_files.get("model_picture", None)
-    model_engine_fuel = body_froms.get("model_engine_fuel", None)  
+    model_engine_fuel = body_froms.get("model_engine_fuel", None)
+    dealership = body_froms.get("dealership", None)  # <-- Nuevo campo
 
     if (
         model_make_id is None
         or model_name is None
-        or model_type is None 
+        or model_type is None
         or model_year is None
         or model_body is None
-        or model_color is None  
+        or model_color is None
         or model_amount is None
         or model_price is None
-        or model_engine_fuel is None 
+        or model_engine_fuel is None
+        or dealership is None  # <-- Nuevo campo
     ):
         return jsonify({"warning": "Incomplete Values"}), 400
     else:
@@ -220,13 +222,14 @@ def add_cars():
 
         car.model_make_id = model_make_id
         car.model_name = model_name
-        car.model_type = model_type 
+        car.model_type = model_type
         car.model_year = model_year
         car.model_body = model_body
-        car.model_color = model_color 
+        car.model_color = model_color
         car.model_amount = model_amount
         car.model_price = model_price
-        car.model_engine_fuel = model_engine_fuel 
+        car.model_engine_fuel = model_engine_fuel
+        car.dealership = dealership  # <-- Asigna el valor de dealership
         car.seller_id = seller_id
 
     try:
@@ -237,18 +240,19 @@ def add_cars():
             "id": car.id,
             "model_make_id": car.model_make_id,
             "model_name": car.model_name,
-            "model_type": car.model_type,  
+            "model_type": car.model_type,
             "model_year": car.model_year,
             "model_body": car.model_body,
-            "model_color": car.model_color,  
+            "model_color": car.model_color,
             "model_amount": car.model_amount,
             "model_price": car.model_price,
             "model_picture": car.model_picture,
-            "model_engine_fuel": car.model_engine_fuel,  
-            "seller_id": car.seller_id
+            "model_engine_fuel": car.model_engine_fuel,
+            "dealership": car.dealership,  # <-- Incluye dealership en la respuesta
+            "seller_id": car.seller_id,
         }
 
-        return jsonify({"car": car_data}), 200  # <-- Respuesta modificada
+        return jsonify({"car": car_data}), 200
 
     except Exception as err:
         db.session.rollback()
