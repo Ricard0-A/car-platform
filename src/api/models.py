@@ -113,6 +113,7 @@ class Car(db.Model):
     model_make_id=db.Column(db.String(80), nullable=False, unique=False)
     model_name=db.Column(db.String(180), nullable=False, unique=False)
     model_type=db.Column(db.String(180),nullable=False, unique=False)
+    make_country=db.Column(db.String(180),nullable=False, unique=False)
     model_year=db.Column(db.String(180),nullable=False, unique=False )
     model_body=db.Column(db.String(180), nullable=False, unique=False)
     dealership=db.Column(db.String(180), unique=False)
@@ -162,6 +163,7 @@ class Car(db.Model):
                 "model_make_id": self.model_make_id,
                 "model_name": self.model_name,
                 "model_type": self.model_type,   #Model trim replaced
+                "make_country": self.make_country,   
                 "model_year": self.model_year,
                 "model_body": self.model_body,
                 "dealership": self.dealership,

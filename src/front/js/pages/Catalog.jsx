@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 // Styles Css
 import "../../styles/catalog.css";
@@ -10,28 +10,7 @@ import bentley2 from "../../img/suggested/bentley-2.jpg";
 import { array } from "prop-types";
 
 
-const dataBase = [
-  // Objeto 1
-  {
-    carName: "Volkswagen",
-    location: "DrivenS LoadOut",
-    price: 30,
-  },
-  {
-    carName: "Ford",
-    location: "DrivenS New York",
-    price: 35,
-  },
-  {
-    carName: "Acura",
-    location: "DrivenS California",
-    price: 50,
-  },
-];
 const Catalog = () => {
-
-  const { store, actions } = useContext(Context)
-
 
 
   const inputMod = {
@@ -46,12 +25,41 @@ const Catalog = () => {
     backgroundColor: "rgb(27, 177, 104)",
     border: "none",
     padding: "10px 20px",
-    borderRadius: "0 20px 20px 0", // Redondea solo bordes derechos
+    borderRadius: "0 20px 20px 0",
     color: "#fff",
     fontSize: "16px",
     cursor: "pointer",
     position: "relative",
   };
+
+  const { store, actions } = useContext(Context)
+  const [searchTerm, setSearchTerm] = useState("");
+
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredCars = store.cars.filter((car) => {
+    const search = searchTerm.toLowerCase();
+    const marca = car.model_make_id?.toLowerCase() || "";
+    const modelo = car.model_name?.toLowerCase() || "";
+    const color = car.model_color?.toLowerCase() || "";
+    const tipo = car.model_type?.toLowerCase() || "";
+    const anio = car.model_year?.toString().toLowerCase() || "";
+    const precio = car.model_price?.toString().toLowerCase() || "";
+
+    return (
+      marca.includes(search) ||
+      modelo.includes(search) ||
+      color.includes(search) ||
+      tipo.includes(search) ||
+      anio.includes(search) ||
+      precio.includes(search)
+    );
+  });
+
+
   return (
     <>
       <div className="container-fluid" style={{ marginTop: "100px" }}>
@@ -63,6 +71,8 @@ const Catalog = () => {
                 className="form-control"
                 placeholder="What car are you looking for?"
                 style={inputMod}
+                value={searchTerm}
+                onChange={handleInputChange}
               />
               <button style={buttonMod}>Search</button>
             </div>
@@ -134,31 +144,69 @@ const Catalog = () => {
               {/* Contenedor de todo el map para modificar su posicion */}
               <div>
                 <div className="row show-cars g-5">
-                  {store.cars.map((car) => (
-                    <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
-                      <div className="fav">
-                        <i className="fa-regular fa-heart"></i>
+                  {searchTerm === ""
+                    ? store.cars.map((car) => (
+                      <div
+                        className="col-12 col-md-6 col-lg-4 position-relative"
+                        key={car.id}
+                      >
+                        <div className="fav">
+                          <i className="fa-regular fa-heart"></i>
+                        </div>
+                        <img src={car.model_picture || acura1} alt="Car" />
+                        <h6>Hatchback</h6>
+                        <h2>{car.model_make_id}</h2>
+                        <h5>{car.model_name}</h5>
+                        <br />
+                        <h5 className="year-km-1">
+                          {car.model_year || "2022"}
+                          <span className="mx-2">&#8226;</span>
+                          {car.model_km || "10,000 Km"}
+                        </h5>
+                        <h5 className="location-1 pt-2">
+                          <i className="fa-solid fa-location-dot"></i>{" "}
+                          {car.location || "DrivenS New York"}
+                        </h5>
+                        <div className="price-v2 d-flex justify-content-around mt-4">
+                          <h5>$ {car.discount_price || "19,000"}</h5>
+                          <div className="price-line"></div>
+                          <h5 className="green-price">
+                            $ {car.model_price},000
+                          </h5>
+                        </div>
                       </div>
-                      <img src={car.model_picture || acura1} alt="Car" />
-                      <h6>Hatchback</h6>
-                      <h2>{car.model_make_id}</h2>
-                      <h5>{car.model_name}</h5>
-                      <br />
-                      <h5 className="year-km-1">
-                        {car.model_year || "2022"}
-                        <span className="mx-2">&#8226;</span>
-                        {car.model_km || "10,000 Km"}
-                      </h5>
-                      <h5 className="location-1 pt-2">
-                        <i className="fa-solid fa-location-dot"></i> {car.location || "DrivenS New York"}
-                      </h5>
-                      <div className="price-v2 d-flex justify-content-around mt-4">
-                        <h5>$ {car.price || "48,000"}</h5>
-                        <div className="price-line"></div>
-                        <h5 className="green-price">$ {car.discount_price || "32,000"}</h5>
+                    ))
+                    : filteredCars.map((car) => (
+                      <div
+                        className="col-12 col-md-6 col-lg-4 position-relative"
+                        key={car.id}
+                      >
+                        <div className="fav">
+                          <i className="fa-regular fa-heart"></i>
+                        </div>
+                        <img src={car.model_picture || acura1} alt="Car" />
+                        <h6>Hatchback</h6>
+                        <h2>{car.model_make_id}</h2>
+                        <h5>{car.model_name}</h5>
+                        <br />
+                        <h5 className="year-km-1">
+                          {car.model_year || "2022"}
+                          <span className="mx-2">&#8226;</span>
+                          {car.model_km || "10,000 Km"}
+                        </h5>
+                        <h5 className="location-1 pt-2">
+                          <i className="fa-solid fa-location-dot"></i>{" "}
+                          {car.location || "DrivenS New York"}
+                        </h5>
+                        <div className="price-v2 d-flex justify-content-around mt-4">
+                          <h5>$ {car.discount_price || "19,000"}</h5>
+                          <div className="price-line"></div>
+                          <h5 className="green-price">
+                            $ {car.model_price},000
+                          </h5>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
               {/* De aqui para arriba termina el div main de todo el catalogo carros + map */}

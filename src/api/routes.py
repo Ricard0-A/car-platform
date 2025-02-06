@@ -191,13 +191,14 @@ def add_cars():
     model_name = body_froms.get("model_name", None)
     model_type = body_froms.get("model_type", None)
     model_year = body_froms.get("model_year", None)
+    dealership = body_froms.get("dealership", None) 
     model_body = body_froms.get("model_body", None)
     model_color = body_froms.get("model_color", None)
-    model_amount = body_froms.get("model_amount", None)
     model_price = body_froms.get("model_price", None)
-    model_picture = body_files.get("model_picture", None)
+    model_amount = body_froms.get("model_amount", None)
+    make_country = body_froms.get("make_country", None)
     model_engine_fuel = body_froms.get("model_engine_fuel", None)
-    dealership = body_froms.get("dealership", None)  # <-- Nuevo campo
+    model_picture = body_files.get("model_picture", None)
 
     if (
         model_make_id is None
@@ -207,9 +208,10 @@ def add_cars():
         or model_body is None
         or model_color is None
         or model_amount is None
+        or make_country is None
         or model_price is None
         or model_engine_fuel is None
-        or dealership is None  # <-- Nuevo campo
+        or dealership is None 
     ):
         return jsonify({"warning": "Incomplete Values"}), 400
     else:
@@ -227,9 +229,10 @@ def add_cars():
         car.model_body = model_body
         car.model_color = model_color
         car.model_amount = model_amount
+        car.make_country = make_country
         car.model_price = model_price
         car.model_engine_fuel = model_engine_fuel
-        car.dealership = dealership  # <-- Asigna el valor de dealership
+        car.dealership = dealership  
         car.seller_id = seller_id
 
     try:
@@ -245,10 +248,11 @@ def add_cars():
             "model_body": car.model_body,
             "model_color": car.model_color,
             "model_amount": car.model_amount,
+            "make_country": car.make_country,
             "model_price": car.model_price,
             "model_picture": car.model_picture,
             "model_engine_fuel": car.model_engine_fuel,
-            "dealership": car.dealership,  # <-- Incluye dealership en la respuesta
+            "dealership": car.dealership,  
             "seller_id": car.seller_id,
         }
 
@@ -289,10 +293,13 @@ def edit_car(car_id):
 
             model_make_id = body_froms.get("model_make_id",model_make_id)
             model_name = body_froms.get("model_name",model_name)
-            model_trim = body_froms.get("model_trim",model_trim)
+            model_type = body_froms.get("model_type",model_type)
             model_year = body_froms.get("model_year",model_year)
             model_body = body_froms.get("model_body",model_body)
-            make_country = body_froms.get("make_country",make_country)
+            model_color = body_froms.get("model_color",model_color)
+            dealership = body_froms.get("dealership",dealership)
+            model_engine_fuel = body_froms.get("model_engine_fuel",model_engine_fuel)
+            make_country=body_froms.get("make_country",make_country)
             model_amount=body_froms.get("model_amount",model_amount)
             model_picture=body_files.get("model_picture",model_picture)
 

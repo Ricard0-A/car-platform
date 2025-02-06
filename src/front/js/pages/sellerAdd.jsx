@@ -12,10 +12,11 @@ const initialCar = {
     model_year: "",
     model_body: "",
     model_color: "",
+    dealership: "",
+    make_country: "",
+    model_engine_fuel: "",
     model_amount: "",
     model_price: "",
-    model_engine_fuel: "",
-    dealership: "",
     model_picture: "",
 };
 
@@ -53,10 +54,11 @@ const AddCar = () => {
             formData.append("model_year", car.model_year);
             formData.append("model_body", car.model_body);
             formData.append("model_color", car.model_color);
-            formData.append("model_amount", car.model_amount);
-            formData.append("model_price", car.model_price);
-            formData.append("model_engine_fuel", car.model_engine_fuel);
             formData.append("dealership", car.dealership);
+            formData.append("make_country", car.make_country);
+            formData.append("model_amount", car.model_amount);
+            formData.append("model_engine_fuel", car.model_engine_fuel);
+            formData.append("model_price", car.model_price);
             formData.append("model_picture", car.model_picture);
 
             const response = await actions.addCar(formData);
@@ -195,6 +197,17 @@ const AddCar = () => {
                                                 placeholder="Dealership"
                                                 name="dealership"
                                                 value={car.dealership}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Make Country</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Make Country"
+                                                name="make_country"
+                                                value={car.make_country}
                                                 onChange={handleChange}
                                             />
                                         </div>
