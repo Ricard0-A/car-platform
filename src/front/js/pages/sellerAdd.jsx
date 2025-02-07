@@ -5,6 +5,8 @@ import bgCarAdd from "../../img/bg-car-add.jpg";
 import "../../styles/seller-add.css";
 import NavbarSeller from "../component/navbarSeller.jsx";
 
+//G
+
 const initialCar = {
     model_make_id: "",
     model_name: "",
