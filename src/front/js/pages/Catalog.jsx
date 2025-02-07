@@ -3,10 +3,11 @@ import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 // Styles Css
 import "../../styles/catalog.css";
+
 // Test Cars
 import ford1 from "../../img/suggested/ford-1.jpg";
-import acura1 from "../../img/suggested/acura-1.png";
-import bentley2 from "../../img/suggested/bentley-2.jpg";
+import acura1 from "../../img/suggested/acura-1.png"; // id: 82563
+import bentley2 from "../../img/suggested/bentley-2.jpg"; // id: 82563
 import { array } from "prop-types";
 
 
