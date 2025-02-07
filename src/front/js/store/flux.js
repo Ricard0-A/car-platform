@@ -55,7 +55,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "POST",
 						body: sellers
 					})
+					console.log(response)
+					console.log(response.status)
 					return response.status
+					
 				} catch (error) {
 					console.log(error)
 					return response.status
@@ -183,13 +186,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			deleteCar: async (car_id) => {
+			deleteCar: async (id) => {
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${car_id}`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${id}`, {
 
 						method: "DELETE",
 						headers: {
-							"Authorization": `Bearer${localStorage.getItem("token")}`
+							"Authorization": `Bearer ${localStorage.getItem("token")}`
 						},
 					})
 					if (response.ok) {
