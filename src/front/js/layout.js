@@ -22,6 +22,7 @@ import Footer from "./component/Footer.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import CarDetail from "./pages/CarDetail.jsx";
 import CarDetailSeller from "./pages/CarDetailSeller.jsx";
+import PayPal from "./pages/PayPal.jsx";
 
 //create your first component
 const Layout = () => {
@@ -52,11 +53,12 @@ const Layout = () => {
                         <Route element={<AddCar />} path="/seller/cars" />
                         <Route element={<GetCar />} path="seller/cars/get" />
                         <Route element={<BecomeSeller />} path="/become/seller" />
-                        <Route element={<CarDetailSeller />} path="car/:idCar" />
+                        <Route element={<CarDetailSeller />} path="/car/:idCar" />
                         <Route element={<ContactUs />} path="/contact-us" />
+                        <Route element={<PayPal/>} path="/donation"/>
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
                     </Routes>
-                    {!["/become/seller", "/register/sellers"].includes(location.pathname) && <Footer />}
+                    <Footer/>
                 </ScrollToTop>
             </BrowserRouter>
         </div>

@@ -102,13 +102,13 @@ def register_sellers():
     name = body_froms.get("name", None)
     email = body_froms.get("email", None)
     password = body_froms.get("password", None)
-    name_representative=body_froms.get("name_representative",None)
-    license=body_froms.get("license",None)
-    license_expiration=body_froms.get("license_expiration",None)
-    phone_number=body_froms.get("phone_number",None)
-    register_number=body_froms.get("register_number",None)
-    address=body_froms.get("address",None)
-    test_drive=body_froms.get("test_drive",None)
+    name_representative = body_froms.get("name_representative",None)
+    license = body_froms.get("license",None)
+    license_expiration = body_froms.get("license_expiration",None)
+    phone_number = body_froms.get("phone_number",None)
+    register_number = body_froms.get("register_number",None)
+    address = body_froms.get("address",None)
+    test_drive = body_froms.get("test_drive",None)
     country = body_froms.get("country", None)
     print(body_froms)
     if name is None or email is None or password is None or country is None or name_representative is None or license is None or license_expiration is None or phone_number is None or register_number is None or address is None or test_drive is None:
@@ -283,20 +283,22 @@ def edit_car(car_id):
         db.rollback()
         return jsonify(err.args)
     
-@api.route("/seller/cars<int:car_id>", methods=["DELETE"])
+@api.route("/seller/cars/<int:car_id>", methods=["DELETE"])
+@jwt_required()
 def delete_car(car_id): 
 
     seller_id=int(get_jwt_identity())
-    seller=Seller.query.filter_by(id=seller_id).oner_or_none()
+    seller=Seller.query.filter_by(id=seller_id).one_or_none()
 
     if seller is None:
         return jsonify("This account don't exist"),400
     try:
-        car=Car.quer.filter.by(id=car_id).one_or_none()
+        car=Car.query.filter_by(id=car_id).one_or_none()
         if car is None:
             return jsonify("This car doesn't exist"),400
         db.session.delete(car)
         db.session.commit()
+        return ("Hola"),204
     except Exception as err:
         db.session.rollback()
         return jsonify(err)

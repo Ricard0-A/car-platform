@@ -24,7 +24,7 @@ const GetCar = () => {
                                 {store.cars.length > 0 ? (
                                     store.cars.map((car, index) => (
                                         <div className="col-12 col-md-3 col-sm-6">
-                                            <div className="d-flex justify-content-center card cards-decoration  ms-4 me-4" style={{ width: "18rem" }}>
+                                            <div className="card  mx-4 cards-decoration" style={{ minWidth: "18rem" }}>
                                                 <img src={car.model_picture} className="card-img-top image-cards" alt="..." />
                                                 <div className="card-body">
                                                     <h5 className="card-title">{car.model_name}</h5>
@@ -35,7 +35,9 @@ const GetCar = () => {
                                                     <p className="card-text">{car.model_amount}</p>
                                                       
                                                 }
-                                                    <Link to={`/car/${car.id}`} className="btn btn-danger" >Go somewhere</Link>
+                                                    
+                                                    <Link to={`/car/${car.id}`} className="btn btn-danger" >See Details</Link>
+                                                    <p className="icon-delete btn btn-succes" onClick={() => actions.deleteCar(car.id)}><i className="fa-solid fa-trash"></i></p>
                                                 </div>
                                             </div>
                                         </div>
