@@ -30,7 +30,7 @@ const CarDetailSeller = () => {
                             <div className="main-info-style">
                                 <h1 className="name-style"><b>{carDetail?.model_name}</b></h1>
                                 <p className="trim-style">{carDetail?.model_trim}</p>
-                                <h2 className="price-style"><b>${carDetail?.model_price},000</b></h2>
+                                <h2 className="price-style"><b>${carDetail?.model_price}</b></h2>
                             </div>
 
                         </div>

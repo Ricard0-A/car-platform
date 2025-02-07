@@ -43,6 +43,10 @@ const Catalog = () => {
     maxPrice: "",
   });
   const [brandFilter, setBrandFilter] = useState(""); // Filtro para Brand
+  const [modelFilter, setModelFilter] = useState(""); // Filtro para Model
+  const [yearFilter, setYearFilter] = useState(""); // Filtro para Year 
+  const [locationFilter, setLocationFilter] = useState(""); //Filtro para Localization (Dealerships)
+  const [carTypeFilter, setCarTypeFilter] = useState(""); //Filtro para Model Type 
 
   // -----------------------------------------------------------------------------------------------
 
@@ -92,7 +96,6 @@ const Catalog = () => {
   const applyPriceFilter = () => {
     const { minPrice, maxPrice } = filters;
 
-    // Filtra primero por término de búsqueda (si hay un término ingresado)
     const carsFilteredByTerm = filterCars(store.cars, searchTerm, [
       "model_make_id",
       "model_name",
@@ -102,19 +105,29 @@ const Catalog = () => {
       "model_price",
     ]);
 
-    const filteredByPrice = carsFilteredByTerm.filter((car) => { // Filtra por precio *después* del filtro de búsqueda
+    const filteredByPrice = carsFilteredByTerm.filter((car) => {
       return (
         (minPrice === "" || car.model_price >= parseInt(minPrice)) &&
         (maxPrice === "" || car.model_price <= parseInt(maxPrice))
       );
     });
 
-    setFilteredCars(filteredByPrice); // Actualiza el estado con los coches filtrados
+    const carsFilteredByBrand = brandFilter === "" ? filteredByPrice : filterCars(filteredByPrice, brandFilter, ["model_make_id"]);
 
-    if (filteredByPrice.length === 0) {
-      setNoResults(true); // Muestra mensaje "sin resultados" si no hay coches
+    const carsFilteredByModel = modelFilter === "" ? carsFilteredByBrand : filterCars(carsFilteredByBrand, modelFilter, ["model_name"]);
+
+    const carsFilteredByYear = yearFilter === "" ? carsFilteredByModel : filterCars(carsFilteredByModel, yearFilter, ["model_year"]);
+
+    const carsFilteredByLocation = locationFilter === "" ? carsFilteredByYear : filterCars(carsFilteredByYear, locationFilter, ["dealership"]);
+
+    const carsFilteredByCarType = carTypeFilter === "" ? carsFilteredByLocation : filterCars(carsFilteredByLocation, carTypeFilter, ["model_type"]);
+
+    setFilteredCars(carsFilteredByCarType);
+
+    if (carsFilteredByCarType.length === 0) {
+      setNoResults(true);
     } else {
-      setNoResults(false); // Oculta mensaje "sin resultados" si hay coches
+      setNoResults(false);
     }
   };
 
@@ -190,74 +203,44 @@ const Catalog = () => {
                 />
                 <br />
                 <h5>Brand</h5>
-                <select className="form-select" id="selectOne">
-                  <option>Brand</option>
-                  <option value="3">Audi</option>
-                  <option value="3">Acura</option>
-                  <option value="2">Bentley</option>
-                  <option value="3">Buick</option>
-                  <option value="3">Chrysler</option>
-                  <option value="3">Chevrolet</option>
-                  <option value="1">Ford 1</option>
-                  <option value="3">Ferrari</option>
-                  <option value="3">Volkswagen</option>
-                  <option value="3">BMW</option>
+                <select className="form-select" value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)}>
+                  <option value="">All Brands</option>
+                  {Array.from(new Set(store.cars.map(car => car.model_make_id))).sort().map(brand => (
+                    <option key={brand} value={brand}>{brand}</option>
+                  ))}
                 </select>
                 <br />
                 <h5>Model</h5>
-                <select className="form-select" id="selectOne">
-                  <option>Model</option>
-                  <option value="1">Flying Spur</option>
-                  <option value="2">Edge</option>
-                  <option value="3">Jetta</option>
-                  <option value="3">ATS</option>
-                  <option value="3">ATS Couple</option>
-                  <option value="3">Continental GT</option>
-                  <option value="3">Continental GT</option>
-                  <option value="3">RDX</option>
-                  <option value="3">Spark</option>
+                <select className="form-select" value={modelFilter} onChange={(e) => setModelFilter(e.target.value)}>
+                  <option value="">{brandFilter === "" ? "Select a brand" : "All Models"}</option>
+                  {brandFilter !== "" && Array.from(new Set(store.cars.filter(car => car.model_make_id === brandFilter).map(car => car.model_name))).sort().map(model => (
+                    <option key={model} value={model}>{model}</option>
+                  ))}
                 </select>
                 <br />
                 <h5>Year</h5>
-                <select className="form-select" id="selectOne">
-                  <option>Year</option>
-                  <option value="1">2008</option>
-                  <option value="2">2009</option>
-                  <option value="3">2011</option>
-                  <option value="3">2012</option>
-                  <option value="3">2013</option>
-                  <option value="3">2014</option>
-                  <option value="3">2015</option>
-                  <option value="3">2016</option>
-                  <option value="3">2017</option>
-                  <option value="3">2018</option>
-                  <option value="3">2019</option>
-                  <option value="3">2020</option>
-                  <option value="3">2021</option>
-                  <option value="3">2022</option>
-                  <option value="3">2023</option>
-                  <option value="3">2024</option>
+                <select className="form-select" value={yearFilter} onChange={(e) => setYearFilter(e.target.value)}>
+                  <option value="">All Years</option>
+                  {Array.from(new Set(store.cars.map(car => car.model_year))).sort().reverse().map(year => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
                 </select>
                 <br />
 
                 <h5>Localization</h5>
-                <select className="form-select" id="selectOne">
-                  <option>Localization</option>
-                  <option value="1">Elite Cars</option>
-                  <option value="2">Speed&Smart</option>
-                  <option value="3">Velocity</option>
-                  <option value="3">Grand Motors</option>
-                  <option value="3">HighWays NY</option>
+                <select className="form-select" value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)}>
+                  <option value="">All Locations</option>
+                  {Array.from(new Set(store.cars.map(car => car.dealership))).sort().map(location => (
+                    <option key={location} value={location}>{location}</option>
+                  ))}
                 </select>
                 <br />
                 <h5>Car Type</h5>
-                <select className="form-select" id="selectOne">
-                  <option>Car type</option>
-                  <option value="1">SUV</option>
-                  <option value="2">Hatchback</option>
-                  <option value="3">Sport</option>
-                  <option value="3">Sedan</option>
-                  <option value="3">Hybrid</option>
+                <select className="form-select" value={carTypeFilter} onChange={(e) => setCarTypeFilter(e.target.value)}>
+                  <option value="">All Car Types</option>
+                  {Array.from(new Set(store.cars.map(car => car.model_type))).sort().map(carType => (
+                    <option key={carType} value={carType}>{carType}</option>
+                  ))}
                 </select>
                 <br />
                 <button className="btn filter" onClick={applyPriceFilter}>
