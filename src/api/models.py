@@ -112,10 +112,11 @@ class Car(db.Model):
     id =db.Column(db.Integer, primary_key=True)
     model_make_id=db.Column(db.String(80), nullable=False, unique=False)
     model_name=db.Column(db.String(180), nullable=False, unique=False)
-    model_trim=db.Column(db.String(180),nullable=False, unique=False)
+    model_type=db.Column(db.String(180),nullable=False, unique=False)
+    make_country=db.Column(db.String(180),nullable=False, unique=False)
     model_year=db.Column(db.String(180),nullable=False, unique=False )
     model_body=db.Column(db.String(180), nullable=False, unique=False)
-    model_engine_position=db.Column(db.String(180), unique=False)
+    dealership=db.Column(db.String(180), unique=False)
     model_engine_cc=db.Column(db.String(180), unique=False)
     model_engine_cyl=db.Column(db.String(180), unique=False)
     model_engine_type=db.Column(db.String(180), unique=False)
@@ -146,8 +147,9 @@ class Car(db.Model):
     model_co2=db.Column(db.String(180), unique=False)
     model_make_display=db.Column(db.String(180), unique=False)
     make_display=db.Column(db.String(180), unique=False)
-    make_country=db.Column(db.String(180), nullable=False,unique=False )
+    model_color=db.Column(db.String(180), nullable=False,unique=False )
     model_amount=db.Column(db.String(120), nullable=False)
+    model_previous_price=db.Column(db.String(180), nullable=False)
     model_price=db.Column(db.String(180), nullable=False)
     model_picture=db.Column(db.String(180), default="https://img.freepik.com/vector-premium/foto-proximamente-plantilla-blanco-plantilla-vectorial-imagen-perfil-icono-album-fotos_849264-66.jpg")
 
@@ -161,10 +163,11 @@ class Car(db.Model):
                 "id": self.id,
                 "model_make_id": self.model_make_id,
                 "model_name": self.model_name,
-                "model_trim": self.model_trim,
+                "model_type": self.model_type,   #Model trim replaced
+                "make_country": self.make_country,   
                 "model_year": self.model_year,
                 "model_body": self.model_body,
-                "model_engine_position": self.model_engine_position,
+                "dealership": self.dealership,
                 "model_engine_cc": self.model_engine_cc,
                 "model_engine_cyl": self.model_engine_cyl,
                 "model_engine_type": self.model_engine_type,
@@ -195,10 +198,11 @@ class Car(db.Model):
                 "model_co2": self.model_co2,
                 "model_make_display": self.model_make_display,
                 "make_display": self.make_display,
-                "make_country": self.make_country,
-                "model_amount":self.model_amount,
-                "model_price":self.model_price,
-                "model_picture":self.model_picture
+                "model_color": self.model_color,  #Make country replaced
+                "model_amount": self.model_amount,
+                "model_previous_price": self.model_previous_price,
+                "model_price": self.model_price,
+                "model_picture": self.model_picture
             }
 
         

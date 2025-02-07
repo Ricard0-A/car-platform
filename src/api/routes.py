@@ -183,61 +183,89 @@ def login_sellers():
 @jwt_required()
 def add_cars():
     seller_id = int(get_jwt_identity())
-    # seller=Seller.query.filter_by(id=seller_id).one_or_none()
-    
-    # if seller is None:
-    #     return jsonify({"warning":"Seller Not Found"}),401
-    # try:
-    body_froms=request.form
-    body_files=request.files
 
+    body_froms = request.form
+    body_files = request.files
 
-    #     print(body_froms)
     model_make_id = body_froms.get("model_make_id", None)
     model_name = body_froms.get("model_name", None)
-    model_trim = body_froms.get("model_trim",None)
-    model_year = body_froms.get("model_year",None)
-    model_body = body_froms.get("model_body",None)
-    make_country = body_froms.get("make_country",None) 
-    model_amount=body_froms.get("model_amount",None)
-    model_price=body_froms.get("model_price",None)
-    model_picture=body_files.get("model_picture",None)
-    
-    print(body_files)
-    print(body_froms)
+    model_type = body_froms.get("model_type", None)
+    model_year = body_froms.get("model_year", None)
+    dealership = body_froms.get("dealership", None) 
+    model_body = body_froms.get("model_body", None)
+    model_color = body_froms.get("model_color", None)
+    model_previous_price = body_froms.get("model_previous_price", None)
+    model_price = body_froms.get("model_price", None)
+    model_amount = body_froms.get("model_amount", None)
+    make_country = body_froms.get("make_country", None)
+    model_engine_fuel = body_froms.get("model_engine_fuel", None)
+    model_picture = body_files.get("model_picture", None)
 
-    # Modificable
-    if model_make_id is None or model_name is None or model_trim is None or model_year is None or model_body is None or make_country is None or model_amount is None or model_price is None:
-        return jsonify({"warning":"Incomplete Values"}),400
+    if (
+        model_make_id is None
+        or model_name is None
+        or model_type is None
+        or model_year is None
+        or model_body is None
+        or model_color is None
+        or model_amount is None
+        or make_country is None
+        or model_previous_price is None
+        or model_price is None
+        or model_engine_fuel is None
+        or dealership is None 
+    ):
+        return jsonify({"warning": "Incomplete Values"}), 400
     else:
-        car=Car()
+        car = Car()
 
         if model_picture is not None:
             model_picture = uploader.upload(model_picture)
             model_picture = model_picture["secure_url"]
-            car.model_picture=model_picture
+            car.model_picture = model_picture
 
-        car.model_make_id=model_make_id
-        car.model_name=model_name
-        car.model_trim=model_trim
-        car.model_year=model_year
-        car.model_body=model_body
-        car.make_country=make_country
-        car.model_amount=model_amount
-        car.model_price=model_price
-        car.seller_id=seller_id
-        print(model_picture)
+        car.model_make_id = model_make_id
+        car.model_name = model_name
+        car.model_type = model_type
+        car.model_year = model_year
+        car.model_body = model_body
+        car.model_color = model_color
+        car.model_amount = model_amount
+        car.make_country = make_country
+        car.model_price = model_price
+        car.model_previous_price = model_previous_price
+        car.model_engine_fuel = model_engine_fuel
+        car.dealership = dealership  
+        car.seller_id = seller_id
+
     try:
-        
         db.session.add(car)
         db.session.commit()
 
-        return jsonify({"warning":"Car added"}),200
+        car_data = {
+            "id": car.id,
+            "model_make_id": car.model_make_id,
+            "model_name": car.model_name,
+            "model_type": car.model_type,
+            "model_year": car.model_year,
+            "model_body": car.model_body,
+            "model_color": car.model_color,
+            "model_amount": car.model_amount,
+            "make_country": car.make_country,
+            "model_previous_price": car.model_previous_price,
+            "model_price": car.model_price,
+            "model_picture": car.model_picture,
+            "model_engine_fuel": car.model_engine_fuel,
+            "dealership": car.dealership,  
+            "seller_id": car.seller_id,
+        }
+
+        return jsonify({"car": car_data}), 200
+
     except Exception as err:
         db.session.rollback()
-        print(err.args) 
-        return jsonify({"Warning":"Error"}),500                   
-    
+        print(err.args)
+        return jsonify({"Warning": "Error"}), 500
 
 @api.route("/seller/cars",methods=["GET"])
 @jwt_required()
@@ -267,12 +295,19 @@ def edit_car(car_id):
             body_froms=request.form
             body_files=request.files
 
+            # Si algo sale mal aqui solo borra model_price y model_previous_price
+
             model_make_id = body_froms.get("model_make_id",model_make_id)
             model_name = body_froms.get("model_name",model_name)
-            model_trim = body_froms.get("model_trim",model_trim)
+            model_type = body_froms.get("model_type",model_type)
             model_year = body_froms.get("model_year",model_year)
             model_body = body_froms.get("model_body",model_body)
-            make_country = body_froms.get("make_country",make_country)
+            model_color = body_froms.get("model_color",model_color)
+            model_previous_price = body_froms.get("model_previous_price",model_previous_price)
+            model_price = body_froms.get("model_price",model_price)
+            dealership = body_froms.get("dealership",dealership)
+            model_engine_fuel = body_froms.get("model_engine_fuel",model_engine_fuel)
+            make_country=body_froms.get("make_country",make_country)
             model_amount=body_froms.get("model_amount",model_amount)
             model_picture=body_files.get("model_picture",model_picture)
 
