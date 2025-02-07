@@ -27,9 +27,21 @@ const AddCar = () => {
     const { store, actions } = useContext(Context);
 
     const handleChange = ({ target }) => {
+        const { name, type } = target;
+
+        let value = target.value;
+        // Me aseguro que se envie los datos del formulario como capitalize antes de pasar a backend
+        if (type !== "number") {
+            value = value
+                .toLowerCase()
+                .split(" ")
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ");
+        }
+
         setCar({
             ...car,
-            [target.name]: target.value,
+            [name]: value,
         });
     };
 

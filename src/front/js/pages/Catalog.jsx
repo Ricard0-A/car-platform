@@ -133,7 +133,7 @@ const Catalog = () => {
 
   // -----------------------------------------------------------------------------------------------
 
-  // Función genérica para filtrar coches (se usa en ambos filtros)
+  // Función genérica para filtrar autos (se usa en ambos filtros)
   const filterCars = (carsToFilter, filterValue, fields) => {
     return carsToFilter.filter((car) => {
       const search = filterValue.toLowerCase();
@@ -251,13 +251,13 @@ const Catalog = () => {
             <div className="col-9">
               <div>
                 <div className="row show-cars g-5">
-                  {store.cars.length === 0 ? ( // Si no hay coches en el store
+                  {store.cars.length === 0 ? ( // Si no hay autos en el store
                     <div className="col-12">
                       <p style={{ fontSize: "4vh" }}>
                         No cars available yet. Please add cars to your dealership.
                       </p>
                     </div>
-                  ) : filteredCars.length > 0 ? ( // Si hay coches filtrados
+                  ) : filteredCars.length > 0 ? ( // Si hay autos filtrados
                     filteredCars.map((car) => (
                       <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
                         <div className="fav">
@@ -287,13 +287,13 @@ const Catalog = () => {
                         </div>
                       </div>
                     ))
-                  ) : noResults ? ( // Si no hay resultados (y hay coches en el store)
+                  ) : noResults ? ( // Si no hay resultados (y hay autos en el store)
                     <div className="col-12">
                       <p style={{ fontSize: "4vh" }}>
                         No matches found. Please try adjusting your search filters.
                       </p>
                     </div>
-                  ) : ( // Si hay coches en el store y no hay coches filtrados
+                  ) : ( // Si hay autos en el store y no hay autos filtrados
                     store.cars.map((car) => (
                       <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
                         <div className="fav">

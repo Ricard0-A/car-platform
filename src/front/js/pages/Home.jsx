@@ -57,6 +57,42 @@ export const Home = () => {
     top: "-150px",
   };
 
+
+  // Testeando mostrar autos recomendados desde store y menos de 4 lineas
+  const renderRecommendedCars = (cars, title) => (
+    <div className="row g-0 align-items-center">
+      <div className="col-12">
+        <div className="popular">
+          <h3>{title}</h3>
+        </div>
+      </div>
+      {cars.map((car) => (
+        <div className="col-3 position-relative" key={car.id}>
+          <div className="favorites">
+            <i className="fs-4 fa-regular fa-heart"></i>
+          </div>
+          <img src={car.model_picture || ford1} alt="Car" />
+          <h6>{car.model_type}</h6>
+          <h2>{car.model_make_id}</h2>
+          <h5>{car.model_name}</h5>
+          <br />
+          <h5 className="year-km-1">
+            {car.model_year}<span className="mx-2">&#8226;</span>{car.model_amount} Km
+          </h5>
+          <h5 className="location-1 pt-2">
+            <i className="fa-solid fa-location-dot"></i> DrivenS {car.dealership}
+          </h5>
+          <div className="price d-flex justify-content-around mt-4">
+            <h5> $ {car.model_previous_price}</h5>
+            <div className="price-line"></div>
+            <h5>$ {car.model_price}</h5>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+  // Termina los autos recomendados de testeo
+
   return (
     <>
       <div className="container-fluid vh-100">
