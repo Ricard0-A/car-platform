@@ -13,7 +13,7 @@ const CarDetailSeller = () => {
 
     const findCar = () => {
         const result = store.cars.find((item) => item.id == idCar)
-        setCarDetail(result||{})
+        setCarDetail(result || {})
     }
 
     useEffect(() => {

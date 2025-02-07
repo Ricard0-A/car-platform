@@ -207,10 +207,12 @@
 }
 
 .sixth-row .year-km-1 {
-  color: #656565;
+  color: black;
   font-size: 18px;
   font-weight: 400;
 }
+
+
 
 /* Estilo para todas las imagenes (Suggested )*/
 .sixth-row img {
@@ -295,7 +297,7 @@
   left: -30px;
   height: 12%;
   width: 18%;
-  background-color: #1ccfc9;
+  background-color: seagreen;
   border-top-right-radius: 34px;
   border-bottom-right-radius: 34px;
 }
