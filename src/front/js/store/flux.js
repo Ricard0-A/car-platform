@@ -51,6 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			registerSellers: async (sellers) => {
 				try {
+
 					const response = await fetch(`${process.env.BACKEND_URL}/register/sellers`, {
 						method: "POST",
 						body: sellers
@@ -144,7 +145,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({
 							cars: data
 						})
+						// Solo para verificar los elementos de cars 
+						const cars = getStore().cars;
+						console.log("Mis autos son: ", cars);
 						return true || 200
+
+
 					} else {
 						return false || 400
 					}
@@ -225,20 +231,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			sendEmail:async(email)=>{
+			sendEmail: async (email) => {
 				console.log(email)
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/send-email`,{
-						method:"POST",
-						headers:{
-							"Content-Type":"application/json",	
+					const response = await fetch(`${process.env.BACKEND_URL}/send-email`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
 						},
-						body: JSON.stringify({email:email})
-					})	
+						body: JSON.stringify({ email: email })
+					})
 
 					console.log(response)
 				} catch (error) {
-					console.log(error)	
+					console.log(error)
 				}
 			}
 		},

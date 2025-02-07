@@ -5,13 +5,13 @@ import bgRegisterSeller from "../../img/bg-register-seller.jpg"
 import "../../styles/register-seller.css"
 const initialSeller = {
     name: "",
-    name_representative:"",
-    license:"",
-    license_expiration:"",
-    phone_number:"",
-    register_number:"",
-    address:"",
-    test_drive:"",
+    name_representative: "",
+    license: "",
+    license_expiration: "",
+    phone_number: "",
+    register_number: "",
+    address: "",
+    test_drive: "",
     email: "",
     password: "",
     country: ""
@@ -32,8 +32,8 @@ const RegisterSellers = () => {
 
         const formData = new FormData();
         formData.append("name", seller.name);
-        formData.append("name_representative",seller.name_representative)
-        formData.append("license",seller.license)
+        formData.append("name_representative", seller.name_representative)
+        formData.append("license", seller.license)
         formData.append("license_expiration", seller.license_expiration)
         formData.append("phone_number", seller.phone_number)
         formData.append("register_number", seller.register_number)
@@ -43,17 +43,19 @@ const RegisterSellers = () => {
         formData.append("password", seller.password);
         formData.append("country", seller.country);
 
-        const response = await actions.registerSellers(formData)
+
 
         try {
+            const response = await actions.registerSellers(formData)
             if (response == 200) {
                 setSeller(initialSeller)
                 alert("User create")
             } else if (response == 400) {
                 alert("This user already exist")
             } else {
-                alert("Please try later")
+                alert("Try later")
             }
+
         } catch (error) {
             console.log(error)
         }
@@ -219,7 +221,7 @@ const RegisterSellers = () => {
                                             <option className="select-text" value="Chile">
                                                 Chile
                                             </option>
-                                            <option className="select-text"  value="Brazil">
+                                            <option className="select-text" value="Brazil">
                                                 Brazil
                                             </option>
                                             <option className="select-text" value="Germany">
