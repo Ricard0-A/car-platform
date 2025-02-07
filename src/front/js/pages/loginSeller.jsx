@@ -73,9 +73,6 @@ const LoginSellers = () => {
                             </div>
                             <button className="btn btn btn-success mt-3 mb-3 btn-login">Log in</button>
                         </form>
-                        <div>
-                            <p className="login-letter">Don't have an account?<Link className="link-info ms-1" to={"/register/sellers"}>Register</Link></p>
-                        </div>
                     </div>
                 </div>
 
