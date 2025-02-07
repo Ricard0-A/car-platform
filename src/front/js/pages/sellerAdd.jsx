@@ -16,6 +16,7 @@ const initialCar = {
     make_country: "",
     model_engine_fuel: "",
     model_amount: "",
+    model_previous_price: "",
     model_price: "",
     model_picture: "",
 };
@@ -58,6 +59,7 @@ const AddCar = () => {
             formData.append("make_country", car.make_country);
             formData.append("model_amount", car.model_amount);
             formData.append("model_engine_fuel", car.model_engine_fuel);
+            formData.append("model_previous_price", car.model_previous_price);
             formData.append("model_price", car.model_price);
             formData.append("model_picture", car.model_picture);
 
@@ -164,6 +166,17 @@ const AddCar = () => {
                                                 placeholder="Model Amount"
                                                 name="model_amount"
                                                 value={car.model_amount}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Model Previous Price</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                placeholder="Model Previous Price"
+                                                name="model_previous_price"
+                                                value={car.model_previous_price}
                                                 onChange={handleChange}
                                             />
                                         </div>

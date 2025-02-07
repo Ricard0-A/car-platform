@@ -194,6 +194,7 @@ def add_cars():
     dealership = body_froms.get("dealership", None) 
     model_body = body_froms.get("model_body", None)
     model_color = body_froms.get("model_color", None)
+    model_previous_price = body_froms.get("model_previous_price", None)
     model_price = body_froms.get("model_price", None)
     model_amount = body_froms.get("model_amount", None)
     make_country = body_froms.get("make_country", None)
@@ -209,6 +210,7 @@ def add_cars():
         or model_color is None
         or model_amount is None
         or make_country is None
+        or model_previous_price is None
         or model_price is None
         or model_engine_fuel is None
         or dealership is None 
@@ -231,6 +233,7 @@ def add_cars():
         car.model_amount = model_amount
         car.make_country = make_country
         car.model_price = model_price
+        car.model_previous_price = model_previous_price
         car.model_engine_fuel = model_engine_fuel
         car.dealership = dealership  
         car.seller_id = seller_id
@@ -249,6 +252,7 @@ def add_cars():
             "model_color": car.model_color,
             "model_amount": car.model_amount,
             "make_country": car.make_country,
+            "model_previous_price": car.model_previous_price,
             "model_price": car.model_price,
             "model_picture": car.model_picture,
             "model_engine_fuel": car.model_engine_fuel,
@@ -291,12 +295,16 @@ def edit_car(car_id):
             body_froms=request.form
             body_files=request.files
 
+            # Si algo sale mal aqui solo borra model_price y model_previous_price
+
             model_make_id = body_froms.get("model_make_id",model_make_id)
             model_name = body_froms.get("model_name",model_name)
             model_type = body_froms.get("model_type",model_type)
             model_year = body_froms.get("model_year",model_year)
             model_body = body_froms.get("model_body",model_body)
             model_color = body_froms.get("model_color",model_color)
+            model_previous_price = body_froms.get("model_previous_price",model_previous_price)
+            model_price = body_froms.get("model_price",model_price)
             dealership = body_froms.get("dealership",dealership)
             model_engine_fuel = body_froms.get("model_engine_fuel",model_engine_fuel)
             make_country=body_froms.get("make_country",make_country)
