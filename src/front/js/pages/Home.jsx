@@ -242,28 +242,28 @@ export const Home = () => {
         {store.cars && store.cars.length > 0 ? (
           <>
             <div className="row sixth-row g-0 align-items-center">
-              <div className="col-12"> {/* Título */}
-                <div className="popular"><h3>Popular</h3></div>{/* Título hardcodeado aquí */}
+              <div className="col-12">
+                <div className="popular"><h3>Popular</h3></div>
               </div>
               {store.cars.slice(0, 4).map(car => (
                 <div className="col-3" key={car.id}>
-                  {renderRecommendedCars([car])} {/* Pasa un array con un solo coche */}
+                  {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
                 </div>
               ))}
             </div>
             <div className="row seventh-row justify-content-center align-items-center g-0">
-              <div className="col-12"> {/* Título */}
-                <div className="arrival"><h3>New arrivals</h3></div>{/* Título hardcodeado aquí */}
+              <div className="col-12">
+                <div className="arrival"><h3>New arrivals</h3></div>
               </div>
               {store.cars.slice(4, 8).map(car => (
                 <div className="col-3" key={car.id}>
-                  {renderRecommendedCars([car])} {/* Pasa un array con un solo coche */}
+                  {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
                 </div>
               ))}
             </div>
             <div className="row eight-row mt-5 justify-content-center align-items-center g-0">
-              <div className="col-12"> {/* Título */}
-                <div className="selled"><h3>Most selled</h3></div>{/* Título hardcodeado aquí */}
+              <div className="col-12">
+                <div className="selled"><h3>Most selled</h3></div>
               </div>
               {store.cars.slice(8, 12).map(car => (
                 <div className="col-3" key={car.id}>
