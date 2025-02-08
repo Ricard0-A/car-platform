@@ -36,6 +36,8 @@ export const Home = () => {
   // Lógica extra antes del return
   const navigate = useNavigate();
   const { store } = useContext(Context);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   // Si crashea el proyecto solo borra esto y la logica del boton de search en el jsx 
   // puedes quitarla y que sea estatica 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useLocation } from "react-router-dom";
 // Styles Css
@@ -73,24 +73,24 @@ const Catalog = () => {
     setNoResults(false);
   };
   // Solo a traves del handleClick empeza busqueda del auto
-  const handleSearchClick = () => {
-    const fieldsToSearch = [ // Campos en los que se buscará
-      "model_make_id",
-      "model_name",
-      "model_color",
-      "model_type",
-      "model_year",
-      "model_price",
-    ];
-    const filtered = filterCars(store.cars, searchTerm, fieldsToSearch); // Llama a la función genérica
-    setFilteredCars(filtered);
+  // const handleSearchClick = () => {
+  //   const fieldsToSearch = [ // Campos en los que se buscará
+  //     "model_make_id",
+  //     "model_name",
+  //     "model_color",
+  //     "model_type",
+  //     "model_year",
+  //     "model_price",
+  //   ];
+  //   const filtered = filterCars(store.cars, searchTerm, fieldsToSearch); // Llama a la función genérica
+  //   setFilteredCars(filtered);
 
-    if (filtered.length === 0) {
-      setNoResults(true); // Muestra el mensaje si no hay resultados
-    } else {
-      setNoResults(false); // Oculta el mensaje si hay resultados
-    }
-  };
+  //   if (filtered.length === 0) {
+  //     setNoResults(true); // Muestra el mensaje si no hay resultados
+  //   } else {
+  //     setNoResults(false); // Oculta el mensaje si hay resultados
+  //   }
+  // };
 
   // -----------------------------------------------------------------------------------------------
 
@@ -110,18 +110,21 @@ const Catalog = () => {
     });
   };
 
-  const applyPriceFilter = () => {
+  const applyFilters = () => {
     const { minPrice, maxPrice } = filters;
 
-    const carsFilteredByTerm = filterCars(store.cars, searchTerm, [
+    // 1. Filtrar por término de búsqueda (usando tu función filterCars)
+    const fieldsToSearch = [
       "model_make_id",
       "model_name",
       "model_color",
       "model_type",
       "model_year",
       "model_price",
-    ]);
+    ];
+    const carsFilteredByTerm = filterCars(store.cars, searchTerm, fieldsToSearch);
 
+    // 2. Filtrar por precio (usando tu lógica actual)
     const filteredByPrice = carsFilteredByTerm.filter((car) => {
       return (
         (minPrice === "" || car.model_price >= parseInt(minPrice)) &&
@@ -129,6 +132,7 @@ const Catalog = () => {
       );
     });
 
+    // 3. Aplicar los demás filtros (usando tu lógica con filterCars)
     const carsFilteredByBrand = brandFilter === "" ? filteredByPrice : filterCars(filteredByPrice, brandFilter, ["model_make_id"]);
 
     const carsFilteredByModel = modelFilter === "" ? carsFilteredByBrand : filterCars(carsFilteredByBrand, modelFilter, ["model_name"]);
@@ -139,14 +143,11 @@ const Catalog = () => {
 
     const carsFilteredByCarType = carTypeFilter === "" ? carsFilteredByLocation : filterCars(carsFilteredByLocation, carTypeFilter, ["model_type"]);
 
+    // 4. Actualizar estados con los resultados
     setFilteredCars(carsFilteredByCarType);
-
-    if (carsFilteredByCarType.length === 0) {
-      setNoResults(true);
-    } else {
-      setNoResults(false);
-    }
+    setNoResults(carsFilteredByCarType.length === 0);
   };
+
 
   // -----------------------------------------------------------------------------------------------
 
@@ -179,11 +180,11 @@ const Catalog = () => {
                 onChange={handleInputChange}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
-                    handleSearchClick();
+                    applyFilters(); // Antes era handleSearchClick();
                   }
                 }}
               />
-              <button style={buttonMod} onClick={handleSearchClick}>
+              <button style={buttonMod} onClick={applyFilters}>
                 Search
               </button>
             </div>
@@ -201,7 +202,7 @@ const Catalog = () => {
                   onChange={handleMinPriceChange}
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter") {
-                      applyPriceFilter();
+                      applyFilters(); // Era applyPriceFilter()
                     }
                   }}
                 />
@@ -214,13 +215,13 @@ const Catalog = () => {
                   onChange={handleMaxPriceChange}
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter") {
-                      applyPriceFilter();
+                      applyFilters(); // Era applyPriceFilter()
                     }
                   }}
                 />
                 <br />
                 <h5>Brand</h5>
-                <select className="form-select" value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)}>
+                <select className="form-select" value={brandFilter} onChange={(e) => { setBrandFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Brands</option>
                   {Array.from(new Set(store.cars.map(car => car.model_make_id))).sort().map(brand => (
                     <option key={brand} value={brand}>{brand}</option>
@@ -228,7 +229,7 @@ const Catalog = () => {
                 </select>
                 <br />
                 <h5>Model</h5>
-                <select className="form-select" value={modelFilter} onChange={(e) => setModelFilter(e.target.value)}>
+                <select className="form-select" value={modelFilter} onChange={(e) => { setModelFilter(e.target.value); applyFilters(); }}>
                   <option value="">{brandFilter === "" ? "Select a brand" : "All Models"}</option>
                   {brandFilter !== "" && Array.from(new Set(store.cars.filter(car => car.model_make_id === brandFilter).map(car => car.model_name))).sort().map(model => (
                     <option key={model} value={model}>{model}</option>
@@ -236,7 +237,7 @@ const Catalog = () => {
                 </select>
                 <br />
                 <h5>Year</h5>
-                <select className="form-select" value={yearFilter} onChange={(e) => setYearFilter(e.target.value)}>
+                <select className="form-select" value={yearFilter} onChange={(e) => { setYearFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Years</option>
                   {Array.from(new Set(store.cars.map(car => car.model_year))).sort().reverse().map(year => (
                     <option key={year} value={year}>{year}</option>
@@ -245,7 +246,7 @@ const Catalog = () => {
                 <br />
 
                 <h5>Localization</h5>
-                <select className="form-select" value={locationFilter} onChange={(e) => setLocationFilter(e.target.value)}>
+                <select className="form-select" value={locationFilter} onChange={(e) => { setLocationFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Locations</option>
                   {Array.from(new Set(store.cars.map(car => car.dealership))).sort().map(location => (
                     <option key={location} value={location}>{location}</option>
@@ -253,14 +254,14 @@ const Catalog = () => {
                 </select>
                 <br />
                 <h5>Car Type</h5>
-                <select className="form-select" value={carTypeFilter} onChange={(e) => setCarTypeFilter(e.target.value)}>
+                <select className="form-select" value={carTypeFilter} onChange={(e) => { setCarTypeFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Car Types</option>
                   {Array.from(new Set(store.cars.map(car => car.model_type))).sort().map(carType => (
                     <option key={carType} value={carType}>{carType}</option>
                   ))}
                 </select>
                 <br />
-                <button className="btn filter" onClick={applyPriceFilter}>
+                <button className="btn filter" onClick={applyFilters}>
                   Filter
                 </button>
               </div>
