@@ -53,6 +53,8 @@ const Catalog = () => {
   // -----------------------------------------------------------------------------------------------
 
   // Logica por si alguien decide buscar un auto desde la pagina home.jsx 
+
+  // Si crashea el proyecto solo borra estos useEffect
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const urlSearchTerm = params.get("search");
@@ -62,8 +64,6 @@ const Catalog = () => {
   useEffect(() => {
     applyFilters(); // Aplica los filtros cuando cambian searchTerm u otros filtros
   }, [searchTerm, filters, brandFilter, modelFilter, yearFilter, locationFilter, carTypeFilter, store.cars]);
-
-
 
 
 

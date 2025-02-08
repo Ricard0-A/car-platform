@@ -37,6 +37,8 @@ export const Home = () => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
 
+  // Si crashea el proyecto solo borra esto y la logica del boton de search en el jsx 
+  // puedes quitarla y que sea estatica 
   const handleSearch = () => {
     if (searchTerm) { // Solo navega si searchTerm no está vacío
       const params = new URLSearchParams();
