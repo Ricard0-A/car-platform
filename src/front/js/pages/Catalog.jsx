@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { useLocation } from "react-router-dom";
 // Styles Css
 import "../../styles/catalog.css";
 
@@ -8,11 +9,12 @@ import "../../styles/catalog.css";
 import ford1 from "../../img/suggested/ford-1.jpg";
 import acura1 from "../../img/suggested/acura-1.png"; // id: 82563
 import bentley2 from "../../img/suggested/bentley-2.jpg"; // id: 82563
-import { array } from "prop-types";
+// import { array } from "prop-types";
 
 
 const Catalog = () => {
   const { store } = useContext(Context);
+  const location = useLocation();
 
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -49,6 +51,21 @@ const Catalog = () => {
   const [carTypeFilter, setCarTypeFilter] = useState(""); //Filtro para Model Type 
 
   // -----------------------------------------------------------------------------------------------
+
+  // Logica por si alguien decide buscar un auto desde la pagina home.jsx 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const urlSearchTerm = params.get("search");
+    setSearchTerm(urlSearchTerm || "");
+  }, [location.search]);
+
+  useEffect(() => {
+    applyFilters(); // Aplica los filtros cuando cambian searchTerm u otros filtros
+  }, [searchTerm, filters, brandFilter, modelFilter, yearFilter, locationFilter, carTypeFilter, store.cars]);
+
+
+
+
 
   // handleInputChange | handleSearchClick Son para la logica de la barra de busqueda principal
   const handleInputChange = (event) => {

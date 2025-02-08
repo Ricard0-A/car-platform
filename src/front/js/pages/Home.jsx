@@ -1,5 +1,8 @@
-import React, { useContext } from "react";
+// Importaciones importantes
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
+
 import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
 
@@ -31,7 +34,19 @@ import "../../styles/home.css";
 
 export const Home = () => {
   // Lógica extra antes del return
+  const navigate = useNavigate();
   const { store } = useContext(Context);
+
+  const handleSearch = () => {
+    if (searchTerm) { // Solo navega si searchTerm no está vacío
+      const params = new URLSearchParams();
+      params.append('search', searchTerm);
+      navigate(`/catalog?${params.toString()}`);
+    } else {
+      // Manejar el caso en que searchTerm está vacío, por ejemplo, mostrar un mensaje al usuario
+      alert("Please enter a search term."); // Puedes usar un alert, un modal o un mensaje en la UI
+    }
+  };
 
 
   // Objeto CSS ya que img-url tradicional no funciona
@@ -40,7 +55,6 @@ export const Home = () => {
     backgroundColor: "rgba(0, 0, 0, 0.3)", // Oscurece la imagen
     backgroundBlendMode: "overlay", // Fusiona la imagen con el sombreado
   };
-
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
     borderRadius: "20px 0 0 20px", // Redondea solo borde izquierdo
@@ -48,7 +62,6 @@ export const Home = () => {
     position: "relative",
     top: "-150px",
   };
-
   const buttonMod = {
     fontWeight: "400",
     backgroundColor: "rgb(27, 177, 104)",
@@ -61,7 +74,6 @@ export const Home = () => {
     position: "relative",
     top: "-150px",
   };
-
 
   const renderRecommendedCars = (cars) => (
     <>
@@ -110,8 +122,12 @@ export const Home = () => {
                 className="form-control"
                 placeholder="What car are you looking for?"
                 style={inputMod}
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
               />
-              <button style={buttonMod}> Search</button>
+              <button style={buttonMod} onClick={handleSearch}>
+                Search
+              </button>
             </div>
             {/* Mensaje llamativo */}
             <div className="message">
