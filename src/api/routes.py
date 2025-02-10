@@ -43,7 +43,7 @@ def add_new_user():
         else: 
             user=User()
             user_exist=user.query.filter_by(email=email).one_or_none()
-            print(user_exist)
+            
             if user_exist is not None:
                 
                 return jsonify({"warning":"User Exist"}),401
@@ -51,6 +51,11 @@ def add_new_user():
             else:
                 salt=b64encode(os.urandom(32)).decode("utf-8")
                 password=generate_password_hash(f'{password}{salt}')
+
+                if avatar is not None:
+                    avatar = uploader.upload(avatar)
+                    avatar = avatar["secure_url"]
+                    user.avatar = avatar
 
                 user.name=name
                 user.email=email
@@ -168,6 +173,7 @@ def login_sellers():
             if check_password_hash(seller.password,f"{password}{seller.salt}"):
         
                 token=create_access_token(identity=str(seller.id))
+                print(token)
                 return jsonify({"token":token, 
                                 "seller":seller.serialize()})
             else:
@@ -277,7 +283,7 @@ def get_cars():
         return jsonify({"warning":"Seller Not Found"}),401
     else:
         return jsonify(seller.serialize_seller_cars()),200
-
+    
 
 @api.route("/seller/cars/<int:car_id>", methods=["PUT"])
 @jwt_required()
@@ -286,37 +292,45 @@ def edit_car(car_id):
     seller = Seller.query.filter_by(id=seller_id).one_or_none()
 
     if seller is None:
-        return jsonify({"warning":"Seller Not Found"}),401
+        return jsonify({"warning": "Seller Not Found"}), 401
+
     try:
-        car=Car.query.filter_by(id=car_id).one_or_none()
+        car = Car.query.filter_by(id=car_id).one_or_none()
         if car is None:
-            return jsonify({"warning":"Car Not Found"}),401
-        else:
-            body_froms=request.form
-            body_files=request.files
+            return jsonify({"warning": "Car Not Found"}), 404
 
-            # Si algo sale mal aqui solo borra model_price y model_previous_price
+        body_froms = request.form
+        body_files = request.files
 
-            model_make_id = body_froms.get("model_make_id",model_make_id)
-            model_name = body_froms.get("model_name",model_name)
-            model_type = body_froms.get("model_type",model_type)
-            model_year = body_froms.get("model_year",model_year)
-            model_body = body_froms.get("model_body",model_body)
-            model_color = body_froms.get("model_color",model_color)
-            model_previous_price = body_froms.get("model_previous_price",model_previous_price)
-            model_price = body_froms.get("model_price",model_price)
-            dealership = body_froms.get("dealership",dealership)
-            model_engine_fuel = body_froms.get("model_engine_fuel",model_engine_fuel)
-            make_country=body_froms.get("make_country",make_country)
-            model_amount=body_froms.get("model_amount",model_amount)
-            model_picture=body_files.get("model_picture",model_picture)
+        print(body_froms)
+       
+        car.model_make_id = body_froms.get("model_make_id", car.model_make_id)
+        car.model_name = body_froms.get("model_name", car.model_name)
+        car.model_type = body_froms.get("model_type", car.model_type)
+        car.model_year = body_froms.get("model_year", car.model_year)
+        car.model_body = body_froms.get("model_body", car.model_body)
+        car.model_color = body_froms.get("model_color", car.model_color)
+        car.model_previous_price = body_froms.get("model_previous_price", car.model_previous_price)
+        car.model_price = body_froms.get("model_price", car.model_price)
+        car.dealership = body_froms.get("dealership", car.dealership)
+        car.model_engine_fuel = body_froms.get("model_engine_fuel", car.model_engine_fuel)
+        car.make_country = body_froms.get("make_country", car.make_country)
+        car.model_amount = body_froms.get("model_amount", car.model_amount)
+        model_picture = body_files.get("model_picture")  # Obtener el archivo antes de usarlo
 
-            db.session.commit() 
+        if model_picture is not None:
+            model_picture = uploader.upload(model_picture)
+            model_picture = model_picture["secure_url"]
+            car.model_picture = model_picture
 
-            return jsonify({"warning":"Car Edited"}),200
+        db.session.commit()
+
+        return jsonify({"message": "Car Edited"}), 200
+
     except Exception as err:
-        db.rollback()
-        return jsonify(err.args)
+        db.session.rollback()
+        return jsonify({"error": str(err)}), 500
+
     
 @api.route("/seller/cars/<int:car_id>", methods=["DELETE"])
 @jwt_required()
