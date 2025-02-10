@@ -1,5 +1,5 @@
 // Importaciones importantes
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
@@ -14,17 +14,6 @@ import sedan from "../../img/category/sedan.png";
 
 // Suggested images
 import ford1 from "../../img/suggested/ford-1.jpg"; // id: 82769
-import acura1 from "../../img/suggested/acura-1.png"; // id: 82563
-import audi1 from "../../img/suggested/audi-1.jpg"; // id: 81679
-import bentley1 from "../../img/suggested/bentley-1.jpg"; // id: 82207
-import cadillac1 from "../../img/suggested/cadillac-1.jpg"; // id: 81756
-import buick1 from "../../img/suggested/buick-1.jpg"; // id: 84039
-import ford2 from "../../img/suggested/ford-2.jpg"; // id: 84053
-import lyser1 from "../../img/suggested/lyser-1.jpg"; // id: 84053
-import chevrolet1 from "../../img/suggested/chevrolet-1.jpg"; // id: 81090
-import bentley2 from "../../img/suggested/bentley-2.jpg"; // id: 4029
-import acura2 from "../../img/suggested/acura-2.jpg"; // id: 69160
-import cadillac2 from "../../img/suggested/cadillac-2.jpg"; // id: 73295
 
 // Extra 
 import safeShield from "../../img/safe-shield.png"
@@ -35,20 +24,39 @@ import "../../styles/home.css";
 export const Home = () => {
   // Lógica extra antes del return
   const navigate = useNavigate();
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
+  const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // ------------------------------------------------------------------------------------------
 
-  // Si crashea el proyecto solo borra esto y la logica del boton de search en el jsx 
-  // puedes quitarla y que sea estatica 
+
+  // LOGICA PARA EL USO DE FAVORITOS 
+
+  useEffect(() => {
+    // Verifica si hay un token en localStorage
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      actions.loadFavorites();
+    }
+  }, [actions.loadFavorites]);
+
+  useEffect(() => {
+    setFavorites(store.favorites);
+  }, [store.favorites]); // Una Ejecuccion y luego cada vez que store.favorites cambia
+
+
+  // ------------------------------------------------------------------------------------------
+
+
   const handleSearch = () => {
-    if (searchTerm) { // Solo navega si searchTerm no está vacío
+    if (searchTerm) { // Solo navego si searchTerm no esta vacío
       const params = new URLSearchParams();
       params.append('search', searchTerm);
       navigate(`/catalog?${params.toString()}`);
     } else {
-      // Manejar el caso en que searchTerm está vacío, por ejemplo, mostrar un mensaje al usuario
-      alert("Please enter a search term."); // Puedes usar un alert, un modal o un mensaje en la UI
+      alert("Please enter a search term.");
     }
   };
 
@@ -84,7 +92,10 @@ export const Home = () => {
       {cars.map((car) => (
         <div className="position-relative" key={car.id}>
           <div className="favorites">
-            <i className="fs-4 fa-regular fa-heart"></i>
+            <i
+              className={`fs-4 fa-regular fa-heart ${favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
+              onClick={() => actions.addFavorite(car.id)} // Llama a addFavorite al hacer clic
+            />
           </div>
           <img src={car.model_picture || ford1} alt="Car" />
           <h6>{car.model_type}</h6>
@@ -293,7 +304,7 @@ export const Home = () => {
             </div>
           </>
         ) : (
-          <p>Loading cars...</p>
+          <p style={{ fontSize: "10vh", color: "seagreen" }}>Loading cars...</p>
         )}
 
         {/* -------------------------------------------------------------------------------------- */}

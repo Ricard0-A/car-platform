@@ -187,6 +187,7 @@
 /* Estilo de corazon/favoritos */
 
 .favorites {
+  cursor: pointer;
   position: absolute;
   z-index: 1;
   top: 10px;
@@ -339,9 +340,10 @@
 /* DECIMA ROW  */
 
 .tenth-row {
+  border-radius: 10px;
   color: white;
   background-color: #006454;
-  margin-top: 22vh;
+  margin-top: 11vh;
 }
 
 .first-line h4 {

@@ -12,6 +12,7 @@ import Catalog from "./pages/Catalog.jsx";
 import Register from "./pages/register.jsx";
 import Login from "./pages/login.jsx";
 import RegisterSellers from "./pages/registerSeller.jsx";
+import SellYourCar from "./pages/SellYourCar.jsx"
 import LoginSellers from "./pages/loginSeller.jsx";
 import AddCar from "./pages/sellerAdd.jsx";
 import GetCar from "./pages/sellerGet.jsx";
@@ -45,6 +46,7 @@ const Layout = () => {
 
                         <Route element={<Catalog />} path="/catalog" />
                         <Route element={<CarDetail />} path="/catalog/car-detail" />
+                        <Route element={<SellYourCar />} path="/sell-your-car" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<RegisterSellers />} path="/register/sellers" />
@@ -55,10 +57,10 @@ const Layout = () => {
                         <Route element={<BecomeSeller />} path="/become/seller" />
                         <Route element={<CarDetailSeller />} path="/car/:idCar" />
                         <Route element={<ContactUs />} path="/contact-us" />
-                        <Route element={<PayPal/>} path="/donation"/>
+                        <Route element={<PayPal />} path="/donation" />
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
                     </Routes>
-                    <Footer/>
+                    <Footer />
                 </ScrollToTop>
             </BrowserRouter>
         </div>

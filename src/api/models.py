@@ -28,6 +28,7 @@ class User(db.Model):
     country = db.Column(db.Enum(Country), nullable=False, default=Country.Other)
     avatar =db.Column(db.String(120), default="https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3407.jpg")
 
+    favorites = db.relationship("Favorite", back_populates="user")
     # failed_attemps=db.Column(db.Integer, default=0)
     # last_failed_attemp=db.Colun(db.DateTime, nullable=True)
     # is_locked=db.Column(db.Boolean, default=False)
@@ -156,6 +157,7 @@ class Car(db.Model):
 
     seller_id = db.Column(db.Integer, db.ForeignKey("sellers.id"),nullable=False)
     seller =  db.relationship("Seller",back_populates="cars")
+    favorites = db.relationship("Favorite", back_populates="car")
     
     
     def serialize(self):
@@ -205,4 +207,20 @@ class Car(db.Model):
                 "model_picture": self.model_picture
             }
 
-        
+    
+
+class Favorite(db.Model):
+    __tablename__ = 'favorites'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    car_id = db.Column(db.Integer, db.ForeignKey('cars.id'), nullable=False)
+    user = db.relationship("User", back_populates="favorites")  # Relación con el usuario
+    car = db.relationship("Car", back_populates="favorites")  # Relación con el auto
+
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "car_id": self.car_id
+        }
