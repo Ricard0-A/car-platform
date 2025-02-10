@@ -8,16 +8,31 @@ const Navbar = () => {
   const { actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(null); //New
 
   useEffect(() => {
     const token = localStorage.getItem('token'); // Verifica si hay token en localStorage
     setIsLoggedIn(!!token); // Actualiza el estado isLoggedIn
-  }, []); // Este efecto se ejecuta solo al montar el componente
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
-  }, [localStorage.getItem('token')]); // Se ejecuta cuando cambia el localStorage
+
+    // Obtener datos del usuario (incluido el avatar) del localStorage
+    if (token) {
+      const storedUser = localStorage.getItem("currentUser");
+      if (storedUser) {
+        try {
+          const user = JSON.parse(storedUser);
+          setAvatarUrl(user.avatar); // Accede a user.avatar
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
+      }
+    }
+  }, [localStorage.getItem('token')]); // Dependencia del token
+
 
   const handleModalToggle = () => {
     setShowModal(!showModal);
@@ -26,7 +41,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div className="container-fluid"> {/* Removed d-flex justify-content-between */}
+        <div className="container-fluid">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <i className="green fa-brands fa-drupal fs-1 "></i>
             <i className="fa-brands fa-stumbleupon fs-2 "></i>
@@ -46,7 +61,7 @@ const Navbar = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav" style={{ marginLeft: "100px" }}>
-            <ul className="navbar-nav me-auto" style={{ gap: "64px" }}> {/* me-auto and gap here */}
+            <ul className="navbar-nav me-auto" style={{ gap: "64px" }}>
               <li className="nav-item">
                 <Link className="nav-link" to="/catalog">
                   Catalog
@@ -57,32 +72,46 @@ const Navbar = () => {
                   Join as Seller
                 </Link>
               </li>
-              {/* Solo si el usuario se logea aparece esto */}
-              {isLoggedIn && ( // Renderizado condicional del nuevo elemento
-                <li className="nav-item">
-                  <Link className="nav-link" to="/my-cars"> {/* Ruta a "My Cars" */}
-                    My Cars
-                  </Link>
-                </li>
-              )}
-
               <li className="nav-item">
                 <Link className="nav-link" to="/contact-us">
                   Contact Us
                 </Link>
               </li>
-
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-cars">
+                    My Cars
+                  </Link>
+                </li>
+              )}
             </ul>
 
-            <ul className="navbar-nav"> {/* Login remains on the right */}
-              <li className="nav-item">
-                {isLoggedIn ? ( // <-- Renderizado condicional del botón
-                  <Link className="nav-link" to="#" onClick={actions.logOut}> {/* Botón Log Out */}
-                    <i class="me-2 fa-solid fa-right-from-bracket"></i>
-                    Log Out
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item d-flex align-items-center" style={{ marginLeft: '10px' }}> {/* Margen a la izquierda */}
+                {isLoggedIn && avatarUrl && (
+                  <Link to="/profile">
+                    <img
+                      src={avatarUrl}
+                      alt="Avatar"
+                      style={{
+                        width: '50px',  // Tamaño un poco más grande
+                        height: '45px', // Tamaño un poco más grande
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        marginRight: '20px', // Más margen a la derecha
+                        verticalAlign: 'middle',
+                        border: "3px solid seagreen"
+                      }}
+                    />
+                  </Link>
+                )}
+                {isLoggedIn ? (
+                  <Link className="nav-link" to="#" onClick={actions.logOut}>
+                    <i className="me-2 fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
                   </Link>
                 ) : (
-                  <Link className="nav-link" to="#" onClick={handleModalToggle}> {/* Botón Login */}
+                  <Link className="nav-link" to="#" onClick={handleModalToggle}>
                     <i className="me-2 fa-solid fa-right-to-bracket nav-link"></i>
                     Login
                   </Link>
