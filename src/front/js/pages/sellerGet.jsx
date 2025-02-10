@@ -20,11 +20,7 @@ const GetCar = () => {
                         <NavbarSeller />
                         <div className="container get-orientation">
                             <h1 className="get-text">Car List</h1>
-                            <div className="row">
-                                {store.cars.length > 0 ? (
-                                    store.cars.map((car, index) => (
-                                        <div className="col-12 col-md-3 col-sm-6">
-                                            <div className="donation-style">
+                            <div className="donation-style">
                                                 <Link to={"/donation"} className="btn btn-donation BTN">
                                                     <button className="Btn">
                                                         Donate
@@ -32,7 +28,12 @@ const GetCar = () => {
                                                     </button>
                                                 </Link>
                                             </div>
-                                            <div className="card  mx-4 cards-decoration" style={{ minWidth: "18rem" }}>
+                            <div className="row">
+                                {store.cars.length > 0 ? (
+                                    store.cars.map((car, index) => (
+                                        <div className="col-12 col-md-3 col-sm-6">
+                                            
+                                            <div className="card  cards-decoration" style={{ minWidth: "18rem" }}>
                                                 <img src={car.model_picture} className="card-img-top image-cards" alt="..." />
                                                 <div className="card-body">
                                                     <h5 className="card-title">{car.model_name}</h5>
@@ -44,9 +45,8 @@ const GetCar = () => {
 
                                                     }
 
-                                                    <Link to={`/car/${car.id}`} className="btn btn-danger" >See Details</Link>
-                                                    <p className="icon-delete btn btn-succes" onClick={() => actions.deleteCar(car.id)}><i className="fa-solid fa-trash"></i></p>
-                                                </div>
+                                                    <Link to={`/car/${car.id}`} className="btn btn-success w-100 see-details-style">See Details</Link>
+                                          </div>
                                             </div>
                                         </div>
 

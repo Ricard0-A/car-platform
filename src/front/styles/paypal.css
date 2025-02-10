@@ -147,3 +147,9 @@
     background-color: #171717;
     transform: rotateY(180deg);
   }
+
+  .first-style{
+    position: relative;
+    width: 800px;
+  }
+

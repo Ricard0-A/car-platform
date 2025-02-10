@@ -160,24 +160,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			editCar: async (cars, update) => {
+			editCar: async (update, idCar) => {
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/<int:theid>`, {
-
+					console.log("Este es el update", update)
+					console.log("El car id es",idCar)
+					const formData = new FormData()
+					for(let item in update){
+						formData.append(item, update[item])
+					}
+					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${idCar}`, {
+						
 						method: "PUT",
 						headers: {
-							"Content-Type": "application/json",
 							"Authorization": `Bearer ${localStorage.getItem("token")}`
 						},
-						body: JSON.stringify(update)
+						body:formData
 					})
 
 					const data = await response.json()
 					if (response.ok) {
 						const store = getStore()
-						const edited = store.cars.map(cars => cars.id === cars_id ? { ...cars, ...update } : cars)
-
-						setStore({ cars: edited })
+						getActions().getCar()
 						return true || 200
 					} else {
 						return false || 400
