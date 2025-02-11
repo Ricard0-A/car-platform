@@ -2,12 +2,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: localStorage.getItem("token") || null,
+			token_seller: localStorage.getItem("token_seller") || null,
 			currentUser: localStorage.getItem("currentUser") || null,
-			currentSeller: localStorage.getItem("currentUser") || null,
+			currentSeller: localStorage.getItem("currentSeller") || null,
 			image: "",
-			cars: []
+			cars: [],
+			favorites: []
 		},
 		actions: {
+			loadAllCars: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/cars`);
+					if (!response.ok) {
+						const errorData = await response.json();
+						throw new Error(errorData.error || `Error ${response.status}`);
+					}
+					const data = await response.json();
+					setStore({ cars: data });
+					// Verifica si tenemos todos los autos en mi pagina
+					const cars = getStore().cars;
+					console.log("Absolutamente todos los autos de mi pagina en base de datos son: ", cars);
+
+				} catch (error) {
+					console.error("Error loading all cars:", error);
+				}
+			},
+
 			register: async (user) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/register`, {
@@ -23,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (user) => {
 				try {
-					console.log(user);
+					// console.log(user);
 					const response = await fetch(`${process.env.BACKEND_URL}/login`, {
 						method: "POST",
 						headers: {
@@ -40,11 +60,151 @@ const getState = ({ getStore, getActions, setStore }) => {
 						});
 
 						localStorage.setItem("token", data.token);
-						localStorage.setItem("currentUser", data.user)
+						localStorage.setItem("currentUser", JSON.stringify(data.user));
 					}
 					return response.status;
 				} catch (error) {
 					console.log(error);
+					return false;
+				}
+			},
+
+			logOut: () => {
+				setStore({
+					token: null,
+					currentUser: null
+				})
+				localStorage.removeItem("token")
+				localStorage.removeItem("currentUser")
+
+			},
+
+			addFavorite: async (carId) => {
+				try {
+					const token = localStorage.getItem("token"); // Always localStorage
+
+					if (!token) {
+						console.error("No token found in localStorage");
+						return false;
+					}
+					const user = JSON.parse(localStorage.getItem("currentUser"));
+					if (!user) {
+						console.error("No user found in localStorage");
+						return false;
+					}
+					const store = getStore();
+					const isFavorite = store.favorites.some(fav => fav.car_id === carId);
+
+					if (isFavorite) {
+						return await getActions().deleteFavorite(carId);
+					} else {
+						const response = await fetch(`${process.env.BACKEND_URL}/favorites`, {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": `Bearer ${localStorage.getItem("token")}`
+							},
+							body: JSON.stringify({ car_id: carId })
+						});
+
+						if (!response.ok) {
+							const errorData = await response.json();
+							console.error("Error adding favorite:", errorData);
+							return response.status;
+						}
+
+						const favorite = await response.json();
+
+						const store = getStore();
+						const updatedFavorites = [...store.favorites, favorite];
+						setStore({ ...store, favorites: updatedFavorites });
+
+						console.log("Favoritos actualizados:", updatedFavorites);
+						return true;
+					}
+				} catch (error) {
+					console.error("Error adding favorite:", error);
+					return false;
+				}
+			},
+
+
+			deleteFavorite: async (carId) => {
+				try {
+					const token = localStorage.getItem("token");
+					if (!token) {
+						console.error("No token found in localStorage");
+						return false;
+					}
+
+					const response = await fetch(`${process.env.BACKEND_URL}/favorites`, {
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${localStorage.getItem("token")}`
+						},
+						body: JSON.stringify({ car_id: carId })
+					});
+
+					if (!response.ok) {
+						const errorData = await response.json();
+						console.error("Error deleting favorite:", errorData);
+						return response.status;
+					}
+
+					const store = getStore();
+					const updatedFavorites = store.favorites.filter(fav => fav.car_id !== carId);
+					setStore({ ...store, favorites: updatedFavorites });
+
+					console.log("Favorito Eliminado, Actualizando Favoritos...:", updatedFavorites);
+
+					return true;
+
+				} catch (error) {
+					console.error("Error deleting favorite:", error);
+					return false;
+				}
+			},
+
+
+			loadFavorites: async () => {
+				try {
+					const token = localStorage.getItem("token");
+
+					if (!token) {
+						console.error("No token found in localStorage");
+						return false;
+					}
+
+					const user = JSON.parse(localStorage.getItem("currentUser"));
+
+					if (!user) {
+						console.error("No user found in localStorage");
+						return false;
+					}
+
+					const response = await fetch(`${process.env.BACKEND_URL}/favorites/${user.id}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${localStorage.getItem("token")}`
+						},
+					});
+
+					if (!response.ok) {
+						const errorData = await response.json();
+						console.error("Error loading favorites:", errorData);
+						return response.status;
+					}
+
+					const favorites = await response.json();
+					const store = getStore();
+					setStore({ ...store, favorites: favorites });
+					console.log("Usuario Logeado Activo, se recargo la lista de sus favoritos!");
+					return true;
+
+				} catch (error) {
+					console.error("Error loading favorites:", error);
 					return false;
 				}
 			},
@@ -59,7 +219,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response)
 					console.log(response.status)
 					return response.status
-					
+
 				} catch (error) {
 					console.log(error)
 					return response.status
@@ -80,12 +240,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.status == 200) {
 
 						setStore({
-							token: data.token,
+							token_seller: data.token_seller,
 							currentSeller: data.seller
 
 						})
-						localStorage.setItem("token", data.token)
-						localStorage.setItem("currentUser", data.seller)
+						localStorage.setItem("token_seller", data.token_seller)
+						localStorage.setItem("currentSeller", data.seller)
+						getActions().getCar();  // Solo si me logeo reviso Mis autos
 					}
 					return response.status
 				} catch (error) {
@@ -96,10 +257,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logOutSeller: () => {
 				setStore({
-					token: null,
+					token_seller: null,
 					currentSeller: null
 				})
-				localStorage.removeItem("token")
+				localStorage.removeItem("token_seller")
 				localStorage.removeItem("currentSeller")
 			},
 			addCar: async (car) => {
@@ -107,7 +268,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars`, {
 						method: "POST",
 						headers: {
-							"Authorization": `Bearer ${localStorage.getItem("token")}`,
+							"Authorization": `Bearer ${localStorage.getItem("token_seller")}`,
 						},
 						body: car
 					})
@@ -135,7 +296,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						method: "GET",
 						headers: {
-							"Authorization": `Bearer ${localStorage.getItem("token")}`
+							"Authorization": `Bearer ${localStorage.getItem("token_seller")}`
 						}
 
 					})
@@ -163,18 +324,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			editCar: async (update, idCar) => {
 				try {
 					console.log("Este es el update", update)
-					console.log("El car id es",idCar)
+					console.log("El car id es", idCar)
 					const formData = new FormData()
-					for(let item in update){
+					for (let item in update) {
 						formData.append(item, update[item])
 					}
 					const response = await fetch(`${process.env.BACKEND_URL}/seller/cars/${idCar}`, {
-						
+
 						method: "PUT",
 						headers: {
+							// Este es de christopher
 							"Authorization": `Bearer ${localStorage.getItem("token")}`
+							// Este es de ricardo
+							// "Content-Type": "application/json",
+							// "Authorization": `Bearer ${localStorage.getItem("token_seller")}`
 						},
-						body:formData
+						body: formData
 					})
 
 					const data = await response.json()
@@ -201,7 +366,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						method: "DELETE",
 						headers: {
-							"Authorization": `Bearer ${localStorage.getItem("token")}`
+							"Authorization": `Bearer ${localStorage.getItem("token_seller")}`
 						},
 					})
 					if (response.ok) {

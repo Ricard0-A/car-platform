@@ -11,6 +11,11 @@ const Footer = () => {
     backgroundColor: "#006454",
   }
 
+  const linkNoStyle = {
+    color: "inherit",
+    textDecoration: "none",
+  }
+
   const location = useLocation();
   const pathdenied = ["/login", "/login/sellers", "/register", "/contact-us", "/donation", "/car/", "/become/seller","/seller/cars/get"]
 
@@ -22,7 +27,7 @@ const Footer = () => {
     <div className="row tenth-row" style={rowMod}>
       <div className="col-3 first-line">
         <h4> Home </h4>
-        <Link to={"/become/seller"}> <h4> Become a Seller</h4></Link>
+        <Link style={linkNoStyle} to={"/become/seller"}> <h4> Become a Seller</h4></Link>
         <h4> To look for a Car </h4>
         <h4> Publish your Car </h4>
         <div className="mt-5">

@@ -22,10 +22,11 @@ const Login = () => {
     const handleSubmit = async (event) => {
         try {
             event.preventDefault()
-            const response = await actions.login(user)
+            const response = await actions.login(user);
 
             if (response == 200) {
                 alert("Correct Login")
+                navigate("/");
             } else if (response == 400) {
                 alert("Invalid Credentials")
             }

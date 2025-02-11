@@ -1,9 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/navbar.css";
 
+
 const Navbar = () => {
+  const { actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(null); //New
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Verifica si hay token en localStorage
+    setIsLoggedIn(!!token); // Actualiza el estado isLoggedIn
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+
+    // Obtener datos del usuario (incluido el avatar) del localStorage
+    if (token) {
+      const storedUser = localStorage.getItem("currentUser");
+      if (storedUser) {
+        try {
+          const user = JSON.parse(storedUser);
+          setAvatarUrl(user.avatar); // Accede a user.avatar
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
+      }
+    }
+  }, [localStorage.getItem('token')]); // Dependencia del token
+
 
   const handleModalToggle = () => {
     setShowModal(!showModal);
@@ -12,7 +41,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div className="container-fluid d-flex justify-content-between align-items-center">
+        <div className="container-fluid">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <i className="green fa-brands fa-drupal fs-1 "></i>
             <i className="fa-brands fa-stumbleupon fs-2 "></i>
@@ -31,24 +60,16 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul
-              className="navbar-nav mx-auto d-flex flex-column flex-lg-row align-items-lg-center"
-              style={{ gap: "50px" }}
-            >
+          <div className="collapse navbar-collapse" id="navbarNav" style={{ marginLeft: "100px" }}>
+            <ul className="navbar-nav me-auto" style={{ gap: "64px" }}>
               <li className="nav-item">
                 <Link className="nav-link" to="/catalog">
                   Catalog
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Sell your Car
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Soon...
+                <Link className="nav-link" to="/sell-your-car">
+                  Join as Seller
                 </Link>
               </li>
               <li className="nav-item">
@@ -56,14 +77,45 @@ const Navbar = () => {
                   Contact Us
                 </Link>
               </li>
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-cars">
+                    My Cars
+                  </Link>
+                </li>
+              )}
             </ul>
 
-            <ul className="navbar-nav d-flex align-items-center">
-              <li className="nav-item">
-                <Link className="nav-link" to="#" onClick={handleModalToggle}>
-                  <i className="fa-solid fa-right-to-bracket nav-link"></i>
-                  Login
-                </Link>
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item d-flex align-items-center" style={{ marginLeft: '10px' }}> {/* Margen a la izquierda */}
+                {isLoggedIn && avatarUrl && (
+                  <Link to="/profile">
+                    <img
+                      src={avatarUrl}
+                      alt="Avatar"
+                      style={{
+                        width: '50px',  // Tamaño un poco más grande
+                        height: '45px', // Tamaño un poco más grande
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        marginRight: '20px', // Más margen a la derecha
+                        verticalAlign: 'middle',
+                        border: "3px solid seagreen"
+                      }}
+                    />
+                  </Link>
+                )}
+                {isLoggedIn ? (
+                  <Link className="nav-link" to="#" onClick={actions.logOut}>
+                    <i className="me-2 fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                  </Link>
+                ) : (
+                  <Link className="nav-link" to="#" onClick={handleModalToggle}>
+                    <i className="me-2 fa-solid fa-right-to-bracket nav-link"></i>
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>
@@ -71,15 +123,14 @@ const Navbar = () => {
       </nav>
 
       <div
-        // Solo si aparece el dropdown activa el css Show... otherwise ""
         className={`modal-custom ${showModal ? "show" : ""}`}
         tabIndex="-1"
-        onClick={handleModalToggle}  // Cierra al hacer clic FUERA del contenido
+        onClick={handleModalToggle}
       >
         <div
           className="modal-dialog modal-dialog-centered"
           style={{ maxWidth: "500px" }}
-          onClick={(e) => e.stopPropagation()} // Evita el cierre al hacer clic EN el contenido
+          onClick={(e) => e.stopPropagation()}
         >
           <div
             className="modal-content"

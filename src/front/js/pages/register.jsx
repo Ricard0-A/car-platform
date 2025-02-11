@@ -40,7 +40,9 @@ const Register = () => {
         if (response === 200) {
             setUser(initialUser);
             alert("User create");
-        } else if (response === 400) {
+
+
+        } else if (response === 401) {
             alert("Already exist this user");
         } else {
             alert("Please try later");
@@ -154,7 +156,7 @@ const Register = () => {
                                     <div>
                                         <label className="select-register">Avatar</label>
                                         <input
-                                        className="form-control select-register"
+                                            className="form-control select-register"
                                             type="file"
                                             placeholder="Imagen"
                                             onChange={(event) => {

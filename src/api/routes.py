@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,Seller,Car
+from api.models import db, User,Seller,Car, Favorite
 from api.utils import generate_sitemap, APIException,send_mail
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,6 +23,20 @@ expire_delta=timedelta(minutes=expire_in_minute)
 
 # Allow CORS requests to this API
 CORS(api)
+
+
+
+@api.route("/cars", methods=["GET"]) 
+def get_all_cars():
+    try:
+        all_cars = Car.query.all()  # Todos los autos de la Database
+        serialized_cars = [car.serialize() for car in all_cars] 
+        return jsonify(serialized_cars), 200
+    except Exception as err:
+        print(err)
+        return jsonify({"warning": "Error getting all cars"}), 500
+
+
 
 @api.route("/register",methods=["POST"])
 def add_new_user():
@@ -57,21 +71,22 @@ def add_new_user():
                     avatar = avatar["secure_url"]
                     user.avatar = avatar
 
-                user.name=name
-                user.email=email
-                user.password=password
-                user.salt=salt
-                user.phone_number=phone_number
-                user.country=country
-                user.avatar=avatar
+                
+                    user.name=name
+                    user.email=email
+                    user.password=password
+                    user.salt=salt
+                    user.phone_number=phone_number
+                    user.country=country
+                    user.avatar=avatar
 
-                db.session.add(user)
-                try:
-                    db.session.commit()
-                    return jsonify("Usuario create"),200
-                except Exception as err:
-                    db.session.rollback()
-                    return jsonify(f'Error{err.args}'),500
+                    db.session.add(user)
+                    try:
+                        db.session.commit()
+                        return jsonify("Usuario create"),200
+                    except Exception as err:
+                        db.session.rollback()
+                        return jsonify(f'Error{err.args}'),500
     except Exception as err:
         print(err)
         return jsonify(f'Error{err.args}'),500
@@ -79,7 +94,7 @@ def add_new_user():
 @api.route("/login",methods=["POST"])
 def login():
     try:
-        body=request.json   #Esto es lo que el usuario me mando 
+        body=request.json   
         email=body.get("email", None)
         password=body.get("password", None)
 
@@ -98,6 +113,79 @@ def login():
                     
     except Exception as err:
         return jsonify(f"Error{err.args}")
+
+# ---------------------------------------------------------------------------------------------
+
+@api.route('/favorites', methods=['POST'])
+@jwt_required()  
+def add_favorite():
+    try:
+        current_user_id = int(get_jwt_identity())  #Dame el Id del token
+        data = request.get_json()  
+        car_id = data.get('car_id')
+
+        if not car_id:
+            return jsonify({'error': 'car_id is required'}), 400
+
+        car = Car.query.get(car_id)
+        if not car:
+            return jsonify({'error': 'Car not found'}), 404
+
+        existing_favorite = Favorite.query.filter_by(user_id=current_user_id, car_id=car_id).first()
+        if existing_favorite:
+            return jsonify({'message': 'Car already in favorites'}), 400 
+
+        favorite = Favorite(user_id=current_user_id, car_id=car_id)
+        db.session.add(favorite)
+        db.session.commit()
+
+        return jsonify(favorite.serialize()), 201
+
+    except Exception as e:
+        db.session.rollback()  
+        return jsonify({'error': str(e)}), 500
+
+@api.route("/favorites", methods=["DELETE"])  
+@jwt_required()
+def delete_favorite():
+    user_id = int(get_jwt_identity())
+    body = request.json
+    car_id = body.get("car_id", None)
+
+    if car_id is None:
+        return jsonify({"warning": "Car ID is required"}), 400
+
+    try:
+        favorite = Favorite.query.filter_by(user_id=user_id, car_id=car_id).first()
+        if favorite:
+            db.session.delete(favorite)
+            db.session.commit()
+            return jsonify({"message": "Favorite deleted"}), 200
+        else:
+            return jsonify({"message": "Favorite not found"}), 404  
+
+    except Exception as e:
+        db.session.rollback()
+        print(e)
+        return jsonify({"warning": "Error deleting favorite"}), 500
+
+@api.route('/favorites/<int:user_id>', methods=['GET']) 
+@jwt_required()
+def get_user_favorites(user_id):
+    try:
+        current_user_id = int(get_jwt_identity())
+        if current_user_id != user_id:
+            return jsonify({'error': 'Unauthorized'}), 403 
+
+        favorites = Favorite.query.filter_by(user_id=user_id).all()
+        serialized_favorites = [favorite.serialize() for favorite in favorites]
+
+        return jsonify(serialized_favorites), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# ---------------------------------------------------------------------------------------------
 
 @api.route("/register/sellers", methods=["POST"])
 def register_sellers():
@@ -172,9 +260,8 @@ def login_sellers():
         else:
             if check_password_hash(seller.password,f"{password}{seller.salt}"):
         
-                token=create_access_token(identity=str(seller.id))
-                print(token)
-                return jsonify({"token":token, 
+                token_seller=create_access_token(identity=str(seller.id))
+                return jsonify({"token_seller":token_seller, 
                                 "seller":seller.serialize()})
             else:
                 return jsonify({"warning":"Invalid Credentials"}),401
