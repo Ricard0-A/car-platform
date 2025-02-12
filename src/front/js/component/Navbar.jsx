@@ -31,7 +31,7 @@ const Navbar = () => {
         }
       }
     }
-  }, [localStorage.getItem('token')]); // Dependencia del token
+  }, [localStorage.getItem('token')]);
 
 
   const handleModalToggle = () => {
@@ -79,8 +79,8 @@ const Navbar = () => {
               </li>
               {isLoggedIn && (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/my-cars">
-                    My Cars
+                  <Link className="nav-link" to="/gallery">
+                    My Dream Rides
                   </Link>
                 </li>
               )}
@@ -94,11 +94,11 @@ const Navbar = () => {
                       src={avatarUrl}
                       alt="Avatar"
                       style={{
-                        width: '50px',  // Tamaño un poco más grande
-                        height: '45px', // Tamaño un poco más grande
+                        width: '50px',
+                        height: '45px',
                         borderRadius: '50%',
                         objectFit: 'cover',
-                        marginRight: '20px', // Más margen a la derecha
+                        marginRight: '20px',
                         verticalAlign: 'middle',
                         border: "3px solid seagreen"
                       }}

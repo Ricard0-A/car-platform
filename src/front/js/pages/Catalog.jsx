@@ -13,7 +13,7 @@ import bentley2 from "../../img/suggested/bentley-2.jpg"; // id: 82563
 
 
 const Catalog = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const location = useLocation();
 
   const inputMod = {
@@ -35,8 +35,32 @@ const Catalog = () => {
     position: "relative",
   };
 
-  // Estados Generales para todo tipo de filtros
+  // Testeando soluciones
+  // const [favorites, setFavorites] = useState([]);
 
+  useEffect(() => {
+    // Carga inicial de coches o aplica filtros si hay término de búsqueda en la URL
+    const params = new URLSearchParams(location.search);
+    const urlSearchTerm = params.get("search") || "";
+
+    if (store.cars && store.cars.length > 0) {
+      applyFilters(urlSearchTerm);
+    } else if (store.cars && store.cars.length === 0) {
+      console.log("No existen autos para rendizar en la store")
+    }
+  }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
+
+  const handleFavoriteClick = (car) => {
+    if (car && car.id) {
+      actions.addFavorite(car.id);
+    } else {
+      console.error("Car or car.id is undefined", car);
+    }
+  };
+
+
+
+  // Estados Generales para todo tipo de filtros
   const [searchTerm, setSearchTerm] = useState(""); // Para la barra de busqueda
   const [filteredCars, setFilteredCars] = useState([]); // Para la barra de busqueda
   const [noResults, setNoResults] = useState(false); // Para la barra de busqueda
@@ -53,17 +77,17 @@ const Catalog = () => {
   // -----------------------------------------------------------------------------------------------
 
   // Logica para Evitar colapso de filtros 
-  const applySearchTermFilter = (term) => { // Nueva función para filtrar por término
+  const applySearchTermFilter = (term) => {
     const fieldsToSearch = [
       "model_make_id", "model_name", "model_color",
       "model_type", "model_year", "model_price"
     ];
     const carsFilteredByTerm = filterCars(store.cars, term, fieldsToSearch);
-    return carsFilteredByTerm; // Retornar el array filtrado
+    return carsFilteredByTerm;
   };
 
 
-  const applyOtherFilters = (carsToFilter) => { // Nueva función para los otros filtros
+  const applyOtherFilters = (carsToFilter) => {
     const { minPrice, maxPrice } = filters;
     const filteredByPrice = carsToFilter.filter(car =>
       (minPrice === "" || car.model_price >= parseInt(minPrice)) &&
@@ -98,25 +122,6 @@ const Catalog = () => {
     setSearchTerm(event.target.value);
     setNoResults(false);
   };
-  // Solo a traves del handleClick empeza busqueda del auto
-  // const handleSearchClick = () => {
-  //   const fieldsToSearch = [ // Campos en los que se buscará
-  //     "model_make_id",
-  //     "model_name",
-  //     "model_color",
-  //     "model_type",
-  //     "model_year",
-  //     "model_price",
-  //   ];
-  //   const filtered = filterCars(store.cars, searchTerm, fieldsToSearch); // Llama a la función genérica
-  //   setFilteredCars(filtered);
-
-  //   if (filtered.length === 0) {
-  //     setNoResults(true); // Muestra el mensaje si no hay resultados
-  //   } else {
-  //     setNoResults(false); // Oculta el mensaje si hay resultados
-  //   }
-  // };
 
   // -----------------------------------------------------------------------------------------------
 
@@ -293,7 +298,10 @@ const Catalog = () => {
                     filteredCars.map((car) => (
                       <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
                         <div className="fav">
-                          <i className="fa-regular fa-heart"></i>
+                          <i
+                            className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
+                            onClick={() => handleFavoriteClick(car)}
+                          />
                         </div>
                         <img src={car.model_picture || acura1} alt="Car" />
                         <h6>{car.model_type}</h6>

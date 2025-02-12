@@ -2,6 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
@@ -25,10 +26,13 @@ export const Home = () => {
   // Lógica extra antes del return
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const location = useLocation();
+  const [shouldReload, setShouldReload] = useState(true);
 
   // ------------------------------------------------------------------------------------------
+
 
 
   // LOGICA PARA EL USO DE FAVORITOS 
@@ -42,10 +46,9 @@ export const Home = () => {
     }
   }, [actions.loadFavorites]);
 
-  useEffect(() => {
-    setFavorites(store.favorites);
-  }, [store.favorites]); // Una Ejecuccion y luego cada vez que store.favorites cambia
-
+  // useEffect(() => {
+  //   setFavorites(store.favorites);
+  // }, [store.favorites]); 
 
   // ------------------------------------------------------------------------------------------
 
@@ -93,7 +96,7 @@ export const Home = () => {
         <div className="position-relative" key={car.id}>
           <div className="favorites">
             <i
-              className={`fs-4 fa-regular fa-heart ${favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
+              className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
               onClick={() => actions.addFavorite(car.id)} // Llama a addFavorite al hacer clic
             />
           </div>

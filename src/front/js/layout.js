@@ -24,6 +24,7 @@ import ContactUs from "./pages/ContactUs.jsx";
 import CarDetail from "./pages/CarDetail.jsx";
 import CarDetailSeller from "./pages/CarDetailSeller.jsx";
 import PayPal from "./pages/PayPal.jsx";
+import Gallery from "./pages/Gallery.jsx";
 
 //create your first component
 const Layout = () => {
@@ -49,6 +50,7 @@ const Layout = () => {
                         <Route element={<SellYourCar />} path="/sell-your-car" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<Gallery />} path="/gallery" />
                         <Route element={<RegisterSellers />} path="/register/sellers" />
                         <Route element={<LoginSellers />} path="/login/sellers" />
 

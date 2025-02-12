@@ -87,6 +87,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("No token found in localStorage");
 						return false;
 					}
+					console.log("exito el token es valido");
+
 					const user = JSON.parse(localStorage.getItem("currentUser"));
 					if (!user) {
 						console.error("No user found in localStorage");
@@ -119,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const updatedFavorites = [...store.favorites, favorite];
 						setStore({ ...store, favorites: updatedFavorites });
 
-						console.log("Favoritos actualizados:", updatedFavorites);
+						console.log("Favoritos Agregado:", updatedFavorites);
 						return true;
 					}
 				} catch (error) {
@@ -156,7 +158,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const updatedFavorites = store.favorites.filter(fav => fav.car_id !== carId);
 					setStore({ ...store, favorites: updatedFavorites });
 
-					console.log("Favorito Eliminado, Actualizando Favoritos...:", updatedFavorites);
+					console.log("Favorito Eliminado");
 
 					return true;
 
@@ -173,14 +175,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (!token) {
 						console.error("No token found in localStorage");
-						return false;
+						return []; // Devuelve un array vacío si no hay token
 					}
 
 					const user = JSON.parse(localStorage.getItem("currentUser"));
 
 					if (!user) {
 						console.error("No user found in localStorage");
-						return false;
+						return []; // Devuelve un array vacío si no hay usuario
 					}
 
 					const response = await fetch(`${process.env.BACKEND_URL}/favorites/${user.id}`, {
@@ -194,20 +196,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (!response.ok) {
 						const errorData = await response.json();
 						console.error("Error loading favorites:", errorData);
-						return response.status;
+						return []; // Devuelve un array vacío en caso de error REAL en la petición
 					}
 
 					const favorites = await response.json();
-					const store = getStore();
-					setStore({ ...store, favorites: favorites });
-					console.log("Usuario Logeado Activo, se recargo la lista de sus favoritos!");
-					return true;
+
+					//  Aquí está la clave:
+					if (Array.isArray(favorites)) { // Verifica si es un array antes de hacer algo.
+						console.log("Favoritos recibidos del backend:", favorites); // Para verificar
+						return favorites; // Devuelve el array de favoritos (incluso si está vacío)
+					} else {
+						console.error("Respuesta inesperada del backend:", favorites);
+						return []; // Devuelve un array vacío si la respuesta no es un array.
+					}
 
 				} catch (error) {
 					console.error("Error loading favorites:", error);
-					return false;
+					return []; // Devuelve un array vacío en caso de error en el try...catch
 				}
 			},
+
 
 			registerSellers: async (sellers) => {
 				try {

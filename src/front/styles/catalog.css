@@ -64,6 +64,7 @@ Estilos del lado de filtros
 }
 
 .fav {
+  cursor: pointer;
   background-color: white;
   border-radius: 50%;
   left: 17rem;
