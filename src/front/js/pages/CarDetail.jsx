@@ -1,41 +1,53 @@
-import mainCar from "../../img/suggested/bentley-1.jpg"
-import "../../styles/car-detail.css"
-import carTest from "../../img/detailCarTest.jpg"
-import cadillac1 from "../../img/suggested/cadillac-1.jpg"
-import chevrolet1 from "../../img/suggested/chevrolet-1.jpg"
-import ford1 from "../../img/suggested/ford-1.jpg"
-import innerCar from "../../img/inner-photos.jpg"
+import mainCar from "../../img/suggested/bentley-1.jpg";
+import "../../styles/car-detail.css";
+import carTest from "../../img/detailCarTest.jpg";
+import cadillac1 from "../../img/suggested/cadillac-1.jpg";
+import chevrolet1 from "../../img/suggested/chevrolet-1.jpg";
+import ford1 from "../../img/suggested/ford-1.jpg";
+import innerCar from "../../img/inner-photos.jpg";
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import { useParams } from "react-router-dom";
 
 const CarDetail = () => {
+    const { store, actions } = useContext(Context);
+    const { idCar } = useParams();
 
-    const { store, actions } = useContext(Context)
-    const { idCar } = useParams()
-
-    const [carDetail, setCarDetail] = useState({})
+    const [carDetail, setCarDetail] = useState({});
 
     const findCar = () => {
-        const result = store.cars.find((item) => item.id == idCar)
-        setCarDetail(result || {})
-    }
+        const result = store.cars.find((item) => item.id == idCar);
+        setCarDetail(result || {});
+    };
 
     useEffect(() => {
-        findCar()
-    }, [store.cars])
+        findCar();
+    }, [store.cars]);
 
+    // Función para hacer toggle de favoritos en CarDetail
+    const handleFavoriteClick = async (car) => {
+        try {
+            const isFavorite = store.favorites && store.favorites.some((fav) => fav.car_id === car.id);
+            const success = await actions.addFavorite(car.id); // Se asume que esta acción hace toggle
+            if (success) {
+                // Se recargan los favoritos; suponemos que actions.loadFavorites actualiza store.favorites
+                await actions.loadFavorites();
+            }
+        } catch (error) {
+            console.error("Error toggling favorite:", error);
+        }
+    };
 
     const innerPhoto = {
         background: `url(${innerCar}) center/contain`,
-    }
+    };
 
     return (
         <div className="container-fluid" style={{ marginTop: "88px", height: "100vh" }}>
             <div className="row d-flex justify-content-center" style={{ height: "86%" }}>
                 <div className="col-6">
                     <div className="left-side">
-                        <img src={carTest} alt="Main Car Image" />
+                        <img src={carDetail?.model_picture} alt="Main Car Image" />
                         <div className="photos">
                             <div className="inner-photos" style={innerPhoto}>
                                 <div className="photos-number">
@@ -44,8 +56,19 @@ const CarDetail = () => {
                                 <p>Photos</p>
                             </div>
                         </div>
-                        <div className="big-favorites">
-                            <i class="fa-regular fa-heart"></i>
+                        {/* Lógica de favoritos para CarDetail */}
+                        <div className="big-favorites" style={{ cursor: "pointer" }}>
+                            <i
+                                className={`fa-heart ${store.favorites && store.favorites.some((fav) => fav.car_id === carDetail.id)
+                                    ? "fa-solid filled"
+                                    : "fa-regular"
+                                    }`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    handleFavoriteClick(carDetail);
+                                }}
+                            ></i>
                             <p>Save</p>
                         </div>
                     </div>
@@ -55,9 +78,9 @@ const CarDetail = () => {
                         <div className="d-flex justify-content-between" style={{ width: "36rem" }}>
                             <button className="type-car">{carDetail?.model_type}</button>
                             <div className="socials">
-                                <i class="fa-brands fa-facebook"></i>
-                                <i class="fa-brands fa-youtube"></i>
-                                <i class="fa-brands fa-twitter"></i>
+                                <i className="fa-brands fa-facebook"></i>
+                                <i className="fa-brands fa-youtube"></i>
+                                <i className="fa-brands fa-twitter"></i>
                             </div>
                         </div>
                         <h2>{carDetail?.model_name_id}</h2>
@@ -80,12 +103,12 @@ const CarDetail = () => {
                         </div>
                     </div>
                 </div>
-                {/* Div-Box de todas las caracteristicas del auto */}
+                {/* Div-Box de todas las características del auto */}
                 <div className="box-features">
                     <div className="container" style={{ paddingBottom: "26px" }}>
                         <div className="card-features">
                             <div className="card-title d-flex align-items-center">
-                                <i class="fa-solid fa-gear"></i>
+                                <i className="fa-solid fa-gear"></i>
                                 <p>Features</p>
                             </div>
                             <div className="row">
@@ -116,51 +139,48 @@ const CarDetail = () => {
                                     <p>{carDetail?.model_type}</p>
                                 </div>
                             </div>
-                            {/* Para mas Features Agrega otra Row Mas! (Antes del Sgte Div) */}
+                            {/* Equipo */}
                             <div className="card-title d-flex align-items-center">
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <i className="fa-solid fa-magnifying-glass"></i>
                                 <p>Equipment</p>
                             </div>
                             <div className="row row-description">
                                 <div className="col-4">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-check"></i>
                                     <p>Air conditioning</p>
                                 </div>
                                 <div className="col-4">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-check"></i>
                                     <p>Adjustable Wheel</p>
                                 </div>
                                 <div className="col-4">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-check"></i>
                                     <p>Electric Window Regulator</p>
                                 </div>
-
                             </div>
+                            {/* Seguridad */}
                             <div className="card-title d-flex align-items-center">
-                                <i class="fa-solid fa-shield"></i>
+                                <i className="fa-solid fa-shield"></i>
                                 <p>Security</p>
                             </div>
                             <div className="row row-description">
                                 <div className="col-4">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-check"></i>
                                     <p>Air Bags</p>
                                 </div>
                                 <div className="col-4">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-check"></i>
                                     <p>Backup Camera</p>
                                 </div>
                                 <div className="col-4">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-check"></i>
                                     <p>ABS brakes</p>
                                 </div>
-
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-                {/* Div-Box extra de ultimas de recomendaciones de autos */}
+                {/* Div-Box extra de recomendaciones */}
                 <div className="last-box">
                     <div className="container">
                         <div className="suggested-title">
@@ -200,11 +220,9 @@ const CarDetail = () => {
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
-    )
+    );
 }
 
 export default CarDetail;
