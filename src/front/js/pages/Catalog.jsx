@@ -40,13 +40,24 @@ const Catalog = () => {
   const [allCars, setAllCars] = useState([]);
 
   useEffect(() => {
+    const reloading = async () => {
+      const answer = await actions.loadFavorites();
+      if (answer) {
+        console.log("nice!!", answer);
+      }
+    }
+
+    reloading();
+  }, []);
+
+  useEffect(() => {
     const loadCarsAndFavorites = async () => {
       try {
-        await actions.loadAllCars(); // MODIFICADO: Carga todos los coches desde el flux SIEMPRE
-        const carsFromStore = store.cars; // MODIFICADO: Obtén los coches desde el store DESPUÉS de cargar
-        setAllCars(carsFromStore); // MODIFICADO: Actualiza el estado allCars
+        await actions.loadAllCars();
+        const carsFromStore = store.cars;
+        setAllCars(carsFromStore);
 
-        if (store.currentUser) {  // Solo carga favoritos si el usuario está logueado
+        if (store.currentUser) {
           const favorites = await actions.loadFavorites();
           if (favorites) {
             setFavoriteCars(favorites);
@@ -59,8 +70,8 @@ const Catalog = () => {
       }
     };
 
-    loadCarsAndFavorites(); // MODIFICADO: Llama a la función para cargar coches y favoritos
-  }, [store.currentUser]); // MODIFICADO: Este useEffect se ejecuta cuando cambia store.currentUser
+    loadCarsAndFavorites();
+  }, [store.currentUser]);
 
 
   useEffect(() => {

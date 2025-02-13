@@ -199,14 +199,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return []; // Devuelve un array vacío en caso de error REAL en la petición
 					}
 
-					const favorites = await response.json();
+					const favoritesAdd = await response.json();
 
 					//  Aquí está la clave:
-					if (Array.isArray(favorites)) { // Verifica si es un array antes de hacer algo.
-						console.log("Favoritos recibidos del backend:", favorites); // Para verificar
-						return favorites; // Devuelve el array de favoritos (incluso si está vacío)
+					if (Array.isArray(favoritesAdd)) { // Verifica si es un array antes de hacer algo.
+						console.log("Favoritos recibidos del backend:", favoritesAdd);
+						setStore({ favorites: favoritesAdd })
+						return favoritesAdd;
 					} else {
-						console.error("Respuesta inesperada del backend:", favorites);
+						console.error("Respuesta inesperada del backend:", favoritesAdd);
 						return []; // Devuelve un array vacío si la respuesta no es un array.
 					}
 
