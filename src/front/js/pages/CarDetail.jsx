@@ -1,4 +1,3 @@
-import React from "react";
 import mainCar from "../../img/suggested/bentley-1.jpg"
 import "../../styles/car-detail.css"
 import carTest from "../../img/detailCarTest.jpg"
@@ -6,8 +5,28 @@ import cadillac1 from "../../img/suggested/cadillac-1.jpg"
 import chevrolet1 from "../../img/suggested/chevrolet-1.jpg"
 import ford1 from "../../img/suggested/ford-1.jpg"
 import innerCar from "../../img/inner-photos.jpg"
+import React, { useState, useContext, useEffect } from "react";
+import { Context } from "../store/appContext.js";
+import { useParams } from "react-router-dom";
 
 const CarDetail = () => {
+
+    const { store, actions } = useContext(Context)
+    const { idCar } = useParams()
+
+    const [carDetail, setCarDetail] = useState({})
+
+    const findCar = () => {
+        const result = store.cars.find((item) => item.id == idCar)
+        setCarDetail(result || {})
+    }
+
+    useEffect(() => {
+        findCar()
+    }, [store.cars])
+
+
+
 
     const innerPhoto = {
         background: `url(${innerCar}) center/contain`,
@@ -36,29 +55,29 @@ const CarDetail = () => {
                 <div className="col-6">
                     <div className="right-side">
                         <div className="d-flex justify-content-between" style={{ width: "36rem" }}>
-                            <button className="type-car">SUV</button>
+                            <button className="type-car">{carDetail?.model_type}</button>
                             <div className="socials">
                                 <i class="fa-brands fa-facebook"></i>
                                 <i class="fa-brands fa-youtube"></i>
                                 <i class="fa-brands fa-twitter"></i>
                             </div>
                         </div>
-                        <h2>VOLKSWAGEN</h2>
-                        <h2 className="model-name">VIRTUS</h2>
+                        <h2>{carDetail.model_name_id}</h2>
+                        <h2 className="model-name">{carDetail?.model_name}</h2>
                         <div className="first-horizon-line"></div>
                         <div className="features-line">
-                            <p>2022</p>
+                            <p>{carDetail?.model_year}</p>
                             <div className="mini-line"></div>
-                            <p>Gray</p>
+                            <p>{carDetail?.model_color}</p>
                             <div className="mini-line"></div>
                             <p>Automatic</p>
                             <div className="mini-line"></div>
-                            <p>Electric</p>
+                            <p>{carDetail?.model_engine_fuel}</p>
                         </div>
                         <div className="second-horizon-line"></div>
                         <div className="div-features">
-                            <h4>Price including thunder bonus</h4>
-                            <h1>$ 20,800</h1>
+                            <h4>Price including {carDetail?.dealership} bonus</h4>
+                            <h1>{carDetail?.model_price}</h1>
                             <button className="btn btn-success">Reserve Now</button>
                         </div>
                     </div>
@@ -74,11 +93,11 @@ const CarDetail = () => {
                             <div className="row">
                                 <div className="col-4">
                                     <h4>Year:</h4>
-                                    <p>2018</p>
+                                    <p>{carDetail?.model_year}</p>
                                 </div>
                                 <div className="col-4">
                                     <h4>Model:</h4>
-                                    <p>Virtus</p>
+                                    <p>{carDetail?.model_name}</p>
                                 </div>
                                 <div className="col-4">
                                     <h4>Transmission:</h4>
@@ -88,15 +107,15 @@ const CarDetail = () => {
                             <div className="row line-2">
                                 <div className="col-4">
                                     <h4>Color:</h4>
-                                    <p>Platinum Gray</p>
+                                    <p>{carDetail?.model_color}</p>
                                 </div>
                                 <div className="col-4">
                                     <h4>Fuel:</h4>
-                                    <p>Electric</p>
+                                    <p>{carDetail?.model_engine_fuel}</p>
                                 </div>
                                 <div className="col-4">
                                     <h4>Type:</h4>
-                                    <p>Suv</p>
+                                    <p>{carDetail?.model_type}</p>
                                 </div>
                             </div>
                             {/* Para mas Features Agrega otra Row Mas! (Antes del Sgte Div) */}

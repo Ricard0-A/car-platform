@@ -2,6 +2,8 @@ import React from "react";
 import { useContext, useState, useEffect, useLayoutEffect } from "react";
 import { Context } from "../store/appContext";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 // Styles Css
 import "../../styles/catalog.css";
 
@@ -86,7 +88,7 @@ const Catalog = () => {
     }
   }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
 
-
+  // Carga autos con filtro Type Car desde Home.jsx
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const carTypeParam = params.get("carType");
@@ -96,7 +98,20 @@ const Catalog = () => {
     }
   }, [location.search]);
 
+  // Filtro de Localization(Dealership) desde home.jsx 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const locationParam = params.get("location");
+    if (locationParam) {
+      setLocationFilter(locationParam);
+      applyFilters();
+    }
+  }, [location.search]);
 
+
+
+
+  // Agregar a favoritos e eliminarlos
   const handleFavoriteClick = async (car) => {
     try {
       const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
@@ -349,35 +364,40 @@ const Catalog = () => {
                         const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
                         return (
                           <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
-                            <div className="fav">
-                              <i
-                                className={`fs-4 fa-regular fa-heart ${isFavorite ? 'fa-solid filled' : ''}`}
-                                onClick={() => handleFavoriteClick(car)}
-                              />
-                            </div>
-                            <img src={car.model_picture || acura1} alt="Car" />
-                            <h6>{car.model_type}</h6>
-                            <h2>{car.model_make_id}</h2>
-                            <h5>{car.model_name}</h5>
-                            <br />
-                            <h5 className="year-km-1">
-                              {car.model_year || "2022"}
-                              <span className="mx-2">&#8226;</span>
-                              <i className="me-2 fa-solid fa-droplet"></i>
-                              {car.model_color}
-                            </h5>
-                            <h5 className="location-1 pt-2">
-                              <i className="fa-solid fa-location-dot"></i> DrivenS{" "}
-                              {car.dealership}
-                            </h5>
-                            <div className="price-v2 d-flex justify-content-around mt-4">
-                              <h5>$ {car.model_previous_price}</h5>
-                              <div className="price-line"></div>
-                              <h5 className="green-price">
-                                $ {car.model_price}
+                            <Link to={`/car-detail/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+                              <div className="fav">
+                                <i
+                                  className={`fs-4 fa-regular fa-heart ${isFavorite ? 'fa-solid filled' : ''}`}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    handleFavoriteClick(car);
+                                  }}
+                                />
+                              </div>
+                              <img src={car.model_picture || acura1} alt="Car" />
+                              <h6>{car.model_type}</h6>
+                              <h2>{car.model_make_id}</h2>
+                              <h5>{car.model_name}</h5>
+                              <br />
+                              <h5 className="year-km-1">
+                                {car.model_year || "2022"}
+                                <span className="mx-2">&#8226;</span>
+                                <i className="me-2 fa-solid fa-droplet"></i>
+                                {car.model_color}
                               </h5>
-                            </div>
-                          </div>
+                              <h5 className="location-1 pt-2">
+                                <i className="fa-solid fa-location-dot"></i> DrivenS{" "}
+                                {car.dealership}
+                              </h5>
+                              <div className="price-v2 d-flex justify-content-around mt-4">
+                                <h5>$ {car.model_previous_price}</h5>
+                                <div className="price-line"></div>
+                                <h5 className="green-price">
+                                  $ {car.model_price}
+                                </h5>
+                              </div>
+                            </Link> </div>
                         );
                       })
                     ) : ( // Si no hay coches filtrados
@@ -389,7 +409,11 @@ const Catalog = () => {
                               <div className="fav">
                                 <i
                                   className={`fs-4 fa-regular fa-heart ${isFavorite ? 'fa-solid filled' : ''}`}
-                                  onClick={() => handleFavoriteClick(car)}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    handleFavoriteClick(car);
+                                  }}
                                 />
                               </div>
                               <img src={car.model_picture || acura1} alt="Car" />

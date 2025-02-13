@@ -52,7 +52,7 @@ export const Home = () => {
 
   // ------------------------------------------------------------------------------------------
 
-
+  // Logica para llegar a los filtros del catalog y ejecutarlo desde la barra principal 
   const handleSearch = () => {
     if (searchTerm) { // Solo navego si searchTerm no esta vacío
       const params = new URLSearchParams();
@@ -63,11 +63,21 @@ export const Home = () => {
     }
   };
 
+  // Logica para llegar hasta el filtro Type Car 
   const handleCategoryClick = (carType) => {
     const params = new URLSearchParams();
     params.append('carType', carType); // 'carType' es el nombre del parámetro
     navigate(`/catalog?${params.toString()}`);
   };
+
+  // Logica para llegar hasta el filtro Type Car 
+  const handleDealershipClick = (dealershipName) => {
+    const params = new URLSearchParams();
+    params.append("location", dealershipName); // "location" será el query parameter
+    navigate(`/catalog?${params.toString()}`);
+  };
+
+
 
 
   // Objeto CSS ya que img-url tradicional no funciona
@@ -331,38 +341,38 @@ export const Home = () => {
             className="col-12 d-flex justify-content-center"
             style={{ gap: "200px" }}
           >
-            <h1>
-              {" "}
-              <i class="fa-brands fa-digg"></i>{" "}
+            <h1 onClick={() => handleDealershipClick("Elite Cars")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-digg"></i>
+              <p>Elite Cars</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-brands fa-pied-piper-pp"></i>
+            <h1 onClick={() => handleDealershipClick("SpeeDrive")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-pied-piper-pp"></i>
+              <p>SpeeDrive</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-brands fa-joomla"></i>
+            <h1 onClick={() => handleDealershipClick("UniCars")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-joomla"></i>
+              <p>UniCars</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-brands fa-pied-piper"></i>
+            <h1 onClick={() => handleDealershipClick("Highway16")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-pied-piper"></i>
+              <p>Highway16</p>
             </h1>
           </div>
           <div
             className="col-12 d-flex justify-content-center"
             style={{ gap: "200px" }}
           >
-            <h1>
-              {" "}
-              <i class="fa-brands fa-square-pied-piper"></i>{" "}
+            <h1 onClick={() => handleDealershipClick("TrueWheels")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-square-pied-piper"></i>
+              <p>TrueWheels</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-solid fa-trademark"></i>{" "}
+            <h1 onClick={() => handleDealershipClick("DriveCity")} style={{ cursor: "pointer" }}>
+              <i className="fa-solid fa-trademark"></i>
+              <p>DriveCity</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-solid fa-copyright"></i>
+            <h1 onClick={() => handleDealershipClick("MaxForm")} style={{ cursor: "pointer" }}>
+              <i className="fa-solid fa-copyright"></i>
+              <p>MaxForm</p>
             </h1>
           </div>
         </div>
