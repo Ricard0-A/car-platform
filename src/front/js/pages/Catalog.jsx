@@ -36,7 +36,32 @@ const Catalog = () => {
   };
 
   // Testeando soluciones
-  // const [favorites, setFavorites] = useState([]);
+  const [favoriteCars, setFavoriteCars] = useState([]);
+  const [allCars, setAllCars] = useState([]);
+
+  useEffect(() => {
+    const loadCarsAndFavorites = async () => {
+      try {
+        await actions.loadAllCars(); // MODIFICADO: Carga todos los coches desde el flux SIEMPRE
+        const carsFromStore = store.cars; // MODIFICADO: Obtén los coches desde el store DESPUÉS de cargar
+        setAllCars(carsFromStore); // MODIFICADO: Actualiza el estado allCars
+
+        if (store.currentUser) {  // Solo carga favoritos si el usuario está logueado
+          const favorites = await actions.loadFavorites();
+          if (favorites) {
+            setFavoriteCars(favorites);
+          }
+        } else {
+          setFavoriteCars([]); // Limpia los favoritos si el usuario no está logueado
+        }
+      } catch (error) {
+        console.error("Error loading cars or favorites:", error);
+      }
+    };
+
+    loadCarsAndFavorites(); // MODIFICADO: Llama a la función para cargar coches y favoritos
+  }, [store.currentUser]); // MODIFICADO: Este useEffect se ejecuta cuando cambia store.currentUser
+
 
   useEffect(() => {
     // Carga inicial de coches o aplica filtros si hay término de búsqueda en la URL
@@ -50,14 +75,22 @@ const Catalog = () => {
     }
   }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
 
-  const handleFavoriteClick = (car) => {
-    if (car && car.id) {
-      actions.addFavorite(car.id);
-    } else {
-      console.error("Car or car.id is undefined", car);
+  const handleFavoriteClick = async (car) => {
+    try {
+      const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
+      const success = await actions.addFavorite(car.id); // Usar la misma función addFavorite
+
+      if (success) {
+        const updatedFavorites = await actions.loadFavorites();
+        if (updatedFavorites) {
+          setFavoriteCars(updatedFavorites);
+        }
+      }
+
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
     }
   };
-
 
 
   // Estados Generales para todo tipo de filtros
@@ -199,7 +232,7 @@ const Catalog = () => {
                 onChange={handleInputChange}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
-                    applyFilters(); // Antes era handleSearchClick();
+                    applyFilters();
                   }
                 }}
               />
@@ -221,7 +254,7 @@ const Catalog = () => {
                   onChange={handleMinPriceChange}
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter") {
-                      applyFilters(); // Era applyPriceFilter()
+                      applyFilters();
                     }
                   }}
                 />
@@ -234,13 +267,13 @@ const Catalog = () => {
                   onChange={handleMaxPriceChange}
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter") {
-                      applyFilters(); // Era applyPriceFilter()
+                      applyFilters();
                     }
                   }}
                 />
                 <br />
                 <h5>Brand</h5>
-                <select className="form-select" value={brandFilter} onChange={(e) => { setBrandFilter(e.target.value); }}>
+                <select className="form-select" value={brandFilter} onChange={(e) => { setBrandFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Brands</option>
                   {Array.from(new Set(store.cars.map(car => car.model_make_id))).sort().map(brand => (
                     <option key={brand} value={brand}>{brand}</option>
@@ -248,7 +281,7 @@ const Catalog = () => {
                 </select>
                 <br />
                 <h5>Model</h5>
-                <select className="form-select" value={modelFilter} onChange={(e) => { setModelFilter(e.target.value); }}>
+                <select className="form-select" value={modelFilter} onChange={(e) => { setModelFilter(e.target.value); applyFilters(); }}>
                   <option value="">{brandFilter === "" ? "Select a brand" : "All Models"}</option>
                   {brandFilter !== "" && Array.from(new Set(store.cars.filter(car => car.model_make_id === brandFilter).map(car => car.model_name))).sort().map(model => (
                     <option key={model} value={model}>{model}</option>
@@ -256,7 +289,7 @@ const Catalog = () => {
                 </select>
                 <br />
                 <h5>Year</h5>
-                <select className="form-select" value={yearFilter} onChange={(e) => { setYearFilter(e.target.value); }}>
+                <select className="form-select" value={yearFilter} onChange={(e) => { setYearFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Years</option>
                   {Array.from(new Set(store.cars.map(car => car.model_year))).sort().reverse().map(year => (
                     <option key={year} value={year}>{year}</option>
@@ -265,7 +298,7 @@ const Catalog = () => {
                 <br />
 
                 <h5>Localization</h5>
-                <select className="form-select" value={locationFilter} onChange={(e) => { setLocationFilter(e.target.value); }}>
+                <select className="form-select" value={locationFilter} onChange={(e) => { setLocationFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Locations</option>
                   {Array.from(new Set(store.cars.map(car => car.dealership))).sort().map(location => (
                     <option key={location} value={location}>{location}</option>
@@ -273,7 +306,7 @@ const Catalog = () => {
                 </select>
                 <br />
                 <h5>Car Type</h5>
-                <select className="form-select" value={carTypeFilter} onChange={(e) => { setCarTypeFilter(e.target.value); }}>
+                <select className="form-select" value={carTypeFilter} onChange={(e) => { setCarTypeFilter(e.target.value); applyFilters(); }}>
                   <option value="">All Car Types</option>
                   {Array.from(new Set(store.cars.map(car => car.model_type))).sort().map(carType => (
                     <option key={carType} value={carType}>{carType}</option>
@@ -288,81 +321,90 @@ const Catalog = () => {
             <div className="col-9">
               <div>
                 <div className="row show-cars g-5">
-                  {store.cars.length === 0 ? ( // Si no hay autos en el store
+                  {store.cars && store.cars.length > 0 ? ( // Siempre itera sobre store.cars si existen coches
+                    filteredCars.length > 0 ? ( // Si hay coches filtrados, se muestran esos
+                      filteredCars.map((car) => {
+                        const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
+                        return (
+                          <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
+                            <div className="fav">
+                              <i
+                                className={`fs-4 fa-regular fa-heart ${isFavorite ? 'fa-solid filled' : ''}`}
+                                onClick={() => handleFavoriteClick(car)}
+                              />
+                            </div>
+                            <img src={car.model_picture || acura1} alt="Car" />
+                            <h6>{car.model_type}</h6>
+                            <h2>{car.model_make_id}</h2>
+                            <h5>{car.model_name}</h5>
+                            <br />
+                            <h5 className="year-km-1">
+                              {car.model_year || "2022"}
+                              <span className="mx-2">&#8226;</span>
+                              <i className="me-2 fa-solid fa-droplet"></i>
+                              {car.model_color}
+                            </h5>
+                            <h5 className="location-1 pt-2">
+                              <i className="fa-solid fa-location-dot"></i> DrivenS{" "}
+                              {car.dealership}
+                            </h5>
+                            <div className="price-v2 d-flex justify-content-around mt-4">
+                              <h5>$ {car.model_previous_price}</h5>
+                              <div className="price-line"></div>
+                              <h5 className="green-price">
+                                $ {car.model_price}
+                              </h5>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : ( // Si no hay coches filtrados
+                      !noResults ? ( // <-- Condición añadida: Si no hay resultados, muestra el mensaje
+                        store.cars.map((car) => { // Muestra todos los coches desde store.cars
+                          const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
+                          return (
+                            <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
+                              <div className="fav">
+                                <i
+                                  className={`fs-4 fa-regular fa-heart ${isFavorite ? 'fa-solid filled' : ''}`}
+                                  onClick={() => handleFavoriteClick(car)}
+                                />
+                              </div>
+                              <img src={car.model_picture || acura1} alt="Car" />
+                              <h6>{car.model_type}</h6>
+                              <h2>{car.model_make_id}</h2>
+                              <h5>{car.model_name}</h5>
+                              <br />
+                              <h5 className="year-km-1">
+                                {car.model_year || "2022"}
+                                <span className="mx-2">&#8226;</span>
+                                <i className="me-2 fa-solid fa-droplet"></i>
+                                {car.model_color}
+                              </h5>
+                              <h5 className="location-1 pt-2">
+                                <i className="fa-solid fa-location-dot"></i> DrivenS{" "}
+                                {car.dealership}
+                              </h5>
+                              <div className="price-v2 d-flex justify-content-around mt-4">
+                                <h5>$ {car.model_previous_price}</h5>
+                                <div className="price-line"></div>
+                                <h5 className="green-price">
+                                  $ {car.model_price}
+                                </h5>
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : ( // Si no hay resultados
+                        <div className="col-12">
+                          <p style={{ fontSize: "4vh" }}>No results found.</p> {/* Mensaje "No se encontraron resultados" */}
+                        </div>
+                      )
+                    )
+                  ) : (
                     <div className="col-12">
-                      <p style={{ fontSize: "4vh" }}>
-                        No cars available yet. Please add cars to your dealership.
-                      </p>
+                      <p style={{ fontSize: "4vh" }}>Loading cars...</p>
                     </div>
-                  ) : filteredCars.length > 0 ? ( // Si hay autos filtrados
-                    filteredCars.map((car) => (
-                      <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
-                        <div className="fav">
-                          <i
-                            className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
-                            onClick={() => handleFavoriteClick(car)}
-                          />
-                        </div>
-                        <img src={car.model_picture || acura1} alt="Car" />
-                        <h6>{car.model_type}</h6>
-                        <h2>{car.model_make_id}</h2>
-                        <h5>{car.model_name}</h5>
-                        <br />
-                        <h5 className="year-km-1">
-                          {car.model_year || "2022"}
-                          <span className="mx-2">&#8226;</span>
-                          <i className="me-2 fa-solid fa-droplet"></i>
-                          {car.model_color}
-                        </h5>
-                        <h5 className="location-1 pt-2">
-                          <i className="fa-solid fa-location-dot"></i> DrivenS{" "}
-                          {car.dealership}
-                        </h5>
-                        <div className="price-v2 d-flex justify-content-around mt-4">
-                          <h5>$ {car.model_previous_price}</h5>
-                          <div className="price-line"></div>
-                          <h5 className="green-price">
-                            $ {car.model_price}
-                          </h5>
-                        </div>
-                      </div>
-                    ))
-                  ) : noResults ? ( // Si no hay resultados (y hay autos en el store)
-                    <div className="col-12">
-                      <p style={{ fontSize: "4vh" }}>
-                        No matches found. Please try adjusting your search filters.
-                      </p>
-                    </div>
-                  ) : ( // Si hay autos en el store y no hay autos filtrados
-                    store.cars.map((car) => (
-                      <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
-                        <div className="fav">
-                          <i className="fa-regular fa-heart"></i>
-                        </div>
-                        <img src={car.model_picture || acura1} alt="Car" />
-                        <h6>{car.model_type}</h6>
-                        <h2>{car.model_make_id}</h2>
-                        <h5>{car.model_name}</h5>
-                        <br />
-                        <h5 className="year-km-1">
-                          {car.model_year || "2022"}
-                          <span className="mx-2">&#8226;</span>
-                          <i className="me-2 fa-solid fa-droplet"></i>
-                          {car.model_color}
-                        </h5>
-                        <h5 className="location-1 pt-2">
-                          <i className="fa-solid fa-location-dot"></i> DrivenS{" "}
-                          {car.dealership}
-                        </h5>
-                        <div className="price-v2 d-flex justify-content-around mt-4">
-                          <h5>$ {car.model_previous_price}</h5>
-                          <div className="price-line"></div>
-                          <h5 className="green-price">
-                            $ {car.model_price}
-                          </h5>
-                        </div>
-                      </div>
-                    ))
                   )}
                 </div>
               </div>
