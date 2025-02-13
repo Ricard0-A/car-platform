@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
@@ -109,34 +110,39 @@ export const Home = () => {
   const renderRecommendedCars = (cars) => (
     <>
       {cars.map((car) => (
-        <div className="position-relative" key={car.id}>
-          <div className="favorites">
-            <i
-              className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
-              onClick={() => actions.addFavorite(car.id)} // Llama a addFavorite al hacer clic
-            />
+        <Link to={`/car-detail/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+          <div className="position-relative" key={car.id}  >
+            <div className="favorites">
+              <i
+                className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  actions.addFavorite(car.id);
+                }}
+              />
+            </div>
+            <img src={car.model_picture || ford1} alt="Car" />
+            <h6>{car.model_type}</h6>
+            <h2>{car.model_make_id}</h2>
+            <h5>{car.model_name}</h5>
+            <br />
+            <h5 className="year-km-1">
+              {car.model_year || "2022"}
+              <span className="mx-2">&#8226;</span>
+              <i className="me-2 fa-solid fa-droplet"></i>
+              {car.model_color}
+            </h5>
+            <h5 className="location-1 pt-2">
+              <i className="fa-solid fa-location-dot"></i> DrivenS {car.dealership}
+            </h5>
+            <div className="price d-flex justify-content-around mt-4">
+              <h5> $ {car.model_previous_price}</h5>
+              <div className="price-line"></div>
+              <h5>$ {car.model_price}</h5>
+            </div>
           </div>
-          <img src={car.model_picture || ford1} alt="Car" />
-          <h6>{car.model_type}</h6>
-          <h2>{car.model_make_id}</h2>
-          <h5>{car.model_name}</h5>
-          <br />
-          <h5 className="year-km-1">
-            {car.model_year || "2022"}
-            <span className="mx-2">&#8226;</span>
-            <i className="me-2 fa-solid fa-droplet"></i>
-            {car.model_color}
-          </h5>
-          <h5 className="location-1 pt-2">
-            <i className="fa-solid fa-location-dot"></i> DrivenS {car.dealership}
-          </h5>
-          <div className="price d-flex justify-content-around mt-4">
-            <h5> $ {car.model_previous_price}</h5>
-            <div className="price-line"></div>
-            <h5>$ {car.model_price}</h5>
-          </div>
-        </div>
-      ))}
+        </Link>))}
     </>
   );
 
@@ -295,7 +301,7 @@ export const Home = () => {
               <div className="col-12">
                 <div className="popular"><h3>Popular</h3></div>
               </div>
-              {store.cars.slice(0, 4).map(car => (
+              {store.cars.slice(5, 9).map(car => (
                 <div className="col-3" key={car.id}>
                   {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
                 </div>
@@ -305,7 +311,7 @@ export const Home = () => {
               <div className="col-12">
                 <div className="arrival"><h3>New arrivals</h3></div>
               </div>
-              {store.cars.slice(4, 8).map(car => (
+              {store.cars.slice(9, 13).map(car => (
                 <div className="col-3" key={car.id}>
                   {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
                 </div>
@@ -315,7 +321,7 @@ export const Home = () => {
               <div className="col-12">
                 <div className="selled"><h3>Most selled</h3></div>
               </div>
-              {store.cars.slice(8, 12).map(car => (
+              {store.cars.slice(13, 17).map(car => (
                 <div className="col-3" key={car.id}>
                   {renderRecommendedCars([car])} {/* Pasa un array con un solo coche */}
                 </div>

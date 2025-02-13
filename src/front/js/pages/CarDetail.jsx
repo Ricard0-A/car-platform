@@ -26,8 +26,6 @@ const CarDetail = () => {
     }, [store.cars])
 
 
-
-
     const innerPhoto = {
         background: `url(${innerCar}) center/contain`,
     }
@@ -62,7 +60,7 @@ const CarDetail = () => {
                                 <i class="fa-brands fa-twitter"></i>
                             </div>
                         </div>
-                        <h2>{carDetail.model_name_id}</h2>
+                        <h2>{carDetail?.model_name_id}</h2>
                         <h2 className="model-name">{carDetail?.model_name}</h2>
                         <div className="first-horizon-line"></div>
                         <div className="features-line">
@@ -170,79 +168,39 @@ const CarDetail = () => {
                         </div>
                         <div className="suggested-list">
                             <div className="row show-cars">
-                                <div className="col-lg-4 col-md-6 col-sm-6 position-relative">
-                                    <div className="favorite">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                    <img src={ford1} alt="Car" />
-                                    <h6>Hatchback</h6>
-                                    <h2>Ford</h2>
-                                    <h5>Dungeon</h5>
-                                    <br />
-                                    <h5 className="year-km-1">
-                                        2022<span className="mx-2">&#8226;</span> 8,000 Km
-                                    </h5>
-                                    <h5 className="location-1 pt-2">
-                                        <i class="fa-solid fa-location-dot"></i> DrivenS New
-                                        York
-                                    </h5>
-                                    <div className="price-v2 d-flex justify-content-around mt-4">
-                                        <h5>$ 48,000</h5>
-                                        <div className="price-line"></div>
-                                        <h5 className="green-price">$ 32,000</h5>
-                                    </div>
-                                </div>
-                                <div className="col-lg-4 col-md-6 col-sm-6 position-relative">
-                                    <div className="favorite">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                    <img src={cadillac1} alt="Car" />
-                                    <h6>Hatchback</h6>
-                                    <h2>Bentley</h2>
-                                    <h5>Continental Flying Spur</h5>
-                                    <br />
-                                    <h5 className="year-km-1">
-                                        2022<span className="mx-2">&#8226;</span> 8,000 Km
-                                    </h5>
-                                    <h5 className="location-1 pt-2">
-                                        <i class="fa-solid fa-location-dot"></i> DrivenS New
-                                        York
-                                    </h5>
-                                    <div className="price-v2 d-flex justify-content-around mt-4">
-                                        <h5>$ 48,000</h5>
-                                        <div className="price-line"></div>
-                                        <h5 className="green-price">$ 32,000</h5>
-                                    </div>
-                                </div>
-                                <div className="col-lg-4 col-md-6 col-sm-6 position-relative">
-                                    <div className="favorite">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                    <img src={chevrolet1} alt="Car" />
-                                    <h6>Hatchback</h6>
-                                    <h2>Chevrolet</h2>
-                                    <h5>Sapphire</h5>
-                                    <br />
-                                    <h5 className="year-km-1">
-                                        2022<span className="mx-2">&#8226;</span> 8,000 Km
-                                    </h5>
-                                    <h5 className="location-1 pt-2">
-                                        <i class="fa-solid fa-location-dot"></i> DrivenS New
-                                        York
-                                    </h5>
-                                    <div className="price-v2 d-flex justify-content-around mt-4">
-                                        <h5>$ 48,000</h5>
-                                        <div className="price-line"></div>
-                                        <h5 className="green-price">$ 32,000</h5>
-                                    </div>
-                                </div>
-
+                                {store.cars && store.cars.length > 0 ? (
+                                    store.cars.slice(4, 7).map((car) => (
+                                        <div className="col-lg-4 col-md-6 col-sm-6 position-relative" key={car.id}>
+                                            <div className="favorite">
+                                                <i className="fa-regular fa-heart"></i>
+                                            </div>
+                                            <img src={car.model_picture || ford1} alt="Car" />
+                                            <h6>{car.model_type}</h6>
+                                            <h2>{car.model_make_id}</h2>
+                                            <h5>{car.model_name}</h5>
+                                            <br />
+                                            <h5 className="year-km-1">
+                                                {car.model_year}
+                                                <span className="mx-2">&#8226;</span>
+                                            </h5>
+                                            <h5 className="location-1 pt-2">
+                                                <i className="fa-solid fa-location-dot"></i> DrivenS {car.dealership}
+                                            </h5>
+                                            <div className="price-v2 d-flex justify-content-around mt-4">
+                                                <h5>$ {car.model_previous_price}</h5>
+                                                <div className="price-line"></div>
+                                                <h5 className="green-price">$ {car.model_price}</h5>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No recommended cars available.</p>
+                                )}
                             </div>
                         </div>
-
                     </div>
-
                 </div>
+
 
             </div>
         </div>
