@@ -86,6 +86,17 @@ const Catalog = () => {
     }
   }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
 
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const carTypeParam = params.get("carType");
+    if (carTypeParam) {
+      setCarTypeFilter(carTypeParam);
+      applyFilters();
+    }
+  }, [location.search]);
+
+
   const handleFavoriteClick = async (car) => {
     try {
       const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);

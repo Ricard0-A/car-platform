@@ -141,6 +141,14 @@
   height: 11vh;
 }
 
+
+.one,
+.two,
+.three,
+.four {
+  cursor: pointer;
+}
+
 .background {
   z-index: -1;
   margin-top: -33vh;

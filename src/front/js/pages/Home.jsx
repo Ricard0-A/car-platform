@@ -63,6 +63,12 @@ export const Home = () => {
     }
   };
 
+  const handleCategoryClick = (carType) => {
+    const params = new URLSearchParams();
+    params.append('carType', carType); // 'carType' es el nombre del parámetro
+    navigate(`/catalog?${params.toString()}`);
+  };
+
 
   // Objeto CSS ya que img-url tradicional no funciona
   const firstImg = {
@@ -240,19 +246,19 @@ export const Home = () => {
             className=" category mt-5 col-12 col-md-8 d-flex justify-content-center align-items-center"
             style={{ gap: "100px" }}
           >
-            <div className="one">
+            <div className="one" onClick={() => handleCategoryClick("SUV")}>
               <img className="h-2" src={suv} alt="Suv Car" />
               <h4 className="text-center">SUV</h4>
             </div>
-            <div className="two">
+            <div className="two" onClick={() => handleCategoryClick("Hatchback")} >
               <img src={hatchback} alt="Hatchback Car" />
               <h4 className="text-center">Hatchback</h4>
             </div>
-            <div className="three">
+            <div className="three" onClick={() => handleCategoryClick("Sport")} >
               <img src={sport} alt="Sport Car" />
               <h4 className="text-center">Sport</h4>
             </div>
-            <div className="four">
+            <div className="four" onClick={() => handleCategoryClick("Sedan")} >
               <img src={sedan} alt="Sedan Car" />
               <h4 className="text-center">Sedan</h4>
             </div>
