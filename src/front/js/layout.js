@@ -24,7 +24,13 @@ import ContactUs from "./pages/ContactUs.jsx";
 import CarDetail from "./pages/CarDetail.jsx";
 import CarDetailSeller from "./pages/CarDetailSeller.jsx";
 import PayPal from "./pages/PayPal.jsx";
+<<<<<<< HEAD
 import EditContact from "./pages/editCar.jsx";
+=======
+import Gallery from "./pages/Gallery.jsx";
+import Reserve from "./pages/Reserve.jsx";
+import TestEmail from "./pages/TestEmail.jsx";
+>>>>>>> ricardo
 
 //create your first component
 const Layout = () => {
@@ -46,13 +52,17 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
 
                         <Route element={<Catalog />} path="/catalog" />
-                        <Route element={<CarDetail />} path="/catalog/car-detail" />
-                        <Route element={<SellYourCar />} path="/sell-your-car" />
-                        <Route element={<Register />} path="/register" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<Register />} path="/register" />
+                        <Route element={<Gallery />} path="/gallery" />
+                        <Route element={<CarDetail />} path="/car-detail/:idCar" />
+                        <Route element={<Reserve />} path="/reserve" />
+                        <Route element={<TestEmail />} path="/test" />
+
+
+                        <Route element={<SellYourCar />} path="/sell-your-car" />
                         <Route element={<RegisterSellers />} path="/register/sellers" />
                         <Route element={<LoginSellers />} path="/login/sellers" />
-
                         <Route element={<AddCar />} path="/seller/cars" />
                         <Route element={<GetCar />} path="seller/cars/get" />
                         <Route element={<BecomeSeller />} path="/become/seller" />

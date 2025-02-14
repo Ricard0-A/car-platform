@@ -238,6 +238,25 @@ def register_sellers():
    except Exception as err:
     return jsonify(err.args),500
 
+
+@api.route("/sellers", methods=["GET"])
+def get_sellers():
+    try:
+        sellers = Seller.query.all()
+        sellers_list = [{
+            "id": seller.id,
+            "name_representative": seller.name_representative,
+            "email": seller.email
+        } for seller in sellers]
+        
+        return jsonify(sellers_list), 200
+    except Exception as e:
+        return jsonify({
+            "error": "Error al obtener los concesionarios",
+            "message": str(e)
+        }), 500
+
+
 @api.route("/login/sellers",methods=["POST"])
 def login_sellers():
    try:
