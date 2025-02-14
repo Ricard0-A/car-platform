@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
 
 body {
-    font-family: 'Playfair Display', serif;
     background-color: hsl(0, 0%, 93%);
 }
 
@@ -14,6 +13,7 @@ body {
     box-shadow: 0px 0px 27px 9px rgba(0, 0, 0, 0.59);
     padding: 20px;
     align-items: center;
+    font-family: 'Playfair Display', serif;
 }
 
 .img-orientation {

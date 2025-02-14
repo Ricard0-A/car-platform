@@ -170,14 +170,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const token = localStorage.getItem("token");
 
 					if (!token) {
-						console.error("No token found in localStorage");
 						return false;
 					}
 
 					const user = JSON.parse(localStorage.getItem("currentUser"));
 
 					if (!user) {
-						console.error("No user found in localStorage");
 						return false;
 					}
 
