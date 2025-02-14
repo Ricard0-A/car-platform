@@ -53,7 +53,7 @@ const Gallery = () => {
             console.error("Error deleting favorite:", error);
         }
     };
-
+    // a
     return (
         <div className="container-fluid" style={{ marginTop: "88px", height: "100vh" }}>
             <div className="row d-flex justify-content-center" style={{ height: "86%" }}>
