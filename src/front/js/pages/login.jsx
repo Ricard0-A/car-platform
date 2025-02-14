@@ -27,6 +27,7 @@ const Login = () => {
             if (response == 200) {
                 alert("Correct Login")
                 navigate("/");
+                window.location.href = "/";
             } else if (response == 400) {
                 alert("Invalid Credentials")
             }

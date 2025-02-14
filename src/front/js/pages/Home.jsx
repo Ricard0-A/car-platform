@@ -2,6 +2,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
@@ -25,10 +27,13 @@ export const Home = () => {
   // Lógica extra antes del return
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const location = useLocation();
+  const [shouldReload, setShouldReload] = useState(true);
 
   // ------------------------------------------------------------------------------------------
+
 
 
   // LOGICA PARA EL USO DE FAVORITOS 
@@ -42,14 +47,13 @@ export const Home = () => {
     }
   }, [actions.loadFavorites]);
 
-  useEffect(() => {
-    setFavorites(store.favorites);
-  }, [store.favorites]); // Una Ejecuccion y luego cada vez que store.favorites cambia
-
+  // useEffect(() => {
+  //   setFavorites(store.favorites);
+  // }, [store.favorites]); 
 
   // ------------------------------------------------------------------------------------------
 
-
+  // Logica para llegar a los filtros del catalog y ejecutarlo desde la barra principal 
   const handleSearch = () => {
     if (searchTerm) { // Solo navego si searchTerm no esta vacío
       const params = new URLSearchParams();
@@ -60,16 +64,30 @@ export const Home = () => {
     }
   };
 
+  const handleCategoryClick = (carType) => {
+    const params = new URLSearchParams();
+    params.append('carType', carType);
+    navigate(`/catalog?${params.toString()}`);
+  };
 
-  // Objeto CSS ya que img-url tradicional no funciona
+  // Logica para llegar hasta el filtro Type Car 
+  const handleDealershipClick = (dealershipName) => {
+    const params = new URLSearchParams();
+    params.append("location", dealershipName);
+    navigate(`/catalog?${params.toString()}`);
+  };
+
+
+
+
   const firstImg = {
     background: `url(${backgroundCar}) center/cover`,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Oscurece la imagen
-    backgroundBlendMode: "overlay", // Fusiona la imagen con el sombreado
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backgroundBlendMode: "overlay",
   };
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
-    borderRadius: "20px 0 0 20px", // Redondea solo borde izquierdo
+    borderRadius: "20px 0 0 20px",
     padding: "10px 20px",
     position: "relative",
     top: "-150px",
@@ -90,34 +108,39 @@ export const Home = () => {
   const renderRecommendedCars = (cars) => (
     <>
       {cars.map((car) => (
-        <div className="position-relative" key={car.id}>
-          <div className="favorites">
-            <i
-              className={`fs-4 fa-regular fa-heart ${favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
-              onClick={() => actions.addFavorite(car.id)} // Llama a addFavorite al hacer clic
-            />
+        <Link to={`/car-detail/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+          <div className="position-relative" key={car.id}  >
+            <div className="favorites">
+              <i
+                className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  actions.addFavorite(car.id);
+                }}
+              />
+            </div>
+            <img src={car.model_picture || ford1} alt="Car" />
+            <h6>{car.model_type}</h6>
+            <h2>{car.model_make_id}</h2>
+            <h5>{car.model_name}</h5>
+            <br />
+            <h5 className="year-km-1">
+              {car.model_year || "2022"}
+              <span className="mx-2">&#8226;</span>
+              <i className="me-2 fa-solid fa-droplet"></i>
+              {car.model_color}
+            </h5>
+            <h5 className="location-1 pt-2">
+              <i className="fa-solid fa-location-dot"></i> DrivenS {car.dealership}
+            </h5>
+            <div className="price d-flex justify-content-around mt-4">
+              <h5> $ {car.model_previous_price}</h5>
+              <div className="price-line"></div>
+              <h5>$ {car.model_price}</h5>
+            </div>
           </div>
-          <img src={car.model_picture || ford1} alt="Car" />
-          <h6>{car.model_type}</h6>
-          <h2>{car.model_make_id}</h2>
-          <h5>{car.model_name}</h5>
-          <br />
-          <h5 className="year-km-1">
-            {car.model_year || "2022"}
-            <span className="mx-2">&#8226;</span>
-            <i className="me-2 fa-solid fa-droplet"></i>
-            {car.model_color}
-          </h5>
-          <h5 className="location-1 pt-2">
-            <i className="fa-solid fa-location-dot"></i> DrivenS {car.dealership}
-          </h5>
-          <div className="price d-flex justify-content-around mt-4">
-            <h5> $ {car.model_previous_price}</h5>
-            <div className="price-line"></div>
-            <h5>$ {car.model_price}</h5>
-          </div>
-        </div>
-      ))}
+        </Link>))}
     </>
   );
 
@@ -176,9 +199,10 @@ export const Home = () => {
                   </li>
                   <li>
                     <button className="mt-5 ms-5 btn btn-dark">
-                      <h6 style={{ fontWeight: "500", padding: "6px" }}>
-                        View all the cars
-                      </h6>
+                      <Link to="/catalog" style={{ color: "inherit", textDecoration: "none" }}>
+                        <h6 style={{ fontWeight: "500", padding: "6px" }}>
+                          View all the cars
+                        </h6></Link>
                     </button>
                   </li>
                 </ul>
@@ -237,19 +261,19 @@ export const Home = () => {
             className=" category mt-5 col-12 col-md-8 d-flex justify-content-center align-items-center"
             style={{ gap: "100px" }}
           >
-            <div className="one">
+            <div className="one" onClick={() => handleCategoryClick("SUV")}>
               <img className="h-2" src={suv} alt="Suv Car" />
               <h4 className="text-center">SUV</h4>
             </div>
-            <div className="two">
+            <div className="two" onClick={() => handleCategoryClick("Hatchback")} >
               <img src={hatchback} alt="Hatchback Car" />
               <h4 className="text-center">Hatchback</h4>
             </div>
-            <div className="three">
+            <div className="three" onClick={() => handleCategoryClick("Sport")} >
               <img src={sport} alt="Sport Car" />
               <h4 className="text-center">Sport</h4>
             </div>
-            <div className="four">
+            <div className="four" onClick={() => handleCategoryClick("Sedan")} >
               <img src={sedan} alt="Sedan Car" />
               <h4 className="text-center">Sedan</h4>
             </div>
@@ -276,7 +300,7 @@ export const Home = () => {
               <div className="col-12">
                 <div className="popular"><h3>Popular</h3></div>
               </div>
-              {store.cars.slice(0, 4).map(car => (
+              {store.cars.slice(5, 9).map(car => (
                 <div className="col-3" key={car.id}>
                   {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
                 </div>
@@ -286,7 +310,7 @@ export const Home = () => {
               <div className="col-12">
                 <div className="arrival"><h3>New arrivals</h3></div>
               </div>
-              {store.cars.slice(4, 8).map(car => (
+              {store.cars.slice(9, 13).map(car => (
                 <div className="col-3" key={car.id}>
                   {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
                 </div>
@@ -296,7 +320,7 @@ export const Home = () => {
               <div className="col-12">
                 <div className="selled"><h3>Most selled</h3></div>
               </div>
-              {store.cars.slice(8, 12).map(car => (
+              {store.cars.slice(13, 17).map(car => (
                 <div className="col-3" key={car.id}>
                   {renderRecommendedCars([car])} {/* Pasa un array con un solo coche */}
                 </div>
@@ -322,38 +346,38 @@ export const Home = () => {
             className="col-12 d-flex justify-content-center"
             style={{ gap: "200px" }}
           >
-            <h1>
-              {" "}
-              <i class="fa-brands fa-digg"></i>{" "}
+            <h1 onClick={() => handleDealershipClick("Elite Cars")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-digg"></i>
+              <p>Elite Cars</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-brands fa-pied-piper-pp"></i>
+            <h1 onClick={() => handleDealershipClick("SpeeDrive")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-pied-piper-pp"></i>
+              <p>SpeeDrive</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-brands fa-joomla"></i>
+            <h1 onClick={() => handleDealershipClick("UniCars")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-joomla"></i>
+              <p>UniCars</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-brands fa-pied-piper"></i>
+            <h1 onClick={() => handleDealershipClick("Highway16")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-pied-piper"></i>
+              <p>Highway16</p>
             </h1>
           </div>
           <div
             className="col-12 d-flex justify-content-center"
             style={{ gap: "200px" }}
           >
-            <h1>
-              {" "}
-              <i class="fa-brands fa-square-pied-piper"></i>{" "}
+            <h1 onClick={() => handleDealershipClick("TrueWheels")} style={{ cursor: "pointer" }}>
+              <i className="fa-brands fa-square-pied-piper"></i>
+              <p>TrueWheels</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-solid fa-trademark"></i>{" "}
+            <h1 onClick={() => handleDealershipClick("DriveCity")} style={{ cursor: "pointer" }}>
+              <i className="fa-solid fa-trademark"></i>
+              <p>DriveCity</p>
             </h1>
-            <h1>
-              {" "}
-              <i class="fa-solid fa-copyright"></i>
+            <h1 onClick={() => handleDealershipClick("MaxForm")} style={{ cursor: "pointer" }}>
+              <i className="fa-solid fa-copyright"></i>
+              <p>MaxForm</p>
             </h1>
           </div>
         </div>

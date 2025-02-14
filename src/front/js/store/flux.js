@@ -19,9 +19,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json();
 					setStore({ cars: data });
-					// Verifica si tenemos todos los autos en mi pagina
+
 					const cars = getStore().cars;
-					console.log("Absolutamente todos los autos de mi pagina en base de datos son: ", cars);
+
 
 				} catch (error) {
 					console.error("Error loading all cars:", error);
@@ -43,7 +43,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (user) => {
 				try {
-					// console.log(user);
 					const response = await fetch(`${process.env.BACKEND_URL}/login`, {
 						method: "POST",
 						headers: {
@@ -87,6 +86,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("No token found in localStorage");
 						return false;
 					}
+					console.log("exito el token es valido");
+
 					const user = JSON.parse(localStorage.getItem("currentUser"));
 					if (!user) {
 						console.error("No user found in localStorage");
@@ -119,7 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const updatedFavorites = [...store.favorites, favorite];
 						setStore({ ...store, favorites: updatedFavorites });
 
-						console.log("Favoritos actualizados:", updatedFavorites);
+						console.log("Favoritos Agregado:", updatedFavorites);
 						return true;
 					}
 				} catch (error) {
@@ -156,7 +157,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const updatedFavorites = store.favorites.filter(fav => fav.car_id !== carId);
 					setStore({ ...store, favorites: updatedFavorites });
 
-					console.log("Favorito Eliminado, Actualizando Favoritos...:", updatedFavorites);
 
 					return true;
 
@@ -190,7 +190,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error loading favorites:", errorData);
 						return []; // Devuelve un array vacío en caso de error REAL en la petición
 					}
+
 					const favoritesAdd = await response.json();
+
 					//  Aquí está la clave:
 					if (Array.isArray(favoritesAdd)) { // Verifica si es un array antes de hacer algo.
 						console.log("Favoritos recibidos del backend:", favoritesAdd);
@@ -200,11 +202,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Respuesta inesperada del backend:", favoritesAdd);
 						return []; // Devuelve un array vacío si la respuesta no es un array.
 					}
+
 				} catch (error) {
 					console.error("Error loading favorites:", error);
 					return []; // Devuelve un array vacío en caso de error en el try...catch
 				}
 			},
+
 
 			registerSellers: async (sellers) => {
 				try {
@@ -213,8 +217,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "POST",
 						body: sellers
 					})
-					console.log(response)
-					console.log(response.status)
+
 					return response.status
 
 				} catch (error) {
@@ -233,7 +236,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(sellers)
 					})
 					const data = await response.json()
-					console.log(response)
 					if (response.status == 200) {
 
 						setStore({
@@ -299,7 +301,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					const data = await response.json()
 					if (response.ok) {
-						console.log(data)
 						setStore({
 							cars: data
 						})
@@ -320,8 +321,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			editCar: async (update, idCar) => {
 				try {
-					console.log("Este es el update", update)
-					console.log("El car id es", idCar)
 					const formData = new FormData()
 					for (let item in update) {
 						formData.append(item, update[item])
@@ -330,11 +329,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						method: "PUT",
 						headers: {
-							// Este es de christopher
-							"Authorization": `Bearer ${localStorage.getItem("token")}`
-							// Este es de ricardo
-							// "Content-Type": "application/json",
-							// "Authorization": `Bearer ${localStorage.getItem("token_seller")}`
+							"Authorization": `Bearer ${localStorage.getItem("token_seller")}`
 						},
 						body: formData
 					})
@@ -407,7 +402,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify({ email: email })
 					})
 
-					console.log(response)
+
 				} catch (error) {
 					console.log(error)
 				}
