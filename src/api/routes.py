@@ -51,7 +51,7 @@ def add_new_user():
         country=body_froms.get("country",None)
         avatar=body_files.get("avatar",None)
         # selelr=body_froms.get("seller",None)
-        print(body_froms)
+      
         if name is None or email is None or password is None or phone_number is None or country is None:
             return jsonify({"warning":"Incomplete Credential"}),401
         else: 
@@ -88,7 +88,6 @@ def add_new_user():
                         db.session.rollback()
                         return jsonify(f'Error{err.args}'),500
     except Exception as err:
-        print(err)
         return jsonify(f'Error{err.args}'),500
     
 @api.route("/login",methods=["POST"])
@@ -114,7 +113,7 @@ def login():
     except Exception as err:
         return jsonify(f"Error{err.args}")
 
-# ---------------------------------------------------------------------------------------------
+
 
 @api.route('/favorites', methods=['POST'])
 @jwt_required()  
@@ -166,7 +165,6 @@ def delete_favorite():
 
     except Exception as e:
         db.session.rollback()
-        print(e)
         return jsonify({"warning": "Error deleting favorite"}), 500
 
 @api.route('/favorites/<int:user_id>', methods=['GET']) 
@@ -203,7 +201,7 @@ def register_sellers():
     address = body_froms.get("address",None)
     test_drive = body_froms.get("test_drive",None)
     country = body_froms.get("country", None)
-    print(body_froms)
+    
     if name is None or email is None or password is None or country is None or name_representative is None or license is None or license_expiration is None or phone_number is None or register_number is None or address is None or test_drive is None:
         return jsonify({"warning":"Incomplete Credentials"}),401
     else:
@@ -236,10 +234,8 @@ def register_sellers():
                 return jsonify("User create"),200
             except Exception as error:
                 db.session.rollback()
-                print(error)
                 return jsonify(error.args),500
    except Exception as err:
-    print(err)
     return jsonify(err.args),500
 
 @api.route("/login/sellers",methods=["POST"])
@@ -254,7 +250,7 @@ def login_sellers():
            return jsonify({"warning":"Incomplete Credentials"}),401
        else:
         seller=Seller.query.filter_by(email=email).one_or_none()
-        print(seller)
+        
         if seller is None:
             return jsonify({"warning":"Invalid Credentals"}),401
         else:
@@ -266,7 +262,6 @@ def login_sellers():
             else:
                 return jsonify({"warning":"Invalid Credentials"}),401
    except Exception as err:
-       print(err)
        return jsonify(err.args)
 
 
@@ -357,7 +352,6 @@ def add_cars():
 
     except Exception as err:
         db.session.rollback()
-        print(err.args)
         return jsonify({"Warning": "Error"}), 500
 
 @api.route("/seller/cars",methods=["GET"])
@@ -389,7 +383,6 @@ def edit_car(car_id):
         body_froms = request.form
         body_files = request.files
 
-        print(body_froms)
        
         car.model_make_id = body_froms.get("model_make_id", car.model_make_id)
         car.model_name = body_froms.get("model_name", car.model_name)
@@ -434,7 +427,7 @@ def delete_car(car_id):
             return jsonify("This car doesn't exist"),400
         db.session.delete(car)
         db.session.commit()
-        return ("Hola"),204
+        return ("Car deleted"),204
     except Exception as err:
         db.session.rollback()
         return jsonify(err)
@@ -443,7 +436,6 @@ def delete_car(car_id):
 def become_seller():
     try:
         body = request.json
-        print(body)
         message=f"""
                     <h1>Welcome to DrivenS</h1>
                     <h5>To start working with us please register in:</h5>

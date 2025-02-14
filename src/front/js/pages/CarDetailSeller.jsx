@@ -22,32 +22,43 @@ const CarDetailSeller = () => {
     return (
         <>
             <NavbarSeller />
-            <div className="row ">
-                <div className="col-12 col-md-6 ">
-                <div className="container-style">
-                    <div className="d-flex justify-content-center">
-                       
-                            <img className="img-orientation" src={carDetail?.model_picture} />
-                            <div className="main-info-style">
-                                <h1 className="name-style"><b>{carDetail?.model_make_id}</b></h1>
-                                <p className="trim-style">{carDetail?.model_type}</p>
-                                <p className="make-style">{carDetail?.model_name}</p>
-                                <p className="fuel-style">{carDetail?.model_engine_fuel}</p>
-                                <p className="color-style">{carDetail?.model_color}</p>
+                    <div className="container-style">
+                            <div className="row w-100">
+                                <div className="col-12 col-md-6">
+                                    <img className="img-orientation w-100" src={carDetail?.model_picture} />
+                                </div>
+                                <div className="col-12 col-md-6">
+                                    <div className="main-info-style">
+                                        <div className="title-style">
+                                            <h1 className="name-style"><b>{carDetail?.model_make_id}</b></h1>
+                                            <p className="make-style">{carDetail?.model_name}</p>
+                                        </div>
 
-                                <h2 className="price-style"><b>${carDetail?.model_price}</b></h2>
+                                        <div className="second-info-style">
+                                            <p className="trim-style">{carDetail?.model_type}</p>
+                                            <p className="fuel-style">{carDetail?.model_engine_fuel}</p>
+                                            <p className="color-style">{carDetail?.model_color}</p>
+                                        </div>
 
-                                <p className="year-style"><b>Year:</b>{carDetail?.model_year}</p>
-                                <p className="body-style"><b>Body:</b>{carDetail?.model_body}</p>
-                                <p className="country-style"><b className="me-1">Country:</b>{carDetail?.make_country}</p>
-                                <p className="dealership-style"><b className="me-1">Dealership:</b>{carDetail?.dealership}</p>
-                                <p className="units-style"><b className="me-3">Available units:</b>{
-                                    carDetail.model_amount > 0 ? (
-                                        <p>{carDetail?.model_amount}</p>
-                                    ) :
-                                        <p className="amount-text-style">No Available Units</p>
-                                }</p>
+                                        <div className="div-price-style"><h2 className="price-style"><b>${carDetail?.model_price}</b></h2></div>
+
+                                        <div className="third-info-style">
+                                            <p className="year-style"><b>Year:</b>{carDetail?.model_year}</p>
+                                            <p className="body-style"><b>Body:</b>{carDetail?.model_body}</p>
+                                            <p className="country-style"><b className="me-1">Country:</b>{carDetail?.make_country}</p>
+                                            <p className="dealership-style"><b className="me-1">Dealership:</b>{carDetail?.dealership}</p>
+                                            <p className="units-style"><b className="me-3">Available units:</b>{
+                                                carDetail.model_amount > 0 ? (
+                                                    <p>{carDetail?.model_amount}</p>
+                                                ) :
+                                                    <p className="amount-text-style">No Available Units</p>
+                                            }</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
                             <div className="price-align">
                                 {/* <h5 className="previous-syle">{carDetail?.model_previous_price}</h5>
                                 <div className="inline-style"></div>
@@ -70,10 +81,8 @@ const CarDetailSeller = () => {
                                 </Link>
 
                             </div>
-                        </div>
                     </div>
-                </div>
-            </div>
+                
         </>
 
     )

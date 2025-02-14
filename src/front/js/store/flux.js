@@ -19,9 +19,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json();
 					setStore({ cars: data });
-					// Verifica si tenemos todos los autos en mi pagina
+					
 					const cars = getStore().cars;
-					console.log("Absolutamente todos los autos de mi pagina en base de datos son: ", cars);
+					
 
 				} catch (error) {
 					console.error("Error loading all cars:", error);
@@ -43,7 +43,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (user) => {
 				try {
-					// console.log(user);
 					const response = await fetch(`${process.env.BACKEND_URL}/login`, {
 						method: "POST",
 						headers: {
@@ -156,7 +155,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const updatedFavorites = store.favorites.filter(fav => fav.car_id !== carId);
 					setStore({ ...store, favorites: updatedFavorites });
 
-					console.log("Favorito Eliminado, Actualizando Favoritos...:", updatedFavorites);
 
 					return true;
 
@@ -200,7 +198,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const favorites = await response.json();
 					const store = getStore();
 					setStore({ ...store, favorites: favorites });
-					console.log("Usuario Logeado Activo, se recargo la lista de sus favoritos!");
 					return true;
 
 				} catch (error) {
@@ -216,8 +213,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "POST",
 						body: sellers
 					})
-					console.log(response)
-					console.log(response.status)
+		
 					return response.status
 
 				} catch (error) {
@@ -236,7 +232,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(sellers)
 					})
 					const data = await response.json()
-					console.log(response)
 					if (response.status == 200) {
 
 						setStore({
@@ -302,7 +297,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					const data = await response.json()
 					if (response.ok) {
-						console.log(data)
 						setStore({
 							cars: data
 						})
@@ -323,8 +317,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			editCar: async (update, idCar) => {
 				try {
-					console.log("Este es el update", update)
-					console.log("El car id es", idCar)
 					const formData = new FormData()
 					for (let item in update) {
 						formData.append(item, update[item])
@@ -333,11 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						method: "PUT",
 						headers: {
-							// Este es de christopher
-							"Authorization": `Bearer ${localStorage.getItem("token")}`
-							// Este es de ricardo
-							// "Content-Type": "application/json",
-							// "Authorization": `Bearer ${localStorage.getItem("token_seller")}`
+							"Authorization": `Bearer ${localStorage.getItem("token_seller")}`
 						},
 						body: formData
 					})
@@ -410,7 +398,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify({ email: email })
 					})
 
-					console.log(response)
+					
 				} catch (error) {
 					console.log(error)
 				}
