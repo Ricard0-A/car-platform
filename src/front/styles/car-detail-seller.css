@@ -2,36 +2,29 @@
 
 body {
     font-family: 'Playfair Display', serif;
-}
-body{
-    background-color: hsl(0, 0%, 93%)
+    background-color: hsl(0, 0%, 93%);
 }
 
 .container-style {
-    position: absolute;
     margin-top: 80px;
-    margin-left: 5%;
-    width: 90%;
+    width: 100%;
     display: flex;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 0px 27px 9px rgba(0, 0, 0, 0.59);
     padding: 20px;
-    align-items: center; /* Asegura alineación vertical */
+    align-items: center;
 }
 
 .img-orientation {
-    
-    flex: 1; /* Distribuye espacio igual */
-    max-width: 50%; /* Para que no sea más grande que la mitad */
+    width: 100%;
     height: auto;
     border-radius: 10px;
     box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.3);
-    margin: 0 5px; /* Añade margen alrededor */
 }
 
 .main-info-style {
-    flex: 1; /* Distribuye espacio igual */
+    flex: 1;
     font-size: 80%;
     display: flex;
     flex-direction: column;
@@ -41,230 +34,82 @@ body{
     padding: 20px;
 }
 
-
-.name-style {
-    position: absolute;
+.title-style {
     display: flex;
-    padding-left: 20px;
-    left: 720px;
-    top: 0px;
-    font-size: 70px;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
     border-bottom: 2px solid black; 
     border-radius: 8px;
-    width: 500px;
+    width: 700px;
 }
 
-.trim-style {
-    position: absolute;  
-    top: 95px;
-    left: 780px;  
-    transform: translateX(-50%);  
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px;
-    text-align: center;
-
-    width: 100px;
-    height: 40px;
-    padding: 8px;
-    
-    border-right: 3px solid black; /* Línea derecha más definida */
-    border-radius: 10px; /* Bordes suaves */
-    
-    background-color: rgba(0, 0, 0, 0.05); /* Fondo sutil */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
-    
+.name-style {
+    font-size: 70px;
+    margin: 0;
 }
 
 .make-style {
-    position: relative;
-    display: flex;
-    top: -16px;
-    left: -55px;
-    padding-right: 10px;
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-size: 35px;
+    margin-left: 20px;
+    padding-top: 40px;
 }
 
-.fuel-style {
-    position: relative;
+.second-info-style {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -13px;
-    left: -120px;
+    width: 100%;
+    margin-bottom: 20px;
+}
 
+.trim-style, .fuel-style, .color-style {
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-size: 28px;
     text-align: center;
-
-    width: 100px;
-    height: 40px;
     padding: 8px;
-    
-    border-right: 3px solid black; /* Línea derecha más definida */
-    border-radius: 10px; /* Bordes suaves */
-    
-    background-color: rgba(0, 0, 0, 0.05); /* Fondo sutil */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
-}
-
-
-.color-style{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -70px;
-    left: 10px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 28px;
-    text-align: center;
-
-    width: 100px;
-    height: 40px;
-    padding: 8px;
-    
-    border-right: 3px solid black; /* Línea derecha más definida */
-    border-radius: 10px; /* Bordes suaves */
-    
-    background-color: rgba(0, 0, 0, 0.05); /* Fondo sutil */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */   
+    margin-right: 20px;
+    border-right: 3px solid black;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .price-style {
-    position: relative;
-    top: -50px;
-    left: -60px;
-    
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-weight: bold;
     font-size: 60px;
-    
-    color: rgb(27, 177, 104); /* Color atractivo pero no tan intenso */
-    
-    white-space: nowrap;
-    overflow: hidden;
-    
-    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6); /* Sombra más suave y difusa */
-    
-    transform: translateX(-50%); /* Alineación más precisa */
+    color: rgb(27, 177, 104);
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
 }
 
-
-
-/* Estilo para year */
-.year-style {
-    position: relative;
-    top: -40px;
-    left: -180px;
-    transform: translateX(-50%); /* Centra el texto horizontalmente */
-    
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px;
-    
-    text-align: center; /* Centra el texto */
-    line-height: 1.4; /* Aumenta el espacio entre las líneas */
-    padding-top: 20px;
+.third-info-style {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
+  width: 100%;
+  margin-top: 20px;
+  justify-items: start;
 }
 
-/* Estilo para body */
-.body-style {
-    position: relative;
-    display: flex;
-    top: -62px;
-    left: 0%;
-    transform: translateX(-50%); /* Centra el texto horizontalmente */
-    
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px;
-    line-height: 1.5; /* Mejora el espaciado entre líneas */
-    
-    text-align: center; /* Centra el texto */
-    margin-top: 20px;
+.year-style, .body-style, .country-style, .dealership-style, .units-style {
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  font-size: 30px;
+  margin: 0;
 }
 
-
-.country-style{
-    position: absolute;
-    display: flex;
-    top: 400px;
-    left: 710px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px; 
+.btn-delete-align{
+  position: absolute;
+  display: flex;
 }
-
-.dealership-style{
-    position: absolute;
-    display: flex;
-    top: 253px;
-    padding-top: 25px;
-    left: 1090px;
-    padding-left: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px; 
-    height: 205px;
-}
-
-.units-style{
-    position: absolute;
-    display: flex;
-    top: 340px;
-    left: 1100px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: 30px; 
-
-}
-
-/* .price-align{
-    position: absolute;
-    display: flex;
-    top: 550px;
-    left: 400px;
-} */
-
-/* .price-actual-style{
-    position: absolute;
-    display: flex;
-    left: 500px;
-    font-size: 50px;
-    padding: 20px;
-    border: 1px solid green;
-    border-radius: 30px;
-    color: #0ebc9b;
-} */
-
-/* .previous-syle{
-    position: absolute;
-    display: flex;
-    font-size: 50px;
-    padding: 20px;
-    border: 1px solid red;
-    border-radius: 30px;
-    inline-size: 1px solid red;
-    color: red;
-    text-decoration: line-through;
-} */
-
 /* From Uiverse.io by aaronross1 */ 
 .delete-button {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background-color: rgb(20, 20, 20);
     border: none;
@@ -277,6 +122,7 @@ body{
     transition-duration: 0.3s;
     overflow: hidden;
     position: relative;
+    margin-left: 50px;
   }
   
   .delete-svgIcon {
@@ -289,7 +135,7 @@ body{
   }
   
   .delete-button:hover {
-    width: 90px;
+    width: 120px;
     border-radius: 50px;
     transition-duration: 0.3s;
     background-color: rgb(255, 69, 69);
@@ -333,8 +179,8 @@ body{
 
 /* From Uiverse.io by aaronross1 */ 
 .edit-button {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background-color: rgb(20, 20, 20);
     border: none;
@@ -347,6 +193,7 @@ body{
     transition-duration: 0.3s;
     overflow: hidden;
     position: relative;
+    margin-left: 90px;
     text-decoration: none !important;
   }
   

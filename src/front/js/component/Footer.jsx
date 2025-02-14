@@ -28,8 +28,8 @@ const Footer = () => {
       <div className="col-3 first-line">
         <h4> Home </h4>
         <Link style={linkNoStyle} to={"/become/seller"}> <h4> Become a Seller</h4></Link>
-        <h4> To look for a Car </h4>
-        <h4> Publish your Car </h4>
+        <Link style={linkNoStyle} to={"/catalog"}><h4> To look for a Car </h4></Link>
+        <Link style={linkNoStyle} to={"/sell-your-car"}><h4> Publish your Car </h4></Link>
         <div className="mt-5">
           <i class="fa-brands fa-facebook"></i>
           <i class="fa-brands fa-youtube"></i>
