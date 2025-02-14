@@ -166,23 +166,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-
 			loadFavorites: async () => {
 				try {
 					const token = localStorage.getItem("token");
-
 					if (!token) {
 						console.error("No token found in localStorage");
-						return false;
+						return []; // Devuelve un array vacío si no hay token
 					}
-
 					const user = JSON.parse(localStorage.getItem("currentUser"));
-
 					if (!user) {
 						console.error("No user found in localStorage");
-						return false;
+						return []; // Devuelve un array vacío si no hay usuario
 					}
-
 					const response = await fetch(`${process.env.BACKEND_URL}/favorites/${user.id}`, {
 						method: "GET",
 						headers: {
@@ -190,22 +185,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Authorization": `Bearer ${localStorage.getItem("token")}`
 						},
 					});
-
 					if (!response.ok) {
 						const errorData = await response.json();
 						console.error("Error loading favorites:", errorData);
-						return response.status;
+						return []; // Devuelve un array vacío en caso de error REAL en la petición
 					}
-
-					const favorites = await response.json();
-					const store = getStore();
-					setStore({ ...store, favorites: favorites });
-					console.log("Usuario Logeado Activo, se recargo la lista de sus favoritos!");
-					return true;
-
+					const favoritesAdd = await response.json();
+					//  Aquí está la clave:
+					if (Array.isArray(favoritesAdd)) { // Verifica si es un array antes de hacer algo.
+						console.log("Favoritos recibidos del backend:", favoritesAdd);
+						setStore({ favorites: favoritesAdd })
+						return favoritesAdd;
+					} else {
+						console.error("Respuesta inesperada del backend:", favoritesAdd);
+						return []; // Devuelve un array vacío si la respuesta no es un array.
+					}
 				} catch (error) {
 					console.error("Error loading favorites:", error);
-					return false;
+					return []; // Devuelve un array vacío en caso de error en el try...catch
 				}
 			},
 
