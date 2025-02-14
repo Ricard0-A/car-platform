@@ -1,0 +1,60 @@
+.descri-bg {
+    font-family: math;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    left: -2rem;
+}
+
+.descri-bg h1 {
+    color: #157347;
+}
+
+.input-bg {
+    top: 1rem;
+    left: 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input-bg form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-bg textarea {
+    height: 130px;
+}
+
+.input-bg button {
+    margin-top: 2rem;
+}
+
+/* Desde 950px Res para abajo ... */
+@media (max-width: 950px) {
+
+    .descri-bg,
+    .input-bg {
+        left: 0;
+        top: 0;
+    }
+
+    .descri-bg h2 {
+        text-align: center;
+    }
+
+    .input-bg form {
+        margin: 0 auto;
+    }
+
+    .input-bg button {
+        margin-left: 75px !important;
+        margin-top: 30px !important;
+        width: 140px !important;
+    }
+}

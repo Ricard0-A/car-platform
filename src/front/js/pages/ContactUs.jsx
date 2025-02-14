@@ -3,7 +3,6 @@ import "../../styles/contact-us.css"
 
 const ContactUs = () => {
 
-
     const background = {
         position: "relative",
         height: "60vh",

@@ -212,7 +212,6 @@ const Catalog = () => {
   };
 
   const applyFilters = (term = searchTerm) => {
-    // Si se ha ingresado algún filtro adicional, se ignora el search term y se toma la lista completa
     if (
       brandFilter ||
       modelFilter ||
@@ -358,8 +357,8 @@ const Catalog = () => {
             <div className="col-9">
               <div>
                 <div className="row show-cars g-5">
-                  {store.cars && store.cars.length > 0 ? ( // Siempre itera sobre store.cars si existen coches
-                    filteredCars.length > 0 ? ( // Si hay coches filtrados, se muestran esos
+                  {store.cars && store.cars.length > 0 ? (
+                    filteredCars.length > 0 ? (
                       filteredCars.map((car) => {
                         const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
                         return (
@@ -400,9 +399,9 @@ const Catalog = () => {
                             </Link> </div>
                         );
                       })
-                    ) : ( // Si no hay coches filtrados
-                      !noResults ? ( // <-- Condición añadida: Si no hay resultados, muestra el mensaje
-                        store.cars.map((car) => { // Muestra todos los coches desde store.cars
+                    ) : (
+                      !noResults ? (
+                        store.cars.map((car) => {
                           const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
                           return (
                             <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
@@ -441,7 +440,7 @@ const Catalog = () => {
                             </div>
                           );
                         })
-                      ) : ( // Si no hay resultados
+                      ) : (
                         <div className="col-12">
                           <p style={{ fontSize: "4vh" }}>No results found.</p> {/* Mensaje "No se encontraron resultados" */}
                         </div>

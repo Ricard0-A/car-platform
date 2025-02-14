@@ -8,6 +8,7 @@ import innerCar from "../../img/inner-photos.jpg";
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CarDetail = () => {
     const { store, actions } = useContext(Context);
@@ -24,13 +25,11 @@ const CarDetail = () => {
         findCar();
     }, [store.cars]);
 
-    // Función para hacer toggle de favoritos en CarDetail
     const handleFavoriteClick = async (car) => {
         try {
             const isFavorite = store.favorites && store.favorites.some((fav) => fav.car_id === car.id);
-            const success = await actions.addFavorite(car.id); // Se asume que esta acción hace toggle
+            const success = await actions.addFavorite(car.id);
             if (success) {
-                // Se recargan los favoritos; suponemos que actions.loadFavorites actualiza store.favorites
                 await actions.loadFavorites();
             }
         } catch (error) {
@@ -99,7 +98,8 @@ const CarDetail = () => {
                         <div className="div-features">
                             <h4>Price including {carDetail?.dealership} bonus</h4>
                             <h1>{carDetail?.model_price}</h1>
-                            <button className="btn btn-success">Reserve Now</button>
+                            <Link to="/reserve" style={{ color: "inherit", textDecoration: "none" }}>
+                                <button className="btn btn-success">Reserve Now</button></Link>
                         </div>
                     </div>
                 </div>

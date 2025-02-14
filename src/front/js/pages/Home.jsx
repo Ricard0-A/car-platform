@@ -64,32 +64,30 @@ export const Home = () => {
     }
   };
 
-  // Logica para llegar hasta el filtro Type Car 
   const handleCategoryClick = (carType) => {
     const params = new URLSearchParams();
-    params.append('carType', carType); // 'carType' es el nombre del parámetro
+    params.append('carType', carType);
     navigate(`/catalog?${params.toString()}`);
   };
 
   // Logica para llegar hasta el filtro Type Car 
   const handleDealershipClick = (dealershipName) => {
     const params = new URLSearchParams();
-    params.append("location", dealershipName); // "location" será el query parameter
+    params.append("location", dealershipName);
     navigate(`/catalog?${params.toString()}`);
   };
 
 
 
 
-  // Objeto CSS ya que img-url tradicional no funciona
   const firstImg = {
     background: `url(${backgroundCar}) center/cover`,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Oscurece la imagen
-    backgroundBlendMode: "overlay", // Fusiona la imagen con el sombreado
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backgroundBlendMode: "overlay",
   };
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
-    borderRadius: "20px 0 0 20px", // Redondea solo borde izquierdo
+    borderRadius: "20px 0 0 20px",
     padding: "10px 20px",
     position: "relative",
     top: "-150px",
@@ -201,9 +199,10 @@ export const Home = () => {
                   </li>
                   <li>
                     <button className="mt-5 ms-5 btn btn-dark">
-                      <h6 style={{ fontWeight: "500", padding: "6px" }}>
-                        View all the cars
-                      </h6>
+                      <Link to="/catalog" style={{ color: "inherit", textDecoration: "none" }}>
+                        <h6 style={{ fontWeight: "500", padding: "6px" }}>
+                          View all the cars
+                        </h6></Link>
                     </button>
                   </li>
                 </ul>
