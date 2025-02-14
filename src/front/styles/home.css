@@ -1,7 +1,383 @@
-/*
-    home.css: This website contains selectors only used in home.css
+/* Preload... */
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+/* Variables Css */
+:root {
+  --any: Green;
+}
+
+/* Evitar colapso de rows */
+.container-fluid {
+  overflow: auto;
+}
+
+.position-relative {
+  position: relative;
+}
+
+/* ------------------------------------------------------- */
+
+/* STARTING */
+
+.first-row {
+  max-height: 1200px;
+  height: 750px;
+}
+
+.message {
+  position: absolute;
+  top: 2px;
+  right: -150px;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: right;
+  max-width: 600px;
+  word-wrap: break-word;
+}
+
+.dreams {
+  color: rgb(27, 177, 104);
+  position: absolute;
+  left: 200px;
+  top: 79px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 50px;
+}
+
+/* ESTILOS DE LA SEGUNDA ROW */
+
+.second-row {
+  background-color: #f5f5f5b4;
+}
+
+.before-reasons h1 {
+  font-weight: 500;
+  color: #0e5348;
+}
+
+.before-reasons h2 {
+  font-weight: 500;
+  color: #0e5348;
+}
+
+.master-reasons img {
+  border-radius: 10%;
+  position: relative;
+  right: -90px;
+  top: -80px;
+  height: auto;
+  max-width: 600px;
+  width: 450px;
+}
+
+.master-reasons ul {
+  padding-left: 10px;
+  list-style: none;
+  font-size: 25px;
+}
+
+.second-page {
+  top: 60px;
+}
+
+/* ESTILOS DE LA TECERA ROW */
+.third-page {
+  top: 20px;
+}
+
+.third-page h1 {
+  color: #0e5348;
+}
+
+.third-page p {
+  font-size: 27px;
+}
+
+.fourth-page {
+  margin-top: -9vh;
+  font-size: 24px;
+}
+
+.fourth-page h1 {
+  color: #0e5348;
+}
+
+/* ESTILOS DE LA CUARTA ROW */
+
+.fourth-row {
+  margin-top: 2vh;
+}
+
+.fourth-row i {
+  font-size: 10vh;
+}
+
+.fourth-row :nth-child(1) {
+  margin-left: 17%;
+}
+
+/* QUINTA ROW PARA (Tipos de Autos)  */
+
+.search-by {
+  margin-top: -10vh;
+  color: #252e7e;
+}
+
+.one img {
+  height: 11vh;
+  color: greenyellow;
+}
+
+.two img {
+  height: 11vh;
+}
+
+.three img {
+  height: 11vh;
+}
+
+.four img {
+  height: 11vh;
+}
+
+
+.one,
+.two,
+.three,
+.four {
+  cursor: pointer;
+}
+
+.background {
+  z-index: -1;
+  margin-top: -33vh;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #d1e8d1, #f9fff9);
+  height: 11%;
+  width: 86%;
+}
+
+.fifth-row {
+  height: 100%;
+  margin-top: 25vh;
+}
+
+/* ========================================================================================== */
+
+/* ESTILO DE LA SEXTA ROW (Autos Catalogo (Suggesteds)) */
+
+.sixth-row {
+  position: relative;
+  margin-top: -3rem;
+  margin-left: 3%;
+}
+
+.popular {
+  z-index: 1;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  height: 12%;
+  width: 15%;
+  background-color: red;
+  border-top-right-radius: 34px;
+  border-bottom-right-radius: 34px;
+}
+
+
+.popular h3 {
+  color: white;
+  padding-top: 0.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Estilo de corazon/favoritos */
+
+.favorites {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 19%;
+  width: 33px;
+  border-radius: 50%;
+  background: whitesmoke;
+}
+
+.favorites i {
+  color: darkgreen;
+  padding-top: 4px;
+  padding-left: 4px;
+}
+
+.sixth-row h2 {
+  color: rgb(27, 177, 104);
+}
+
+.sixth-row .year-km-1 {
+  color: black;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+
+
+/* Estilo para todas las imagenes (Suggested )*/
+.sixth-row img {
+  width: 46vh;
+  height: 28vh;
+}
+
+/* Banner */
+.sixth-row .location-1 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* Precio */
+.price {
+  background-color: white;
+  width: 45vh;
+  height: 13%;
+  padding-top: 1.2vh;
+}
+
+/* Negamos todos los bajos precios  */
+.price :first-child {
+  color: #ec7f64;
+  text-decoration: line-through;
+}
+
+/* Encedemos los altos precios  */
+.price :nth-child(3) {
+  color: #03ad64;
+}
+
+/* ------------------------------------------------------------------------------------ */
+
+/* SEPTIMA ROW */
+
+.seventh-row {
+  margin-top: 5rem;
+  position: relative;
+  margin-left: 3%;
+}
+
+.arrival {
+  z-index: 1;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  height: 12%;
+  width: 18%;
+  background-color: #1ccfc9;
+  border-top-right-radius: 34px;
+  border-bottom-right-radius: 34px;
+}
+
+.arrival h3 {
+  color: white;
+  padding-top: 0.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.seventh-row h2 {
+  color: rgb(27, 177, 104);
+}
+
+.seventh-row img {
+  width: 46vh;
+  height: 28vh;
+}
+
+/* OCTAVA ROW  */
+
+.eight-row {
+  position: relative;
+  margin-left: 3%;
+}
+
+.selled {
+  z-index: 1;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  height: 12%;
+  width: 18%;
+  background-color: seagreen;
+  border-top-right-radius: 34px;
+  border-bottom-right-radius: 34px;
+}
+
+.selled h3 {
+  color: white;
+  padding-top: 0.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.eight-row h2 {
+  color: rgb(27, 177, 104);
+}
+
+.eight-row img {
+  width: 46vh;
+  height: 28vh;
+}
+
+/* ============================================================================== */
+
+/* PARTE DE LOGO/CONSESIONARIOS */
+
+/* NOVENA ROW  */
+
+.nineth-row {
+  margin-top: 10vh;
+}
+
+.nineth-row .col-12 {
+  margin-top: 22vh;
+}
+
+.nineth-row i {
+  font-size: 100px;
+}
+
+/* DECIMA ROW  */
+
+.tenth-row {
+  border-radius: 10px;
+  color: white;
+  background-color: #006454;
+  margin-top: 11vh;
+}
+
+.first-line h4 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.tenth-row .col-3 {
+  padding-top: 50px;
+  padding-left: 60px;
+}
+
+.tenth-row h4 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
+/* FINAL  */
+
+.final-line {
+  background-color: rgba(229, 229, 225, 0.957);
+  height: 1vh;
+  width: 100%;
+}
+
+.final-logo {
+  font-size: 20px;
+}

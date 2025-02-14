@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Matemasie&family=New+Amsterdam&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Smooch+Sans:wght@100..900&display=swap');
+
+body {
+  background-color: #F8F9FA;
+}
+
+.paypal-align {
+  position: absolute;
+  top: 500px;
+}
+
+.first-style {
+  background-color: lightgreen;
+  margin-bottom: 20px;
+  padding: 80px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dedicated-style {
+  margin-top: 40px;
+  background-color: #fffcfc;
+  width: 90%;
+  padding: 40px;
+  font-size: 20px;
+  margin-left: 5%;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.make-contribution-style {
+  margin-top: 40px;
+  background-color: #fffcfc;
+  width: 70%;
+  margin-left: 15%;
+  padding: 40px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.main-style {
+  margin-top: 40px;
+  display: flex;
+  margin-left: 30%;
+  width: 400px;
+}
+
+.paypal-style {
+
+  margin-top: 40px;
+}
+
+.partner-style {
+  margin-top: 100px;
+}
+
+.first-recomendation-style {
+  background-color: #fffcfc;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  font-style: italic;
+  margin-left: 40px;
+  font-size: 25px;
+  border-width: 10px;
+  border-radius: 10px
+}
+
+.second-recomendation-style {
+  background-color: #fffcfc;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  font-style: italic;
+  margin-left: 40px;
+  margin-right: 40px;
+  font-size: 25px;
+  border-width: 10px;
+  border-radius: 10px
+}
+
+.make-contribution-title {
+  color: seagreen;
+  font-family : emoji
+}
+
+.first-title-style {
+  color: black;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.first-text-style {
+  font-size: 20px;
+}
+
+.align-paypal-style {
+  margin-top: 60px;
+
+}
+
+.asociation-style {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400px;
+  font-style: normal;
+}
+
+.paypal-title-style{
+  font-family: emoji;
+}

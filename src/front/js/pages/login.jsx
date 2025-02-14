@@ -22,10 +22,12 @@ const Login = () => {
     const handleSubmit = async (event) => {
         try {
             event.preventDefault()
-            const response = await actions.login(user)
+            const response = await actions.login(user);
 
             if (response == 200) {
                 alert("Correct Login")
+                navigate("/");
+                window.location.href = "/";
             } else if (response == 400) {
                 alert("Invalid Credentials")
             }
@@ -35,7 +37,7 @@ const Login = () => {
     }
     return (
         <>
-        <img src={bgLogin} className="img-login"/>
+            <img src={bgLogin} className="img-login" />
             <div className="container mt-5 bg-container-login">
                 <div className="row justify-content-center">
                     <h1 className="text-center text-login">Login</h1>
@@ -49,7 +51,7 @@ const Login = () => {
                                 <input
                                     type="email"
                                     className="form-control bg-form-login"
-                                    placeholder="Name"
+                                    placeholder="Email"
                                     name="email"
                                     value={user.email}
                                     onChange={handleChange}
@@ -58,17 +60,18 @@ const Login = () => {
                             <div className="form-group mt-3">
                                 <label className="text-login">Password</label>
                                 <input
-                                type="password"
-                                className="form-control bg-form-login"
-                                placeholder="Password"
-                                name="password"
-                                value={user.password}
-                                onChange={handleChange}
+                                    type="password"
+                                    className="form-control bg-form-login"
+                                    placeholder="Password"
+                                    name="password"
+                                    value={user.password}
+                                    onChange={handleChange}
                                 />
 
                             </div>
                             <button className="btn btn-warning btn-login mt-3 mb-3">Log in</button>
                         </form>
+                        <p className="text-login">Don't have an account?<Link to={"/register"} className="link-danger ms-1">Register</Link></p>
                     </div>
                 </div>
 

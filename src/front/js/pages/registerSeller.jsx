@@ -5,6 +5,13 @@ import bgRegisterSeller from "../../img/bg-register-seller.jpg"
 import "../../styles/register-seller.css"
 const initialSeller = {
     name: "",
+    name_representative: "",
+    license: "",
+    license_expiration: "",
+    phone_number: "",
+    register_number: "",
+    address: "",
+    test_drive: "",
     email: "",
     password: "",
     country: ""
@@ -23,23 +30,32 @@ const RegisterSellers = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = FormData();
+        const formData = new FormData();
         formData.append("name", seller.name);
+        formData.append("name_representative", seller.name_representative)
+        formData.append("license", seller.license)
+        formData.append("license_expiration", seller.license_expiration)
+        formData.append("phone_number", seller.phone_number)
+        formData.append("register_number", seller.register_number)
+        formData.append("address", seller.address)
+        formData.append("test_drive", seller.test_drive)
         formData.append("email", seller.email);
         formData.append("password", seller.password);
         formData.append("country", seller.country);
 
-        const response = await actions.registerSellers(formData)
+
 
         try {
+            const response = await actions.registerSellers(formData)
             if (response == 200) {
                 setSeller(initialSeller)
                 alert("User create")
             } else if (response == 400) {
                 alert("This user already exist")
             } else {
-                alert("Please try later")
+                alert("Try later")
             }
+
         } catch (error) {
             console.log(error)
         }
@@ -60,7 +76,7 @@ const RegisterSellers = () => {
                                     <label className="letter-seller">Name</label>
                                     <input
                                         type="text"
-                                        className="form-control bg-input-seller"
+                                        className="form-control bg-input-seller letter-seller"
                                         placeholder="Name"
                                         name="name"
                                         value={seller.name}
@@ -68,10 +84,98 @@ const RegisterSellers = () => {
                                     />
                                 </div>
                                 <div className="form-group mt-3">
+                                    <label className="letter-seller">Name Representative</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Name Representative"
+                                        name="name_representative"
+                                        value={seller.name_representative}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">License</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="License"
+                                        name="license"
+                                        value={seller.license}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">License Expiration</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="License Expiration"
+                                        name="license_expiration"
+                                        value={seller.license_expiration}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Phone Number"
+                                        name="phone_number"
+                                        value={seller.phone_number}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Register Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Register Number"
+                                        name="register_number"
+                                        value={seller.register_number}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Address</label>
+                                    <input
+                                        type="text"
+                                        className="form-control bg-input-seller letter-seller"
+                                        placeholder="Address"
+                                        name="address"
+                                        value={seller.address}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label className="letter-seller">Test Drive</label>
+                                    <div className="input-group mb-3">
+                                        <label className="input-group-text letter-seller bg-input-seller">Test Drive</label>
+                                        <select
+                                            className="form-select bg-input-seller "
+                                            name="test_drive"
+                                            value={seller.test_drive}
+                                            onChange={handleChange}
+                                        >
+                                            <option className="select-text" value="">
+                                                Choose...
+                                            </option>
+                                            <option className="select-text" value="AVILABLE">
+                                                AVILABLE
+                                            </option>
+                                            <option className="select-text" value="UNAVAILABLE">
+                                                UNAVAILABLE
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="form-group mt-3">
                                     <label className="letter-seller">Email</label>
                                     <input
                                         type="email"
-                                        className="form-control bg-input-seller "
+                                        className="form-control bg-input-seller letter-seller "
                                         placeholder="Email"
                                         name="email"
                                         value={seller.email}
@@ -82,7 +186,7 @@ const RegisterSellers = () => {
                                     <label className="letter-seller">Password</label>
                                     <input
                                         type="password"
-                                        className="form-control bg-input-seller"
+                                        className="form-control bg-input-seller letter-seller"
                                         placeholder="Password"
                                         name="password"
                                         value={seller.password}
@@ -99,37 +203,37 @@ const RegisterSellers = () => {
                                             value={seller.country}
                                             onChange={handleChange}
                                         >
-                                            <option className="select-text " value="">
+                                            <option className="select-text" value="">
                                                 Choose...
                                             </option>
-                                            <option value="USA">
+                                            <option className="select-text" value="USA">
                                                 USA
                                             </option>
-                                            <option value="Canada">
+                                            <option className="select-text" value="Canada">
                                                 Canada
                                             </option>
-                                            <option value="Ecuador">
+                                            <option className="select-text" value="Ecuador">
                                                 Ecuador
                                             </option>
-                                            <option value="Argentina">
+                                            <option className="select-text" value="Argentina">
                                                 Argentina
                                             </option>
-                                            <option value="Chile">
+                                            <option className="select-text" value="Chile">
                                                 Chile
                                             </option>
-                                            <option value="Brazil">
+                                            <option className="select-text" value="Brazil">
                                                 Brazil
                                             </option>
-                                            <option value="Germany">
+                                            <option className="select-text" value="Germany">
                                                 Germany
                                             </option>
-                                            <option value="Spain">
+                                            <option className="select-text" value="Spain">
                                                 Spain
                                             </option>
-                                            <option value="Japan">
+                                            <option className="select-text" value="Japan">
                                                 Japan
                                             </option>
-                                            <option value="China">
+                                            <option className="select-text" value="China">
                                                 China
                                             </option>
                                         </select>
@@ -140,7 +244,7 @@ const RegisterSellers = () => {
                                 </button>
                             </form>
                             <div>
-                                <p className="letter-seller">Already have an acoount?<Link to={"/login"} className="ms-2 link-success">Log in</Link></p>
+                                <p className="letter-seller">Already have an acoount?<Link to={"/login/sellers"} className="ms-2 link-success">Log in</Link></p>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 180%;
     z-index: -1;
 }
 
@@ -14,6 +14,7 @@
 
 .bg-seller{
     position: relative;
+    top: 105px;
     backdrop-filter: blur(2px);
     width: 550px;
     border-radius: 30px;
@@ -22,6 +23,7 @@
 .bg-input-seller{
     background-color: transparent;
     border:  none;
+    color: white;
     border-bottom: 2px solid rgb(0, 174, 255);
 }
 

@@ -1,0 +1,123 @@
+/* 
+Estilos del lado de filtros 
+
+/* ROW 1  */
+.row .catalog-row {
+  margin-top: 40px;
+  padding-top: 40px;
+  background-color: #f5f5f5;
+}
+
+.catalog-row .col-3 {
+  background-color: #f5f5f5;
+}
+
+.div-filter {
+  margin-top: -12px;
+  margin-left: 1.2rem;
+  padding-top: 8px;
+  padding-left: 11px;
+  padding-bottom: 24px;
+  width: 72%;
+  background-color: white;
+}
+
+.div-filter h5 {
+  color: #0ebc9b;
+  /* color: rgb(27, 177, 104); */
+}
+
+.div-filter input {
+  width: 90%;
+  height: 1.5rem;
+}
+
+.div-filter select {
+  width: 90%;
+}
+
+/* Price padding fix */
+.catalog-row .col-3 :first-child h5 {
+  padding-left: 0;
+}
+
+.row .col-3 input {
+  display: block;
+}
+
+.div-filter .filter {
+  height: 6vh;
+  width: 85%;
+  color: white;
+  border-radius: 10px;
+  background-color: #0ebc9b;
+}
+
+/*ESTILOS ROW 2 (Map completo del catalogo) */
+
+.catalog-row .col-9 div {
+  margin-left: -3vh;
+}
+
+.show-cars .col-lg-4 img {
+  border-radius: 10px;
+}
+
+.fav {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  left: 17rem;
+  position: absolute;
+  top: 1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  z-index: 1;
+}
+
+.fav i {
+  padding-top: 8px;
+  padding-left: 6.8px;
+  font-size: 27px;
+  color: green;
+}
+
+.show-cars img {
+  height: 11rem;
+  width: 18rem;
+}
+
+.show-cars h2 {
+  color: #03ad64;
+}
+
+.price-v2 {
+  background-color: white;
+  width: 269px;
+  height: 13%;
+  padding-top: 12px;
+  position: relative;
+  right: -10%;
+}
+
+.price-v2 :first-child {
+  color: #ec7f64;
+  text-decoration: line-through;
+}
+
+.price-v2 :nth-child(2) {
+  color: #03ad64;
+}
+
+.price-line {
+  width: 0.1%;
+  margin-top: -7px;
+  margin-left: 6px !important;
+  background-color: rgb(160, 166, 163);
+  height: 45px;
+}
+
+.green-price {
+  color: #0ebc9b;
+  /* color: rgb(29, 161, 98); */
+}

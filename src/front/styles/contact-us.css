@@ -1,0 +1,54 @@
+.info-bg {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  left: 6rem;
+}
+
+.info-bg h1 {
+  color: #157347;
+}
+
+.form-bg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-bg form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-bg textarea {
+  height: 130px;
+}
+
+.form-bg button {
+  margin-top: 2rem;
+}
+
+/* Desde 950px Res para abajo ... */
+@media (max-width: 950px) {
+  .info-bg,
+  .form-bg {
+    left: 0;
+    top: 0;
+  }
+
+  .info-bg h2 {
+    text-align: center;
+  }
+
+  .form-bg form {
+    margin: 0 auto;
+  }
+  .form-bg button {
+    margin-left: 75px !important;
+    margin-top: 30px !important;
+    width: 140px !important;
+  }
+}

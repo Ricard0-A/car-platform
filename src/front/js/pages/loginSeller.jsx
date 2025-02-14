@@ -10,10 +10,11 @@ const initialSellerState = {
 
 const LoginSellers = () => {
     const [seller, setSeller] = useState(initialSellerState)
-    const { actions } = useContext(Context)
+    const { store, actions } = useContext(Context)
+    const navigate= useNavigate()
 
     const handleChange = ({ target }) => {
-        setUser({
+        setSeller({
             ...seller,
             [target.name]: target.value
         })
@@ -23,10 +24,11 @@ const LoginSellers = () => {
 
         try {
             event.preventDefault()
-            const response = await actions.login(seller)
+            const response = await actions.loginSellers(seller)
 
             if(response == 200){
                 alert("Login succes")
+                navigate("/seller/cars")
             }if (response == 400){
                 alert("Invalid Credentials")
             }
@@ -36,31 +38,32 @@ const LoginSellers = () => {
     }
     return (
         <>
-        <img className="login-bg" src={bgLoginSeller} />
-        <div className="container mt-5">
+       
+        <img className="col-12 col-md-6 login-bg" src={bgLoginSeller} />
+        <div className="container mt-5 bg-login">
                 <div className="row justify-content-center">
-                    <h1 className="text-center">Login</h1>
+                    <h1 className="text-center login-letter">Login</h1>
                     <div className="col-12 col-6">
                         <form
                             onSubmit={handleSubmit}
                             className="mt-3"
                         >
                             <div className="form-group mt-3">
-                                <label>Email</label>
+                                <label className="login-letter">Email</label>
                                 <input
                                     type="email"
-                                    className="form-control"
-                                    placeholder="Name"
+                                    className="form-control bg-input"
+                                    placeholder="Email"
                                     name="email"
                                     value={seller.email}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className="form-group mt-3">
-                                <label className="text-login">Password</label>
+                                <label className="text-login login-letter ">Password</label>
                                 <input
                                 type="password"
-                                className="form-control"
+                                className="form-control bg-input"
                                 placeholder="Password"
                                 name="password"
                                 value={seller.password}
@@ -68,7 +71,7 @@ const LoginSellers = () => {
                                 />
 
                             </div>
-                            <button className="btn btn-warning mt-3 mb-3">Log in</button>
+                            <button className="btn btn btn-success mt-3 mb-3 btn-login">Log in</button>
                         </form>
                     </div>
                 </div>

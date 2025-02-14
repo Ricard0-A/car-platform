@@ -1,9 +1,39 @@
-.login-bg{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    
+.login-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 123vh;
+  z-index: -1;
+}
+
+.bg-login {
+  position: relative;
+  top: 150px;
+  backdrop-filter: blur(2px);
+  width: 550px;
+  border-radius: 30px;
+}
+
+.bg-input {
+  background-color: transparent;
+  border: none;
+  color: white;
+  border-bottom: 2px solid rgb(71, 252, 113);
+}
+
+.login-letter {
+  font-family: "DM Serif Text", serif;
+  color: white;
+}
+
+.login-letter :focus {
+  outline: none;
+  background-color: transparent;
+  border-color: white;
+  color: white;
+}
+
+.btn-login {
+  background-color: transparent;
 }

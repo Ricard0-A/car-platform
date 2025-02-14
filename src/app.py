@@ -37,6 +37,7 @@ db.init_app(app)
 setup_admin(app)
 
 app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 jwt = JWTManager(app)
 
 # add the admin
