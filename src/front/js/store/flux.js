@@ -19,9 +19,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json();
 					setStore({ cars: data });
-					
+
 					const cars = getStore().cars;
-					
+
 
 				} catch (error) {
 					console.error("Error loading all cars:", error);
@@ -157,10 +157,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const updatedFavorites = store.favorites.filter(fav => fav.car_id !== carId);
 					setStore({ ...store, favorites: updatedFavorites });
 
-<<<<<<< HEAD
-=======
-					console.log("Favorito Eliminado");
->>>>>>> ricardo
 
 					return true;
 
@@ -201,12 +197,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return []; // Devuelve un array vacío en caso de error REAL en la petición
 					}
 
-<<<<<<< HEAD
-					const favorites = await response.json();
-					const store = getStore();
-					setStore({ ...store, favorites: favorites });
-					return true;
-=======
 					const favoritesAdd = await response.json();
 
 					//  Aquí está la clave:
@@ -218,7 +208,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Respuesta inesperada del backend:", favoritesAdd);
 						return []; // Devuelve un array vacío si la respuesta no es un array.
 					}
->>>>>>> ricardo
 
 				} catch (error) {
 					console.error("Error loading favorites:", error);
@@ -234,7 +223,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "POST",
 						body: sellers
 					})
-		
+
 					return response.status
 
 				} catch (error) {
@@ -419,7 +408,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify({ email: email })
 					})
 
-					
+
 				} catch (error) {
 					console.log(error)
 				}

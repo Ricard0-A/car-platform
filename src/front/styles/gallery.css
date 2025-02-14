@@ -81,11 +81,13 @@
     transition: background-color 0.3s ease;
 }
 
+
+
 .delete-button-container:hover {
     background-color: #EE4235;
 }
 
-.delete-button {
+.delete-button-wf {
     background-color: transparent;
     border: none;
     color: antiquewhite;

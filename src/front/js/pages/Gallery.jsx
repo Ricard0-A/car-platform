@@ -82,9 +82,9 @@ const Gallery = () => {
 
                                             </div>
                                         </div>
-                                        <div className="delete-button-container"> {/* Nuevo contenedor para el semicírculo */}
-                                            <button className="delete-button" onClick={() => handleDelete(favorite.car_id)}>
-                                                <i className="fas fa-trash-alt"></i> {/* Icono de papelera */}
+                                        <div className="delete-button-container">
+                                            <button className="delete-button-wf" onClick={() => handleDelete(favorite.car_id)}>
+                                                <i className="fas fa-trash-alt"></i>
                                             </button>
                                         </div>
                                     </div>
