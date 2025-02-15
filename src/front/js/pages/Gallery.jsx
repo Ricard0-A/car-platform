@@ -74,7 +74,7 @@ const Gallery = () => {
                                             <h2 className="model">{carDetails.model_name}</h2>
                                             <p className="car-price">${" "} {carDetails.model_price}</p>
                                             <div className="details-button-container">
-                                                <Link to="/catalog/car-detail">
+                                                <Link to={`/car-detail/${carDetails.id}`}>
                                                     <button className="btn btn-primary details-button">
                                                         View Details
                                                     </button>

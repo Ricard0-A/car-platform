@@ -217,18 +217,13 @@ export const Home = () => {
           <div className="col-12 third-page col-md-8 position-relative">
             <h1 className="text-center "> What is DrivenS ?</h1>
             <p className="mt-4">
-              DrivenS, Find your dream car quickly and securely. We accept all
-              makes and models, e accept all makes and models u accept all makes
-              and m.
+              DrivenS, where buying and selling your car is fast and safe. We accept all makes and models.
             </p>
           </div>
           <div className="col-12 fourth-page col-md-8 position-relative">
             <h1 className="text-center "> How it works?</h1>
             <p className="mt-4">
-              Buying a car is super easy, we gu`i`de you through the entire
-              process with no hassle. Check the car’s mechanical conditions and
-              much more at our Safe Points of DrivenS. We’ll also assist you
-              through the Vehicle Transfer process.
+              Buying a car is super easy. We guide you through the entire process hassle-free.  Check the car's mechanical condition and much more at our DrivenS Safe Points. We'll also assist you with the vehicle transfer process.
             </p>
           </div>
         </div>

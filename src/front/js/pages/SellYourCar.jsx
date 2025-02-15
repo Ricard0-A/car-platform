@@ -15,7 +15,7 @@ const SellYourCar = () => {
                 <div className="row w-100">
                     <div className="col-md-8 offset-md-2 p-5 text-center bg-dark bg-opacity-75 rounded">
                         <h1 className="fw-bold display-5">Reach More Buyers, Sell Faster!</h1>
-                        <p className="lead">Join the #1 platform for dealerships and increase your sales</p>
+                        <p className="lead">Join the Greatest platform for dealerships and increase your sales</p>
                         <div className="d-flex justify-content-around my-4">
                             <div className="text-center">
                                 <p><strong>Expand Your Reach</strong><br />Connect with thousands of potential buyers daily</p>

@@ -82,7 +82,7 @@ const CarDetail = () => {
                                 <i className="fa-brands fa-twitter"></i>
                             </div>
                         </div>
-                        <h2>{carDetail?.model_name_id}</h2>
+                        <h1 style={{ color: "seagreen" }}>{carDetail?.model_make_id}</h1>
                         <h2 className="model-name">{carDetail?.model_name}</h2>
                         <div className="first-horizon-line"></div>
                         <div className="features-line">
@@ -97,7 +97,7 @@ const CarDetail = () => {
                         <div className="second-horizon-line"></div>
                         <div className="div-features">
                             <h4>Price including {carDetail?.dealership} bonus</h4>
-                            <h1>{carDetail?.model_price}</h1>
+                            <h1>${" "} {carDetail?.model_price}</h1>
                             <Link to="/reserve" style={{ color: "inherit", textDecoration: "none" }}>
                                 <button className="btn btn-success">Reserve Now</button></Link>
                         </div>
