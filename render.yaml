@@ -3,6 +3,9 @@
 # Schema documented at https://render.com/docs/yaml-spec
 services:
     - type: web # valid values: https://render.com/docs/yaml-spec#type
+      deploy:
+        autoDeploy: true
+        branch: main
       region: ohio
       name: sample-service-name
       env: python # valid values: https://render.com/docs/yaml-spec#environment
