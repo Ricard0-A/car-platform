@@ -37,10 +37,14 @@ const Login = () => {
     }
     return (
         <>
-            <img src={bgLogin} className="img-login" />
-            <div className="container mt-5 bg-container-login">
-                <div className="row justify-content-center">
-                    <h1 className="text-center text-login">Login</h1>
+            <div
+                className="container-fluid user-log__container"
+                style={{ backgroundImage: 'url(/login-bg.webp)' }}
+            >
+                <div className="row user-log__box">
+                    <Link to='/' className="user-log__link">
+                        <img className="user-log__img" src="/my-logo-fix.png" alt="Logo" />
+                    </Link>
                     <div className="col-12 col-6">
                         <form
                             onSubmit={handleSubmit}

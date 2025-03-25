@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../../styles/navbar.css";
-
 
 const Navbar = () => {
   const { actions } = useContext(Context);
@@ -10,11 +10,10 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(null); //New
 
-  useEffect(() => {
-    const token = localStorage.getItem('token'); // Verifica si hay token en localStorage
-    setIsLoggedIn(!!token); // Actualiza el estado isLoggedIn
-  }, []);
 
+
+
+  // Este useEffect es para los usuarios logeados!
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
@@ -31,23 +30,30 @@ const Navbar = () => {
         }
       }
     }
-  }, [localStorage.getItem('token')]);
+  }, [localStorage.getItem('token')]); // Una vez al iniciar y cada vez 
+  // que esto cambia
 
 
   const handleModalToggle = () => {
     setShowModal(!showModal);
   };
 
+
+  const location = useLocation();
+  const pathdenied = ["/login"]
+
+  if (pathdenied.some(path => location.pathname.startsWith(path))) {
+    return null;
+  }
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <nav className="nav-container navbar navbar-expand-lg navbar-dark fixed-top">
         <div className="container-fluid">
+          {/* Antes de los ul siempre el navbar brand y boton de colapso */}
           <Link className="navbar-brand d-flex align-items-center" to="/">
-            <i className="green fa-brands fa-drupal fs-1 "></i>
-            <i className="fa-brands fa-stumbleupon fs-2 "></i>
-            <h4>DrivenS</h4>
+            <img className="main-logo" src="/my-logo-fix.png" alt="Logo img" height={50} width={220} />
           </Link>
-
           <button
             className="navbar-toggler"
             type="button"
@@ -59,18 +65,32 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-
-          <div className="collapse navbar-collapse" id="navbarNav" style={{ marginLeft: "100px" }}>
-            <ul className="navbar-nav me-auto" style={{ gap: "64px" }}>
+          {/* Todo esto colapsara! */}
+          <div className="collapse navbar-collapse" id="navbarNav" style={{ marginLeft: "75px" }}>
+            <ul className="navbar-nav me-auto" style={{ gap: "42px" }}>
               <li className="nav-item">
                 <Link className="nav-link" to="/catalog">
                   Catalog
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/sell-your-car">
+                <div className="navbar__ball mt-3"></div>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Blog
+                </Link>
+              </li>
+              <li className="nav-item">
+                <div className="navbar__ball mt-3"></div>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="#" onClick={handleModalToggle}>
                   Join as Seller
                 </Link>
+              </li>
+              <li className="nav-item">
+                <div className="navbar__ball mt-3"></div>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/contact-us">
@@ -86,8 +106,8 @@ const Navbar = () => {
               )}
             </ul>
 
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item d-flex align-items-center" style={{ marginLeft: '10px' }}> {/* Margen a la izquierda */}
+            <ul className="navbar-nav nav-login ms-auto">
+              <li className="nav-item d-flex align-items-center" style={{ marginLeft: '10px' }}>
                 {isLoggedIn && avatarUrl && (
                   <Link to="/profile">
                     <img
@@ -107,12 +127,12 @@ const Navbar = () => {
                 )}
                 {isLoggedIn ? (
                   <Link className="nav-link" to="#" onClick={actions.logOut}>
-                    <i className="me-2 fa-solid fa-right-from-bracket"></i>
+                    <i className="me-1 fa-solid fa-right-from-bracket"></i>
                     <span>Log Out</span>
                   </Link>
                 ) : (
-                  <Link className="nav-link" to="#" onClick={handleModalToggle}>
-                    <i className="me-2 fa-solid fa-right-to-bracket nav-link"></i>
+                  <Link className="nav-link" to="/login" >
+                    <i className="me-1 fa-solid fa-right-to-bracket nav-link"></i>
                     Login
                   </Link>
                 )}
@@ -136,7 +156,7 @@ const Navbar = () => {
             className="modal-content"
             style={{
               padding: "11px",
-              minHeight: "350px",
+              minHeight: "210px",
               border: "6px solid darkslategray",
             }}
           >
@@ -148,12 +168,6 @@ const Navbar = () => {
                 color: "#1B1D3B",
               }}
             >
-              <h5
-                className="modal-title text-center w-100"
-                style={{ fontSize: "2.3rem", fontFamily: "serif" }}
-              >
-                Choose Your Role
-              </h5>
               <button
                 type="button"
                 className="btn-close"
@@ -162,8 +176,8 @@ const Navbar = () => {
               ></button>
             </div>
             <div
-              className="modal-body d-flex flex-column justify-content-around align-items-center"
-              style={{ gap: "20px" }}
+              className="modal-body d-flex  justify-content-around align-items-center"
+              style={{ gap: "20px", top: '-12px' }}
             >
               <Link
                 className="btn btn-primary w-75 d-flex align-items-center justify-content-center"
@@ -173,11 +187,11 @@ const Navbar = () => {
                   fontFamily: "sans-serif",
                   backgroundColor: "seagreen",
                 }}
-                to="/login"
+                to="/sell-your-car"
                 onClick={handleModalToggle}
               >
                 <i className="fa-solid fa-user me-2"></i>
-                Login as Buyer
+                Become a Seller
               </Link>
               <Link
                 className="btn btn-secondary w-75 d-flex align-items-center justify-content-center"
@@ -191,7 +205,7 @@ const Navbar = () => {
                 onClick={handleModalToggle}
               >
                 <i className="fa-solid fa-business-time me-2"></i>
-                Login as Dealer
+                Login as Seller
               </Link>
             </div>
           </div>

@@ -21,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ cars: data });
 
 					const cars = getStore().cars;
-
+					console.log("aqui estan los autos cargados", getStore().cars);
 
 				} catch (error) {
 					console.error("Error loading all cars:", error);

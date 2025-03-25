@@ -1,34 +1,41 @@
 .green {
-    color : #7AAD46;
-  }
-  .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  nav {
-    font-size: 23px;
-    font-family: "Lora", serif;
-  }
-  .log {
-    font-size: 21px;
-  }
-  @media (max-width: 768px) {
-    #navGround {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      gap: 2px !important;
-    }
-    .navbar-nav {
-      gap: 5px; /* Espaciado entre los enlaces */
-    }
+  color: #7AAD46;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* ARREGLAR ESTO DESPUES NO CSS EN CLASE DE BOOTSTRAP QUE COLAPSAD TODO  */
+nav {
+  font-size: 23px;
+  font-family: "Lora", serif;
+}
+
+.log {
+  font-size: 21px;
+}
+
+@media (max-width: 768px) {
+  #navGround {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 2px !important;
   }
 
-.nav-btn{
+  .navbar-nav {
+    gap: 5px;
+    /* Espaciado entre los enlaces */
+  }
+}
+
+.nav-btn {
   background-color: transparent;
   color: rgb(154, 154, 154);
   border: none;

@@ -1,19 +1,42 @@
 /* Estilos generales */
-.green {
-  color: #7aad46;
+
+
+.nav-container {
+  background-color: #161616;
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 21px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
+.main-logo {
+  margin-left: 60px;
 }
 
 .navbar {
   z-index: 1000;
 }
 
-nav {
-  font-size: 23px;
-  font-family: "Lora", serif;
+.navbar__ball {
+  background-color: lightgray;
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+}
+
+.green {
+  color: #7aad46;
 }
 
 .log {
   font-size: 21px;
+}
+
+.nav-login {
+  font-family: "math";
+  font-size: 22px !important;
 }
 
 /* Estilo para el tamaño colapsado de los elementos (centrado) */
@@ -31,8 +54,8 @@ nav {
 }
 
 
-/* Estilos extra para el dropdown  */
 
+/* Estilos extra para el dropdown  */
 .modal-custom {
   position: fixed;
   top: 0;

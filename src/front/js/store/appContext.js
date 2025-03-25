@@ -34,7 +34,7 @@ const injectContext = (PassedComponent) => {
       // <---- calling this function from the flux.js actions
 
       // state.actions.getCar() // Esta deberia llamarse al iniciar sesion el SELLER 
-      state.actions.loadAllCars()  // Este carga todos los autos disponibles guardados en mi pagina
+      state.actions.loadAllCars() // Este carga todos los autos disponibles guardados en mi pagina
     }, []);
 
     // The initial value for the context is not null anymore, but the current state of this component,

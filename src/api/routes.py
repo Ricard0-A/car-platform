@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,Seller,Car, Favorite
+from api.models import db, User,Seller,Car, Favorite # Importamos las tablas desde models.py
 from api.utils import generate_sitemap, APIException,send_mail
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -35,8 +35,6 @@ def get_all_cars():
     except Exception as err:
         print(err)
         return jsonify({"warning": "Error getting all cars"}), 500
-
-
 
 @api.route("/register",methods=["POST"])
 def add_new_user():
@@ -93,7 +91,7 @@ def add_new_user():
 @api.route("/login",methods=["POST"])
 def login():
     try:
-        body=request.json   
+        body=request.json
         email=body.get("email", None)
         password=body.get("password", None)
 

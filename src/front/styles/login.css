@@ -1,21 +1,28 @@
-.img-login {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 108vh;
-  z-index: -1;
+.user-log__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.bg-container-login {
-  position: relative;
-  top: 120px;
-  backdrop-filter: blur(4px);
-  width: 550px;
-  border-radius: 30px;
-  border: 2px solid orange;
+.user-log__box {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 34rem;
 }
 
+.user-log__img {
+  margin-bottom: 35px;
+  width: 50%;
+}
+
+.user-log__link {
+  display: flex;
+  justify-content: center;
+}
+
+/* backdrop-filter: blur(4px); */
 .bg-form-login {
   border: none;
   border-bottom: 2px solid orange;
@@ -26,9 +33,11 @@
 }
 
 .bg-form-login:focus {
-  outline: none; /* Elimina el borde predeterminado al hacer focus */
+  outline: none;
+  /* Elimina el borde predeterminado al hacer focus */
   background-color: transparent;
-  border-color: white; /* Cambia el color del borde al enfocar */
+  border-color: white;
+  /* Cambia el color del borde al enfocar */
   color: white;
 }
 
