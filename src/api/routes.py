@@ -41,7 +41,7 @@ def add_new_user():
     try:
         body_froms=request.form
         body_files=request.files
-        
+
         name=body_froms.get("name",None)
         email=body_froms.get("email",None)
         password=body_froms.get("password",None)
@@ -288,7 +288,7 @@ def login_sellers():
 @jwt_required()
 def add_cars():
     seller_id = int(get_jwt_identity())
-
+    
     body_froms = request.form
     body_files = request.files
 
@@ -323,7 +323,6 @@ def add_cars():
         return jsonify({"warning": "Incomplete Values"}), 400
     else:
         car = Car()
-
         if model_picture is not None:
             model_picture = uploader.upload(model_picture)
             model_picture = model_picture["secure_url"]

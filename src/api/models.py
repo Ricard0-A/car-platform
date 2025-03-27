@@ -107,7 +107,7 @@ class  Seller(db.Model):
 class Transmission(Enum):
     Automatic="automatic"
     Manual="manual"
-
+    
 class Car(db.Model):
     __tablename__="cars"
     id =db.Column(db.Integer, primary_key=True)
