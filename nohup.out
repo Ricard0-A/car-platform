@@ -1,0 +1,9 @@
+Loading .env environment variables...
+Loading .env environment variables...
+Creating directory 'C:\\ReactProjects\\4GeeksAcademy\\car-platform\\migrations' ...  done
+Creating directory 'C:\\ReactProjects\\4GeeksAcademy\\car-platform\\migrations\\versions' ...  done
+Generating C:\ReactProjects\4GeeksAcademy\car-platform\migrations\alembic.ini ...  done
+Generating C:\ReactProjects\4GeeksAcademy\car-platform\migrations\env.py ...  done
+Generating C:\ReactProjects\4GeeksAcademy\car-platform\migrations\README ...  done
+Generating C:\ReactProjects\4GeeksAcademy\car-platform\migrations\script.py.mako ...  done
+Please edit configuration/connection/logging settings in 'C:\\ReactProjects\\4GeeksAcademy\\car-platform\\migrations\\alembic.ini' before proceeding.

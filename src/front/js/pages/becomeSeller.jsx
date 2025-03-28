@@ -26,9 +26,8 @@ const BecomeSeller = () => {
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-6">
                         <div className="bg-style">
-
                             <form className="form-style"
-                                onSubmit={handleSubmit}>
+                                onSubmit={handleSubmit} >
                                 <div className="form-group input-style ">
                                     {/* <h1 className="mb-5">To become a member of our family</h1> */}
                                     <label htmlFor="labelEmail">Email</label>
