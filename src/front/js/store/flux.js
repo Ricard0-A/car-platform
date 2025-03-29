@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("aqui estan los autos cargados", getStore().cars);
 
 				} catch (error) {
-					console.error("Error loading all cars:", error);
+					console.error("Error al cargar los autos:", error);
 				}
 			},
 
@@ -278,6 +278,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							...getStore(),
 							cars: data.car
 						})
+						console.log(getStore().car);
+
 						return response.status
 					} else
 
