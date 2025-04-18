@@ -1,22 +1,19 @@
+
 import React from "react";
 import { useContext, useState, useEffect, useLayoutEffect } from "react";
 import { Context } from "../store/appContext";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-
-// Styles Css
 import "../../styles/catalog.css";
 
-// Test Cars
 import ford1 from "../../img/suggested/ford-1.jpg";
-import acura1 from "../../img/suggested/acura-1.png"; // id: 82563
-import bentley2 from "../../img/suggested/bentley-2.jpg"; // id: 82563
+import acura1 from "../../img/suggested/acura-1.png";
+import bentley2 from "../../img/suggested/bentley-2.jpg";
 // import { array } from "prop-types";
 
 
+
 const Catalog = () => {
-  const { store, actions } = useContext(Context);
-  const location = useLocation();
 
   const inputMod = {
     backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -37,30 +34,75 @@ const Catalog = () => {
     position: "relative",
   };
 
-  // Testeando soluciones
+
+  // Target a la store y actions de flux.js
+  const { store, actions } = useContext(Context);
+
+  // Estados para manipular los autos favoritos y tambien almacenar los autos
   const [favoriteCars, setFavoriteCars] = useState([]);
   const [allCars, setAllCars] = useState([]);
 
+
+
+  // ======================================================================================================
+
+  // Este useEffect solo es util cuando viene desde Home.jsx
+  const location = useLocation();
   useEffect(() => {
-    const reloading = async () => {
-      const answer = await actions.loadFavorites();
-      if (answer) {
-        console.log("nice!!", answer);
-      }
+    const params = new URLSearchParams(location.search);
+    const urlSearchTerm = params.get("search") || "";
+    if (store.cars && store.cars.length > 0) {
+      console.log("Valor de urlSearchTerm: ", urlSearchTerm, typeof (urlSearchTerm));
+      applyFilters(urlSearchTerm); // Pero si no se produjo busqueda mediante queryParams 
+      // entonces esto no se aplica por que urlSearchTerm es null || ""
+    } else if (store.cars && store.cars.length === 0) {
+      console.log("lista actual de autos: ", store.cars)
     }
+  }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
+  // (Recordar la UI se monta primero, luego los efectos y por eso las dependencias!)
 
-    reloading();
-  }, []);
 
+  // ------------------------------------------------------------------------
+
+
+  // Carga autos con filtro Type Car desde Home.jsx
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const carTypeParam = params.get("carType"); // ej: cartype=SUV
+    if (carTypeParam) {
+      setCarTypeFilter(carTypeParam);
+      applyFilters();
+    }
+  }, [location.search]);
+
+
+  // Filtro de Localization(Dealership) desde home.jsx
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const locationParam = params.get("location");
+    if (locationParam) {
+      setLocationFilter(locationParam);
+      applyFilters();
+    }
+  }, [location.search]);
+
+
+  // ===================================================================================
+
+
+
+
+  // LoadAllCars + setState
   useEffect(() => {
     const loadCarsAndFavorites = async () => {
       try {
         await actions.loadAllCars();
-        const carsFromStore = store.cars;
-        setAllCars(carsFromStore);
+        const carsFromStore = store.cars; // loadCars + setState
+        setAllCars(carsFromStore); // <--
 
-        if (store.currentUser) {
+        if (store.currentUser) { //Verify this
           const favorites = await actions.loadFavorites();
+
           if (favorites) {
             setFavoriteCars(favorites);
           }
@@ -76,126 +118,110 @@ const Catalog = () => {
   }, [store.currentUser]);
 
 
-  useEffect(() => {
-    // Carga inicial de coches o aplica filtros si hay término de búsqueda en la URL
-    const params = new URLSearchParams(location.search);
-    const urlSearchTerm = params.get("search") || "";
 
-    if (store.cars && store.cars.length > 0) {
-      applyFilters(urlSearchTerm);
-    } else if (store.cars && store.cars.length === 0) {
-      console.log("No existen autos para rendizar en la store")
-    }
-  }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
-
-  // Carga autos con filtro Type Car desde Home.jsx
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const carTypeParam = params.get("carType");
-    if (carTypeParam) {
-      setCarTypeFilter(carTypeParam);
-      applyFilters();
-    }
-  }, [location.search]);
-
-  // Filtro de Localization(Dealership) desde home.jsx 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const locationParam = params.get("location");
-    if (locationParam) {
-      setLocationFilter(locationParam);
-      applyFilters();
-    }
-  }, [location.search]);
-
-
-
-
-  // Agregar a favoritos e eliminarlos
+  // Agregar a favoritos y eliminarlos
   const handleFavoriteClick = async (car) => {
     try {
       const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
-      const success = await actions.addFavorite(car.id); // Usar la misma función addFavorite
-
+      const success = await actions.addFavorite(car.id);
       if (success) {
         const updatedFavorites = await actions.loadFavorites();
         if (updatedFavorites) {
-          setFavoriteCars(updatedFavorites);
+          setFavoriteCars(updatedFavorites); // setState puede sobreescribir
         }
       }
 
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      console.error("Error for adding or deleting favorites:", error);
     }
   };
 
 
+
+  // ==========================================================================================
+
+
   // Estados Generales para todo tipo de filtros
-  const [searchTerm, setSearchTerm] = useState(""); // Para la barra de busqueda
-  const [filteredCars, setFilteredCars] = useState([]); // Para la barra de busqueda
-  const [noResults, setNoResults] = useState(false); // Para la barra de busqueda
-  const [filters, setFilters] = useState({  // Filtro para precios
+
+
+  //  ↓ Flujo de Estados ↓ 
+
+  // Usuario escribe "Ford" ➜ setSearchTerm ➜ ApplyFilters ➜ setFilteredCars ➜ UI
+  // No results solo para controlar si se ha filtrado o no 
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCars, setFilteredCars] = useState([]);
+  const [noResults, setNoResults] = useState(false);
+
+
+
+  // Filtros por <select> + </options>
+  const [filters, setFilters] = useState({
     minPrice: "",
     maxPrice: "",
   });
-  const [brandFilter, setBrandFilter] = useState(""); // Filtro para Brand
-  const [modelFilter, setModelFilter] = useState(""); // Filtro para Model
-  const [yearFilter, setYearFilter] = useState(""); // Filtro para Year 
-  const [locationFilter, setLocationFilter] = useState(""); //Filtro para Localization (Dealerships)
-  const [carTypeFilter, setCarTypeFilter] = useState(""); //Filtro para Model Type 
+  const [brandFilter, setBrandFilter] = useState("");
+  const [modelFilter, setModelFilter] = useState("");
+  const [yearFilter, setYearFilter] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+  const [carTypeFilter, setCarTypeFilter] = useState("");
 
   // -----------------------------------------------------------------------------------------------
 
-  // Logica para Evitar colapso de filtros 
+  // Funcion auxiliar anticolapso de filtros
   const applySearchTermFilter = (term) => {
     const fieldsToSearch = [
       "model_make_id", "model_name", "model_color",
       "model_type", "model_year", "model_price"
     ];
     const carsFilteredByTerm = filterCars(store.cars, term, fieldsToSearch);
+    //EJ; filterCars(store.cars, "ford", "make_model_id")
+
     return carsFilteredByTerm;
   };
 
-
+  // Filtro secundaria de busqueda
   const applyOtherFilters = (carsToFilter) => {
     const { minPrice, maxPrice } = filters;
+
     const filteredByPrice = carsToFilter.filter(car =>
       (minPrice === "" || car.model_price >= parseInt(minPrice)) &&
       (maxPrice === "" || car.model_price <= parseInt(maxPrice))
     );
+    // como ultima opcion true && true , entonces filter en cada iteracion 
+    // deja pasar al elemento actual
 
+
+    // Reasignacion multiple en cascada comenzando con filteredByPrice 
     const carsFilteredByBrand = brandFilter === "" ? filteredByPrice : filterCars(filteredByPrice, brandFilter, ["model_make_id"]);
     const carsFilteredByModel = modelFilter === "" ? carsFilteredByBrand : filterCars(carsFilteredByBrand, modelFilter, ["model_name"]);
     const carsFilteredByYear = yearFilter === "" ? carsFilteredByModel : filterCars(carsFilteredByModel, yearFilter, ["model_year"]);
     const carsFilteredByLocation = locationFilter === "" ? carsFilteredByYear : filterCars(carsFilteredByYear, locationFilter, ["dealership"]);
     const carsFilteredByCarType = carTypeFilter === "" ? carsFilteredByLocation : filterCars(carsFilteredByLocation, carTypeFilter, ["model_type"]);
+    // No se sobreescribe nada , filterCars se basa en su primer parametro a una constante anterior 
 
-    return carsFilteredByCarType; // Retornar el array filtrado
+
+    return carsFilteredByCarType;
   };
 
-
-
-  // Logica por si alguien decide buscar un auto desde la pagina home.jsx 
 
   useLayoutEffect(() => {
     const params = new URLSearchParams(location.search);
     const urlSearchTerm = params.get("search") || "";
-    setSearchTerm(urlSearchTerm);
     if (urlSearchTerm) {
+      setSearchTerm(urlSearchTerm);
       applyFilters(urlSearchTerm);
+    } else {
+      console.log("urlSearchTerm es ' ' (string) por que no hubo busqueda desde home: ", typeof (urlSearchTerm));
     }
   }, [location.search]);
 
+  // HandleMinPriceChange | handleMaxPriceChange | applyPriceFilter son logica para los filtros por PRECIO
 
-  // handleInputChange | handleSearchClick Son para la logica de la barra de busqueda principal
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
     setNoResults(false);
   };
-
-  // -----------------------------------------------------------------------------------------------
-
-  // HandleMinPriceChange | handleMaxPriceChange | applyPriceFilter son logica para los filtros por PRECIO
 
   const handleMinPriceChange = (event) => {
     setFilters({
@@ -210,8 +236,11 @@ const Catalog = () => {
       maxPrice: event.target.value,
     });
   };
+  // debugger;
 
+  // Funcion primaria de busqueda  
   const applyFilters = (term = searchTerm) => {
+    // Solo para Filtros por seleccion
     if (
       brandFilter ||
       modelFilter ||
@@ -224,24 +253,25 @@ const Catalog = () => {
       const carsFiltered = applyOtherFilters(store.cars);
       setFilteredCars(carsFiltered);
       setNoResults(carsFiltered.length === 0);
+      console.log("Pasamos por el if/filtros por seleccion");
+      // Si no hay filtros por seleccion en cascada... else 
     } else {
-      // Si no hay filtros adicionales, se filtra según el término de búsqueda
-      const carsFilteredByTerm = applySearchTermFilter(term);
+      // Si no hay filtros adicionales, se filtra según la barra de busqueda (escrita)
+      const carsFilteredByTerm = applySearchTermFilter(term); // term = searchTerm (escrito)
       const carsFiltered = applyOtherFilters(carsFilteredByTerm);
       setFilteredCars(carsFiltered);
       setNoResults(carsFiltered.length === 0);
+      console.log("Pasamos al else/filtros por busqueda");
     }
   };
-
   // -----------------------------------------------------------------------------------------------
 
-  // Función genérica para filtrar autos (se usa en ambos filtros)
+  //  Funcion que coopera con la de los filtros
   const filterCars = (carsToFilter, filterValue, fields) => {
     return carsToFilter.filter((car) => {
       if (filterValue === undefined || filterValue === null || typeof filterValue !== 'string') {
-        return false; // O puedes retornar true si quieres incluir los autos cuando el filtro es inválido
+        return false;
       }
-
       const search = filterValue.toLowerCase();
       for (const field of fields) {
         const carValue = car[field]?.toString().toLowerCase() || "";
@@ -253,9 +283,11 @@ const Catalog = () => {
     });
   };
 
+
+  // WELCOME TO UI 
   return (
     <>
-      <div className="container-fluid" style={{ marginTop: "100px" }}>
+      <div className="container-fluid" style={{ marginTop: "100px", paddingBottom: "81px", paddingTop: "40px" }}>
         <div className="row">
           <div className="col-12 d-flex justify-content-center align-items-center">
             <div style={{ display: "flex", width: "70%" }}>
@@ -264,15 +296,15 @@ const Catalog = () => {
                 className="form-control"
                 placeholder="What car are you looking for?"
                 style={inputMod}
-                value={searchTerm}
-                onChange={handleInputChange}
+                value={searchTerm} // Y aqui almaceno lo del estado que fue cambiado gracias a handleThings
+                onChange={handleInputChange} // Almaceno mediante una funcion el target.value en un estado para usarlo en el Value = 
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     applyFilters();
                   }
                 }}
               />
-              <button style={buttonMod} onClick={applyFilters}>
+              <button style={buttonMod} onClick={() => applyFilters()}>
                 Search
               </button>
             </div>
@@ -309,47 +341,76 @@ const Catalog = () => {
                 />
                 <br />
                 <h5>Brand</h5>
-                <select className="form-select" value={brandFilter} onChange={(e) => { setBrandFilter(e.target.value); applyFilters(); }}>
-                  <option value="">All Brands</option>
-                  {Array.from(new Set(store.cars.map(car => car.model_make_id))).sort().map(brand => (
-                    <option key={brand} value={brand}>{brand}</option>
-                  ))}
+                <select className="form-select" value={brandFilter} onChange={(e) => { setBrandFilter(e.target.value); }}>
+                  {store.cars.length > 0 ? (
+                    <>
+                      <option value="">All Brands</option>
+                      {Array.from(new Set(store.cars.map(car => car.model_make_id))).sort().map(brand => (
+                        <option key={brand} value={brand}>{brand}</option>
+                      ))}
+                    </>
+                  ) :
+                    <option>Loading Cars...</option>
+                  }
                 </select>
                 <br />
                 <h5>Model</h5>
-                <select className="form-select" value={modelFilter} onChange={(e) => { setModelFilter(e.target.value); applyFilters(); }}>
-                  <option value="">{brandFilter === "" ? "Select a brand" : "All Models"}</option>
-                  {brandFilter !== "" && Array.from(new Set(store.cars.filter(car => car.model_make_id === brandFilter).map(car => car.model_name))).sort().map(model => (
-                    <option key={model} value={model}>{model}</option>
-                  ))}
+                <select className="form-select" value={modelFilter} onChange={(e) => { setModelFilter(e.target.value); }}>
+                  {store.cars.length > 0 ? (
+                    <>
+                      <option value="">{brandFilter === "" ? "Select a brand" : "All Models"}</option>
+                      {brandFilter !== "" && Array.from(new Set(store.cars.filter(car => car.model_make_id === brandFilter).map(car => car.model_name))).sort().map(model => (
+                        <option key={model} value={model}>{model}</option>
+                      ))}
+                    </>
+                  ) : (
+                    <option> Loading Cars...</option>
+                  )}
                 </select>
                 <br />
                 <h5>Year</h5>
-                <select className="form-select" value={yearFilter} onChange={(e) => { setYearFilter(e.target.value); applyFilters(); }}>
-                  <option value="">All Years</option>
-                  {Array.from(new Set(store.cars.map(car => car.model_year))).sort().reverse().map(year => (
-                    <option key={year} value={year}>{year}</option>
-                  ))}
+                <select className="form-select" value={yearFilter} onChange={(e) => { setYearFilter(e.target.value); }}>
+                  {store.cars.length > 0 ? (
+                    <>
+                      <option value="">All Years</option>
+                      {Array.from(new Set(store.cars.map(car => car.model_year))).sort().reverse().map(year => (
+                        <option key={year} value={year}>{year}</option>
+                      ))}
+                    </>
+                  ) : (
+                    <option>Loading Cars...</option>
+                  )}
                 </select>
                 <br />
-
                 <h5>Localization</h5>
-                <select className="form-select" value={locationFilter} onChange={(e) => { setLocationFilter(e.target.value); applyFilters(); }}>
-                  <option value="">All Locations</option>
-                  {Array.from(new Set(store.cars.map(car => car.dealership))).sort().map(location => (
-                    <option key={location} value={location}>{location}</option>
-                  ))}
+                <select className="form-select" value={locationFilter} onChange={(e) => { setLocationFilter(e.target.value); }}>
+                  {store.cars.length > 0 ? (
+                    <>
+                      <option value="">All Locations</option>
+                      {Array.from(new Set(store.cars.map(car => car.dealership))).sort().map(location => (
+                        <option key={location} value={location}>{location}</option>
+                      ))}
+                    </>
+                  ) : (
+                    <option>Loading Cars...</option>
+                  )}
                 </select>
                 <br />
                 <h5>Car Type</h5>
-                <select className="form-select" value={carTypeFilter} onChange={(e) => { setCarTypeFilter(e.target.value); applyFilters(); }}>
-                  <option value="">All Car Types</option>
-                  {Array.from(new Set(store.cars.map(car => car.model_type))).sort().map(carType => (
-                    <option key={carType} value={carType}>{carType}</option>
-                  ))}
+                <select className="form-select" value={carTypeFilter} onChange={(e) => { setCarTypeFilter(e.target.value); }}>
+                  {store.cars.length > 0 ? (
+                    <>
+                      <option value="">All Car Types</option>
+                      {Array.from(new Set(store.cars.map(car => car.model_type))).sort().map(carType => (
+                        <option key={carType} value={carType}>{carType}</option>
+                      ))}
+                    </>
+                  ) : (
+                    <option>Loading Cars...</option>
+                  )}
                 </select>
                 <br />
-                <button className="btn filter" onClick={applyFilters}>
+                <button className="btn filter" onClick={() => applyFilters()}>
                   Filter
                 </button>
               </div>
@@ -377,9 +438,9 @@ const Catalog = () => {
                               <img src={car.model_picture || acura1} alt="Car" />
                               <h6>{car.model_type}</h6>
                               <h2>{car.model_make_id}</h2>
-                              <h5>{car.model_name}</h5>
+                              <h5 className="text-truncate">{car.model_name}</h5>
                               <br />
-                              <h5 className="year-km-1">
+                              <h5 className="year-km-1 text-truncate">
                                 {car.model_year || "2022"}
                                 <span className="mx-2">&#8226;</span>
                                 <i className="me-2 fa-solid fa-droplet"></i>
@@ -442,7 +503,7 @@ const Catalog = () => {
                         })
                       ) : (
                         <div className="col-12">
-                          <p style={{ fontSize: "4vh" }}>No results found.</p> {/* Mensaje "No se encontraron resultados" */}
+                          <p style={{ fontSize: "4vh" }}>No results found.</p>
                         </div>
                       )
                     )

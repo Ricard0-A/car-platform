@@ -8,19 +8,16 @@ import { Link } from "react-router-dom";
 import backgroundCar from "../../img/WF.jpg";
 import backgroundCarTwo from "../../img/backgroundCarTwo.jpg";
 
-// Category Cars
 import suv from "../../img/category/suv.png";
 import hatchback from "../../img/category/hatchback.png";
 import sport from "../../img/category/sport.png";
 import sedan from "../../img/category/sedan.png";
 
-// Suggested images
 import ford1 from "../../img/suggested/ford-1.jpg"; // id: 82769
 
 // Extra 
 import safeShield from "../../img/safe-shield.png"
 
-// Styles
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -36,10 +33,8 @@ export const Home = () => {
 
 
 
-  // LOGICA PARA EL USO DE FAVORITOS 
-
+  // Uso de favoritos 
   useEffect(() => {
-    // Verifica si hay un token en localStorage
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -53,9 +48,11 @@ export const Home = () => {
 
   // ------------------------------------------------------------------------------------------
 
-  // Logica para llegar a los filtros del catalog y ejecutarlo desde la barra principal 
+
+  // Funcion para lllegar a filtros del catalog y ejecutarlo desde su barra de busqueda
+  // (Este useEffect modifica la URL de catalog!) 
   const handleSearch = () => {
-    if (searchTerm) { // Solo navego si searchTerm no esta vacío
+    if (searchTerm) {
       const params = new URLSearchParams();
       params.append('search', searchTerm);
       navigate(`/catalog?${params.toString()}`);
@@ -64,21 +61,19 @@ export const Home = () => {
     }
   };
 
+
+  // Logica para llegar hasta el filtro Type Car 
   const handleCategoryClick = (carType) => {
     const params = new URLSearchParams();
     params.append('carType', carType);
     navigate(`/catalog?${params.toString()}`);
   };
-
-  // Logica para llegar hasta el filtro Type Car 
+  // Lo mismo pero para location(dealerships)
   const handleDealershipClick = (dealershipName) => {
     const params = new URLSearchParams();
     params.append("location", dealershipName);
     navigate(`/catalog?${params.toString()}`);
   };
-
-
-
 
   const firstImg = {
     background: `url(${backgroundCar}) center/cover`,
@@ -376,7 +371,6 @@ export const Home = () => {
             </h1>
           </div>
         </div>
-        {/* FIN DE LA PAGINA  */}
       </div>
     </>
   );

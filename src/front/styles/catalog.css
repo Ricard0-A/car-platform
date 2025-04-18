@@ -60,6 +60,7 @@ Estilos del lado de filtros
 }
 
 .show-cars .col-lg-4 img {
+
   border-radius: 10px;
 }
 
@@ -120,4 +121,9 @@ Estilos del lado de filtros
 .green-price {
   color: #0ebc9b;
   /* color: rgb(29, 161, 98); */
+}
+
+.show-cars .year-km-1 {
+  font-family: 'initial';
+
 }

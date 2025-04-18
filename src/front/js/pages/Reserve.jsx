@@ -52,7 +52,7 @@ const Reserve = () => {
             .join(",");
 
         if (!toEmails) {
-            alert("Selecciona Un consesionario como minimo.");
+            alert("Select at least one dealership.");
             return;
         }
 

@@ -40,7 +40,7 @@ const Navbar = () => {
 
 
   const location = useLocation();
-  const pathdenied = ["/login"]
+  const pathdenied = ["/login", "/register"]
 
   if (pathdenied.some(path => location.pathname.startsWith(path))) {
     return null;
@@ -73,14 +73,14 @@ const Navbar = () => {
                   Catalog
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <div className="navbar__ball mt-3"></div>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/">
                   Blog
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <div className="navbar__ball mt-3"></div>
               </li>

@@ -1,5 +1,6 @@
 .info-bg {
-  position: relative;
+  /* position: relative; */
+  padding-left: 99px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,6 +34,7 @@
 
 /* Desde 950px Res para abajo ... */
 @media (max-width: 950px) {
+
   .info-bg,
   .form-bg {
     left: 0;
@@ -46,6 +48,7 @@
   .form-bg form {
     margin: 0 auto;
   }
+
   .form-bg button {
     margin-left: 75px !important;
     margin-top: 30px !important;
