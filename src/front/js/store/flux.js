@@ -21,10 +21,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ cars: data });
 
 					const cars = getStore().cars;
-					console.log("aqui estan los autos cargados", getStore().cars);
+					console.log("Aqui estan los autos cargados", getStore().cars);
 
 				} catch (error) {
-					console.error("Error loading all cars:", error);
+					console.error("Error al cargar los autos:", error);
 				}
 			},
 
@@ -86,7 +86,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("No token found in localStorage");
 						return false;
 					}
-					console.log("exito el token es valido");
+					console.log("Success!, Valid token");
 
 					const user = JSON.parse(localStorage.getItem("currentUser"));
 					if (!user) {
@@ -120,7 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const updatedFavorites = [...store.favorites, favorite];
 						setStore({ ...store, favorites: updatedFavorites });
 
-						console.log("Favoritos Agregado:", updatedFavorites);
+						console.log("Favorite Added!:", updatedFavorites);
 						return true;
 					}
 				} catch (error) {
@@ -165,7 +165,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-
+			// Antes verifica si currentUser y su token existe, entonces
+			// puedes cargar el endpoint y guardarlo en favorites de la store
 			loadFavorites: async () => {
 				try {
 					const token = localStorage.getItem("token");
@@ -188,12 +189,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (!response.ok) {
 						const errorData = await response.json();
 						console.error("Error loading favorites:", errorData);
-						return []; // Devuelve un array vacío en caso de error REAL en la petición
+						return [];
 					}
 
 					const favoritesAdd = await response.json();
 
-					//  Aquí está la clave:
 					if (Array.isArray(favoritesAdd)) { // Verifica si es un array antes de hacer algo.
 						console.log("Favoritos recibidos del backend:", favoritesAdd);
 						setStore({ favorites: favoritesAdd })
@@ -278,6 +278,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							...getStore(),
 							cars: data.car
 						})
+						console.log(getStore().car);
+
 						return response.status
 					} else
 

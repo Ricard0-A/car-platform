@@ -63,11 +63,11 @@ const RegisterSellers = () => {
     return (
         <>
             <img src={bgRegisterSeller} className="img-seller" />
-            <div className="container mt-5 bg-seller">
+            <div className="container bg-seller">
                 <div className="row justify-content-center">
                     <h1 className="text-center letter-seller">Register</h1>
                     <div className="col-12 col-md-6">
-                        <div className="bgColor">
+                        <div className="bg-formu">
                             <form
                                 onSubmit={handleSubmit}
                                 className="mt-3"

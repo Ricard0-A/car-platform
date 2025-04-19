@@ -1,18 +1,22 @@
-.img-seller{
+.img-seller {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 180%;
+    height: 202%;
     z-index: -1;
 }
 
-.letter-seller{
+.bg-formu {
+    margin-top: 4.5rem;
+}
+
+.letter-seller {
     font-family: 'DM Serif Text', serif;
     color: white;
 }
 
-.bg-seller{
+.bg-seller {
     position: relative;
     top: 105px;
     backdrop-filter: blur(2px);
@@ -20,14 +24,14 @@
     border-radius: 30px;
 }
 
-.bg-input-seller{
+.bg-input-seller {
     background-color: transparent;
-    border:  none;
+    border: none;
     color: white;
     border-bottom: 2px solid rgb(0, 174, 255);
 }
 
-.btn-register-seller{
+.btn-register-seller {
     background-color: transparent;
     width: 250px;
 }

@@ -43,7 +43,7 @@ const Register = () => {
 
 
         } else if (response === 401) {
-            alert("Already exist this user");
+            alert("User already exists");
         } else {
             alert("Please try later");
         }
@@ -51,12 +51,12 @@ const Register = () => {
 
     return (
         <>
-            <img src={bgRegister} className="img-register" />
-            <div className="container mt-5 bg-container-register">
+            <div className="container-fluid bg-container-register" style={{ backgroundImage: 'url(/login-bg.webp' }}>
                 <div className="row justify-content-center">
                     <h1 className="text-center letterForm">Register</h1>
+                    <Link to="/login"><img src="/green-arrow.png" alt="green-arrow" /></Link>
                     <div className="col-12 col-md-6">
-                        <div className="bgColor">
+                        <div className="main-form">
                             <form
                                 onSubmit={handleSubmit}
                                 className="mt-3"

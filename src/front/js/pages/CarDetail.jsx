@@ -15,7 +15,8 @@ const CarDetail = () => {
     const { idCar } = useParams();
 
     const [carDetail, setCarDetail] = useState({});
-
+    // Esta funcion se encarga de encontrar el id de cars pero que sea == a idCar de este componente con (useParams())
+    // Asi este carDetail sera dinamico y posteriormente se usa en el jsx.
     const findCar = () => {
         const result = store.cars.find((item) => item.id == idCar);
         setCarDetail(result || {});
