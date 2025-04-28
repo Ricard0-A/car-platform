@@ -417,14 +417,20 @@ const Catalog = () => {
             </div>
             <div className="col-9">
               <div>
-                <div className="row show-cars g-5">
+                <div className="row show-cars">
                   {store.cars && store.cars.length > 0 ? (
                     filteredCars.length > 0 ? (
                       filteredCars.map((car) => {
                         const isFavorite = favoriteCars.some(fav => fav.car_id === car.id);
                         return (
-                          <div className="col-12 col-md-6 col-lg-4 position-relative" key={car.id}>
-                            <Link to={`/car-detail/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+                          <div
+                            className="car-box col-12 col-md-6 col-lg-4 position-relative"
+                            key={car.id}
+                          >
+                            <Link
+                              to={`/car-detail/${car.id}`}
+                              style={{ textDecoration: 'none', color: 'inherit' }}
+                            >
                               <div className="fav">
                                 <i
                                   className={`fs-4 fa-regular fa-heart ${isFavorite ? 'fa-solid filled' : ''}`}

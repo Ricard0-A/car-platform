@@ -1,4 +1,3 @@
-// Importaciones importantes
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
@@ -30,8 +29,6 @@ export const Home = () => {
   const [shouldReload, setShouldReload] = useState(true);
 
   // ------------------------------------------------------------------------------------------
-
-
 
   // Uso de favoritos 
   useEffect(() => {
@@ -103,8 +100,8 @@ export const Home = () => {
   const renderRecommendedCars = (cars) => (
     <>
       {cars.map((car) => (
-        <Link to={`/car-detail/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
-          <div className="position-relative" key={car.id}  >
+        <Link to={`/car-detail/${car.id}`} key={car.id} style={{ textDecoration: 'none', color: 'inherit' }} >
+          <div className="position-relative">
             <div className="favorites">
               <i
                 className={`fs-4 fa-regular fa-heart ${store.favorites.some(fav => fav.car_id === car.id) ? 'fa-solid filled' : ''}`}
@@ -162,7 +159,6 @@ export const Home = () => {
                 Search
               </button>
             </div>
-            {/* Mensaje llamativo */}
             <div className="message">
               <p> Find your perfect ride </p>
               <p className="dreams">Now!</p>
@@ -175,11 +171,8 @@ export const Home = () => {
             <div className="before-reasons">
               <h1>100% Secure Purchase</h1>
               <h2>Quick and Efficient</h2>
-              {/* Contenedor flex para la lista y la imagen */}
               <div className="d-flex master-reasons justify-content-between">
-                {/* Lista a la izquierda */}
                 <ul className="mt-4">
-                  {/* Agregamos margen derecho */}
                   <li>
                     <i class="fa-solid fa-check"></i> Warranty
                   </li>
@@ -201,7 +194,6 @@ export const Home = () => {
                     </button>
                   </li>
                 </ul>
-                {/* Imagen a la derecha */}
                 <img src={backgroundCarTwo} alt="Auto" className="img-fluid" />
               </div>
             </div>
@@ -212,7 +204,9 @@ export const Home = () => {
           <div className="col-12 third-page col-md-8 position-relative">
             <h1 className="text-center "> What is DrivenS ?</h1>
             <p className="mt-4">
-              DrivenS, where buying and selling your car is fast and safe. We accept all makes and models.
+              DrivenS, the trusted platform where buying or selling your car is fast, safe,
+              and hassle-free. We proudly accept all makes and models,
+              making it easier than ever to find your next vehicle or sell your current one with complete confidence.
             </p>
           </div>
           <div className="col-12 fourth-page col-md-8 position-relative">
@@ -282,7 +276,6 @@ export const Home = () => {
 
         {/* ---------------------------------------------------------------------------------------- */}
 
-        {/* FILA DE AUTOS RECOMENDADOS CON MAPEO */}
 
         {store.cars && store.cars.length > 0 ? (
           <>
@@ -292,7 +285,7 @@ export const Home = () => {
               </div>
               {store.cars.slice(5, 9).map(car => (
                 <div className="col-3" key={car.id}>
-                  {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
+                  {renderRecommendedCars([car])}
                 </div>
               ))}
             </div>
@@ -302,7 +295,7 @@ export const Home = () => {
               </div>
               {store.cars.slice(9, 13).map(car => (
                 <div className="col-3" key={car.id}>
-                  {renderRecommendedCars([car])} {/* Pasa un array con un solo auto */}
+                  {renderRecommendedCars([car])}
                 </div>
               ))}
             </div>
@@ -312,7 +305,7 @@ export const Home = () => {
               </div>
               {store.cars.slice(13, 17).map(car => (
                 <div className="col-3" key={car.id}>
-                  {renderRecommendedCars([car])} {/* Pasa un array con un solo coche */}
+                  {renderRecommendedCars([car])}
                 </div>
               ))}
             </div>
@@ -324,52 +317,50 @@ export const Home = () => {
         {/* -------------------------------------------------------------------------------------- */}
 
         {/* ROW DE CONSESIONARIOS */}
-        <div className="row nineth-row justify-content-center align-items-center">
-          {/* take a look aur Partner DealerShips */}
+        <div
+          className="row nineth-row justify-content-center align-items-center"
+          style={{ backgroundColor: "#212021" }}
+        >
           <div className="col-12 text-center">
-            <h1 style={{ color: "rgb(37, 46, 126)", fontSize: "45px" }}>
+            <h1 style={{ color: "white", fontSize: "45px", fontFamily: "sans-serif" }}>
               Take a look at our partner Dealerships
             </h1>
           </div>
-          {/* LOGOS  */}
+
+
           <div
-            className="col-12 d-flex justify-content-center"
-            style={{ gap: "200px" }}
+            className="col-12 dealerships-line-1 d-flex justify-content-evenly"
+            style={{ gap: "100px", marginBottom: "106px" }}
           >
-            <h1 onClick={() => handleDealershipClick("Elite Cars")} style={{ cursor: "pointer" }}>
-              <i className="fa-brands fa-digg"></i>
-              <p>Elite Cars</p>
-            </h1>
-            <h1 onClick={() => handleDealershipClick("SpeeDrive")} style={{ cursor: "pointer" }}>
-              <i className="fa-brands fa-pied-piper-pp"></i>
-              <p>SpeeDrive</p>
-            </h1>
-            <h1 onClick={() => handleDealershipClick("UniCars")} style={{ cursor: "pointer" }}>
-              <i className="fa-brands fa-joomla"></i>
-              <p>UniCars</p>
-            </h1>
-            <h1 onClick={() => handleDealershipClick("Highway16")} style={{ cursor: "pointer" }}>
-              <i className="fa-brands fa-pied-piper"></i>
-              <p>Highway16</p>
-            </h1>
+
+            {store.dealerships.map((unit) => (
+              <div key={unit.id} className="dealership-one" onClick={() => handleDealershipClick(unit.brand)}>
+                <img className="dealership-one__img" src={`/dealerships/${unit.logo}`} alt="Logo image here" />
+
+                <div className="dealership-one__stat-header">
+                  <i class="fs-3 fa-solid fa-globe"></i>
+                  <p className="ms-2" style={{ width: "3rem" }}>{unit.country}</p>
+
+                  <div className="divider">
+                  </div>
+
+                  <div className="dealership-one__stars mt-1 ms-3 d-flex" >
+                    <i class="fa-solid fa-star"></i>
+                    <p className="ms-2">{unit.stars}</p>
+                  </div>
+
+                </div>
+
+                <div className="dealership-one__stat-footer">
+                  <i class="fs-3 fa-solid fa-car"></i>
+                  <p className="ms-2">{unit.available} Cars in stock </p>
+                </div>
+
+              </div>
+
+            ))}
           </div>
-          <div
-            className="col-12 d-flex justify-content-center"
-            style={{ gap: "200px" }}
-          >
-            <h1 onClick={() => handleDealershipClick("TrueWheels")} style={{ cursor: "pointer" }}>
-              <i className="fa-brands fa-square-pied-piper"></i>
-              <p>TrueWheels</p>
-            </h1>
-            <h1 onClick={() => handleDealershipClick("DriveCity")} style={{ cursor: "pointer" }}>
-              <i className="fa-solid fa-trademark"></i>
-              <p>DriveCity</p>
-            </h1>
-            <h1 onClick={() => handleDealershipClick("MaxForm")} style={{ cursor: "pointer" }}>
-              <i className="fa-solid fa-copyright"></i>
-              <p>MaxForm</p>
-            </h1>
-          </div>
+
         </div>
       </div>
     </>

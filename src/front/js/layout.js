@@ -27,6 +27,7 @@ import PayPal from "./pages/PayPal.jsx";
 import EditContact from "./pages/editCar.jsx";
 import Gallery from "./pages/Gallery.jsx";
 import Reserve from "./pages/Reserve.jsx";
+import Test from './pages/testingZone.jsx'
 
 //create your first component
 const Layout = () => {
@@ -42,11 +43,10 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    {/* <NavbarSeller /> Este nav va en su respectivo home de Sellers  */}
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-
+                        <Route element={<Test />} path="/test" />
                         <Route element={<Catalog />} path="/catalog" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Register />} path="/register" />

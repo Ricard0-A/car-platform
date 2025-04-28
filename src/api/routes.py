@@ -29,9 +29,9 @@ CORS(api)
 @api.route("/cars", methods=["GET"]) 
 def get_all_cars():
     try:
-        all_cars = Car.query.all()  # Todos los autos de la Database
+        all_cars = Car.query.all()  
         serialized_cars = [car.serialize() for car in all_cars] 
-        return jsonify(serialized_cars), 200
+        return jsonify(serialized_cars), 200 # Transforma de dict a json para frontend
     except Exception as err:
         print(err)
         return jsonify({"warning": "Error getting all cars"}), 500
@@ -53,7 +53,7 @@ def add_new_user():
         if name is None or email is None or password is None or phone_number is None or country is None:
             return jsonify({"warning":"Incomplete Credential"}),401
         else: 
-            user=User()
+            user=User() # Necesario volver a mencionar para la creacion del registro
             user_exist=user.query.filter_by(email=email).one_or_none()
             
             if user_exist is not None:
@@ -455,7 +455,7 @@ def become_seller():
         message=f"""
                     <h1>Welcome to DrivenS</h1>
                     <h5>To start working with us please register in:</h5>
-                    <a href="https://ominous-chainsaw-4jg4gvjjjqw625xx7-3000.app.github.dev/register/sellers">To be part of our family register</a>
+                    <a href="">To be part of our family register</a>
                  """
         response = send_mail("Invitacion para vendedor",body.get("email"),message)
         print(response)

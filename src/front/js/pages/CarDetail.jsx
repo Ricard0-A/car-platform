@@ -1,22 +1,35 @@
 import mainCar from "../../img/suggested/bentley-1.jpg";
 import "../../styles/car-detail.css";
-import carTest from "../../img/detailCarTest.jpg";
-import cadillac1 from "../../img/suggested/cadillac-1.jpg";
-import chevrolet1 from "../../img/suggested/chevrolet-1.jpg";
 import ford1 from "../../img/suggested/ford-1.jpg";
 import innerCar from "../../img/inner-photos.jpg";
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { object } from "prop-types";
 
 const CarDetail = () => {
     const { store, actions } = useContext(Context);
     const { idCar } = useParams();
 
     const [carDetail, setCarDetail] = useState({});
-    // Esta funcion se encarga de encontrar el id de cars pero que sea == a idCar de este componente con (useParams())
-    // Asi este carDetail sera dinamico y posteriormente se usa en el jsx.
+
+    const getSimpleColor = (color) => {
+        if (!color) return "";
+        const lowerColor = color.toLowerCase();
+        if (lowerColor.includes("black")) return "Black";
+        if (lowerColor.includes("white")) return "White";
+        if (lowerColor.includes("blue")) return "Blue";
+        if (lowerColor.includes("red")) return "Red";
+        if (lowerColor.includes("gray") || lowerColor.includes("grey")) return "Gray";
+        if (lowerColor.includes("green")) return "Green";
+        if (lowerColor.includes("silver")) return "Silver";
+        if (lowerColor.includes("yellow")) return "Yellow";
+        if (lowerColor.includes("brown")) return "Brown";
+        if (lowerColor.includes("orange")) return "Orange";
+        return color;
+    };
+
     const findCar = () => {
         const result = store.cars.find((item) => item.id == idCar);
         setCarDetail(result || {});
@@ -24,7 +37,8 @@ const CarDetail = () => {
 
     useEffect(() => {
         findCar();
-    }, [store.cars]);
+        console.log("carDetail:", carDetail);
+    }, [store.cars, carDetail]);
 
     const handleFavoriteClick = async (car) => {
         try {
@@ -56,7 +70,6 @@ const CarDetail = () => {
                                 <p>Photos</p>
                             </div>
                         </div>
-                        {/* Lógica de favoritos para CarDetail */}
                         <div className="big-favorites" style={{ cursor: "pointer" }}>
                             <i
                                 className={`fa-heart ${store.favorites && store.favorites.some((fav) => fav.car_id === carDetail.id)
@@ -89,7 +102,7 @@ const CarDetail = () => {
                         <div className="features-line">
                             <p>{carDetail?.model_year}</p>
                             <div className="mini-line"></div>
-                            <p>{carDetail?.model_color}</p>
+                            <p>{getSimpleColor(carDetail?.model_color)}</p>
                             <div className="mini-line"></div>
                             <p>Automatic</p>
                             <div className="mini-line"></div>
@@ -98,13 +111,13 @@ const CarDetail = () => {
                         <div className="second-horizon-line"></div>
                         <div className="div-features">
                             <h4>Price including {carDetail?.dealership} bonus</h4>
-                            <h1>${" "} {carDetail?.model_price}</h1>
+                            <h1>${" "}{carDetail?.model_price}</h1>
                             <Link to="/reserve" style={{ color: "inherit", textDecoration: "none" }}>
                                 <button className="btn btn-success">Reserve Now</button></Link>
                         </div>
                     </div>
                 </div>
-                {/* Div-Box de todas las características del auto */}
+
                 <div className="box-features">
                     <div className="container" style={{ paddingBottom: "26px" }}>
                         <div className="card-features">
@@ -129,7 +142,8 @@ const CarDetail = () => {
                             <div className="row line-2">
                                 <div className="col-4">
                                     <h4>Color:</h4>
-                                    <p>{carDetail?.model_color}</p>
+                                    {/* Cambio: también usamos getSimpleColor aquí */}
+                                    <p>{getSimpleColor(carDetail?.model_color)}</p>
                                 </div>
                                 <div className="col-4">
                                     <h4>Fuel:</h4>
@@ -140,7 +154,8 @@ const CarDetail = () => {
                                     <p>{carDetail?.model_type}</p>
                                 </div>
                             </div>
-                            {/* Equipo */}
+
+                            {/* Equipment */}
                             <div className="card-title d-flex align-items-center">
                                 <i className="fa-solid fa-magnifying-glass"></i>
                                 <p>Equipment</p>
@@ -159,7 +174,8 @@ const CarDetail = () => {
                                     <p>Electric Window Regulator</p>
                                 </div>
                             </div>
-                            {/* Seguridad */}
+
+                            {/* Security */}
                             <div className="card-title d-flex align-items-center">
                                 <i className="fa-solid fa-shield"></i>
                                 <p>Security</p>
@@ -181,7 +197,8 @@ const CarDetail = () => {
                         </div>
                     </div>
                 </div>
-                {/* Div-Box extra de recomendaciones */}
+
+                {/* Suggested cars */}
                 <div className="last-box">
                     <div className="container">
                         <div className="suggested-title">
@@ -224,6 +241,6 @@ const CarDetail = () => {
             </div>
         </div>
     );
-}
+};
 
 export default CarDetail;

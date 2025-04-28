@@ -5,13 +5,33 @@ import { useLocation } from "react-router-dom";
 import "../../styles/navbar.css";
 
 const Navbar = () => {
-  const { actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(null); //New
+  const [logAlert, setLogAlert] = useState(false) // depende de esto que se muestre toast
+  const [fadeOut, setFadeOut] = useState(false)  //  false === show ,
 
 
+  useEffect(() => {
+    if (store.login) {
+      setLogAlert(true);
+      setFadeOut(false);
 
+      const fadeTimer = setTimeout(() => {
+        setFadeOut(true);
+      }, 2000);
+
+      const timer = setTimeout(() => {
+        setLogAlert(false);
+      }, 2500);
+
+      return () => {
+        clearTimeout(fadeTimer);
+        clearTimeout(timer);
+      };
+    }
+  }, [store.login]);
 
   // Este useEffect es para los usuarios logeados!
   useEffect(() => {
@@ -73,17 +93,17 @@ const Navbar = () => {
                   Catalog
                 </Link>
               </li>
-              {/* <li className="nav-item">
-                <div className="navbar__ball mt-3"></div>
-              </li> */}
-              {/* <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Blog
-                </Link>
-              </li> */}
               <li className="nav-item">
                 <div className="navbar__ball mt-3"></div>
               </li>
+              {/* <li className="nav-item">
+                <Link className="nav-link" to="/" onClick={opendrop}>
+                  Blog
+                </Link>
+              </li>
+              <li className="nav-item">
+                <div className="navbar__ball mt-3"></div>
+              </li> */}
               <li className="nav-item">
                 <Link className="nav-link" to="#" onClick={handleModalToggle}>
                   Join as Seller
@@ -98,7 +118,7 @@ const Navbar = () => {
                 </Link>
               </li>
               {isLoggedIn && (
-                <li className="nav-item">
+                <li className="nav-item" >
                   <Link className="nav-link" to="/gallery">
                     My Dream Rides
                   </Link>
@@ -142,6 +162,18 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* TOAST 1  */}
+      {logAlert && (
+        <div
+          className={`alert alert-success position-fixed start-50 translate-middle-x mt-3 fade ${fadeOut ? "" : "show"}`}
+          role="alert"
+          style={{ zIndex: "9999", padding: "22px", borderRadius: "11px", top: "4.5rem", boxShadow: "2px 4px 8px rgba(0, 0, 0, 0.2)" }}
+        >
+          <h5 style={{ fontFamily: "cursive, sans-serif" }}> Login successful !</h5>
+        </div>
+      )}
+
+      {/* MODAL WINDOW 2  */}
       <div
         className={`modal-custom ${showModal ? "show" : ""}`}
         tabIndex="-1"

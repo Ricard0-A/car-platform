@@ -7,9 +7,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentSeller: localStorage.getItem("currentSeller") || null,
 			image: "",
 			cars: [],
-			favorites: []
+			favorites: [],
+			login: false,
+			dealerships: []
 		},
 		actions: {
+
+
+			imLogged: () => {
+				setStore({ login: true })
+			},
+
 			loadAllCars: async () => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/cars`);
@@ -21,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ cars: data });
 
 					const cars = getStore().cars;
-					console.log("Aqui estan los autos cargados", getStore().cars);
+					console.log("Aqui estan los autos cargados", cars);
 
 				} catch (error) {
 					console.error("Error al cargar los autos:", error);
@@ -75,6 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				localStorage.removeItem("token")
 				localStorage.removeItem("currentUser")
+				setStore({ login: false })
 
 			},
 
@@ -377,6 +386,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+
 			addCarImage: async (payload) => {
 				try {
 
@@ -391,6 +401,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 					return false || 500
 				}
+			},
+
+			loadAllClients: () => {
+				const clients = [
+					{ id: 1, brand: "Elite Cars", country: "Germany", stars: "5", available: "20", logo: "elitecars.png" },
+					{ id: 2, brand: "Drive City", country: "USA", stars: "4", available: "15", logo: "drive-city.png" },
+					{ id: 3, brand: "SpeeDrive", country: "UK", stars: "5", available: "14", logo: "speedrive.png" },
+					{ id: 4, brand: "OverWheels", country: "Italy", stars: "4", available: "13", logo: "over-wheels.png" },
+				]
+				setStore({ dealerships: clients })
 			},
 
 			sendEmail: async (email) => {

@@ -18,7 +18,7 @@ const Login = () => {
             [target.name]: target.value
         })
     }
-
+    // debugger;
     const handleSubmit = async (event) => {
         try {
             event.preventDefault()
@@ -26,8 +26,10 @@ const Login = () => {
 
             if (response == 200) {
                 alert("Correct Login")
-                navigate("/");
-                window.location.href = "/";
+                navigate("/"); // Despues de esto opcional poner: 
+                // window.location.href = "/" para recargar pagina
+                // (No recomendado) 
+                actions.imLogged();
             } else if (response == 400) {
                 alert("Invalid Credentials")
             }
