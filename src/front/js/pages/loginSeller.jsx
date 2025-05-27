@@ -11,7 +11,7 @@ const initialSellerState = {
 const LoginSellers = () => {
     const [seller, setSeller] = useState(initialSellerState)
     const { store, actions } = useContext(Context)
-    const navigate= useNavigate()
+    const navigate = useNavigate()
 
     const handleChange = ({ target }) => {
         setSeller({
@@ -26,10 +26,10 @@ const LoginSellers = () => {
             event.preventDefault()
             const response = await actions.loginSellers(seller)
 
-            if(response == 200){
+            if (response == 200) {
                 alert("Login succes")
-                navigate("/seller/cars")
-            }if (response == 400){
+                navigate("/seller/cars/get")
+            } if (response == 400) {
                 alert("Invalid Credentials")
             }
         } catch (error) {
@@ -38,9 +38,9 @@ const LoginSellers = () => {
     }
     return (
         <>
-       
-        <img className="col-12 col-md-6 login-bg" src={bgLoginSeller} />
-        <div className="container mt-5 bg-login">
+
+            <img className="col-12 col-md-6 login-bg" src={bgLoginSeller} />
+            <div className="container mt-5 bg-login">
                 <div className="row justify-content-center">
                     <h1 className="text-center login-letter">Login</h1>
                     <div className="col-12 col-6">
@@ -62,12 +62,12 @@ const LoginSellers = () => {
                             <div className="form-group mt-3">
                                 <label className="text-login login-letter ">Password</label>
                                 <input
-                                type="password"
-                                className="form-control bg-input"
-                                placeholder="Password"
-                                name="password"
-                                value={seller.password}
-                                onChange={handleChange}
+                                    type="password"
+                                    className="form-control bg-input"
+                                    placeholder="Password"
+                                    name="password"
+                                    value={seller.password}
+                                    onChange={handleChange}
                                 />
 
                             </div>

@@ -2,17 +2,27 @@
   color: #7AAD46;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
 /* ARREGLAR ESTO DESPUES NO CSS EN CLASE DE BOOTSTRAP QUE COLAPSAD TODO  */
 nav {
   font-size: 23px;
   font-family: "Lora", serif;
+}
+
+/* .navbar-seller-main {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+} */
+
+.nav-seller-brand img {
+  margin-left: 84px;
+  width: 55%;
+}
+
+.nav-seller-collapse ul button {
+  display: flex;
+  align-items: center;
 }
 
 .log {

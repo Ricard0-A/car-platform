@@ -24,9 +24,9 @@ const Footer = () => {
   }
 
   return (
-    <div className="row tenth-row" style={rowMod}>
+    <div className="row footer-box" style={rowMod}>
       <div className="col-3 first-line">
-        <h4> Home </h4>
+        <Link style={linkNoStyle} to={"/"}><h4> Home </h4></Link>
         <Link style={linkNoStyle} to={"/become/seller"}> <h4> Become a Seller</h4></Link>
         <Link style={linkNoStyle} to={"/catalog"}><h4> To look for a Car </h4></Link>
         <Link style={linkNoStyle} to={"/sell-your-car"}><h4> Publish your Car </h4></Link>

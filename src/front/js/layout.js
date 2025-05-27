@@ -27,6 +27,7 @@ import PayPal from "./pages/PayPal.jsx";
 import EditContact from "./pages/editCar.jsx";
 import Gallery from "./pages/Gallery.jsx";
 import Reserve from "./pages/Reserve.jsx";
+import Test from './pages/testingZone.jsx'
 
 //create your first component
 const Layout = () => {
@@ -42,11 +43,10 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    {/* <NavbarSeller /> Este nav va en su respectivo home de Sellers  */}
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-
+                        <Route element={<Test />} path="/test" />
                         <Route element={<Catalog />} path="/catalog" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Register />} path="/register" />
@@ -61,8 +61,11 @@ const Layout = () => {
                         <Route element={<AddCar />} path="/seller/cars" />
                         <Route element={<GetCar />} path="seller/cars/get" />
                         <Route element={<BecomeSeller />} path="/become/seller" />
+
                         <Route element={<CarDetailSeller />} path="/car/:idCar" />
+
                         <Route element={<EditContact />} path="/edit/car/:idCar" />
+
                         <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<PayPal />} path="/donation" />
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />
