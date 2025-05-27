@@ -330,6 +330,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+
 			editCar: async (update, idCar) => {
 				try {
 					const formData = new FormData()

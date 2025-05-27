@@ -61,8 +61,11 @@ const Layout = () => {
                         <Route element={<AddCar />} path="/seller/cars" />
                         <Route element={<GetCar />} path="seller/cars/get" />
                         <Route element={<BecomeSeller />} path="/become/seller" />
+
                         <Route element={<CarDetailSeller />} path="/car/:idCar" />
+
                         <Route element={<EditContact />} path="/edit/car/:idCar" />
+
                         <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<PayPal />} path="/donation" />
                         <Route element={<h1 style={{ marginTop: "350px" }}>Not found!</h1>} path="*" />

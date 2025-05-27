@@ -43,7 +43,6 @@ const Catalog = () => {
   const [allCars, setAllCars] = useState([]);
 
 
-
   // ======================================================================================================
 
   // Este useEffect solo es util cuando viene desde Home.jsx
@@ -60,7 +59,6 @@ const Catalog = () => {
     }
   }, [store.cars, location.search]); //Primera vez store.cars:vacio, segunda vez con la dependencia store.cars:full
   // (Recordar la UI se monta primero, luego los efectos y por eso las dependencias!)
-
 
   // ------------------------------------------------------------------------
 
@@ -102,7 +100,6 @@ const Catalog = () => {
 
         if (store.currentUser) { //Verify this
           const favorites = await actions.loadFavorites();
-
           if (favorites) {
             setFavoriteCars(favorites);
           }
@@ -223,12 +220,15 @@ const Catalog = () => {
     setNoResults(false);
   };
 
+
+
   const handleMinPriceChange = (event) => {
     setFilters({
       ...filters,
       minPrice: event.target.value,
     });
   };
+
 
   const handleMaxPriceChange = (event) => {
     setFilters({
@@ -265,7 +265,6 @@ const Catalog = () => {
     }
   };
   // -----------------------------------------------------------------------------------------------
-
   //  Funcion que coopera con la de los filtros
   const filterCars = (carsToFilter, filterValue, fields) => {
     return carsToFilter.filter((car) => {

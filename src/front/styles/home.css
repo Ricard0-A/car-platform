@@ -6,9 +6,8 @@
   --any: Green;
 }
 
-/* Evitar colapso de rows */
-.container-fluid {
-  overflow: auto;
+.next-page {
+  margin-bottom: 7rem;
 }
 
 .position-relative {
@@ -25,6 +24,7 @@
 }
 
 .message {
+  font-family: sans-serif;
   position: absolute;
   top: 2px;
   right: -150px;
@@ -50,6 +50,10 @@
 
 .second-row {
   background-color: #f5f5f5b4;
+}
+
+.before-reasons {
+  font-family: "Roboto", sans-serif;
 }
 
 .before-reasons h1 {
@@ -78,26 +82,15 @@
   font-size: 25px;
 }
 
-.second-page {
-  top: 60px;
-}
 
 /* ESTILOS DE LA TECERA ROW */
-.third-page {
-  top: 20px;
+.third-row {
+  font-size: 30px;
+  font-family: "emoji";
 }
 
 .third-page h1 {
   color: #0e5348;
-}
-
-.third-page p {
-  font-size: 27px;
-}
-
-.fourth-page {
-  margin-top: -9vh;
-  font-size: 24px;
 }
 
 .fourth-page h1 {
@@ -107,7 +100,7 @@
 /* ESTILOS DE LA CUARTA ROW */
 
 .fourth-row {
-  margin-top: 2vh;
+  margin-bottom: 10rem;
 }
 
 .fourth-row i {
@@ -121,7 +114,7 @@
 /* QUINTA ROW PARA (Tipos de Autos)  */
 
 .search-by {
-  margin-top: -10vh;
+  padding-bottom: 5rem;
   color: #252e7e;
 }
 
@@ -152,16 +145,15 @@
 
 .background {
   z-index: -1;
-  margin-top: -33vh;
+  margin-top: -10vh;
   border-radius: 50%;
   background: linear-gradient(to bottom, #d1e8d1, #f9fff9);
-  height: 11%;
+  height: 30px;
   width: 86%;
 }
 
 .fifth-row {
   height: 100%;
-  margin-top: 25vh;
 }
 
 /* ========================================================================================== */
@@ -170,7 +162,6 @@
 
 .sixth-row {
   position: relative;
-  margin-top: -3rem;
   margin-left: 3%;
 }
 
@@ -459,26 +450,7 @@
 
 /* DECIMA ROW  ( Parte del footer **Fixearlo pronto** ) */
 
-.tenth-row {
-  border-radius: 10px;
-  color: white;
-  background-color: #006454;
-}
-
-.first-line h4 {
-  font-weight: 400;
-  font-size: 22px;
-}
-
-.tenth-row .col-3 {
-  padding-top: 50px;
-  padding-left: 60px;
-}
-
-.tenth-row h4 {
-  font-weight: 400;
-  font-size: 22px;
-}
+/* Esto se fue para el footer  */
 
 /* FINAL  */
 

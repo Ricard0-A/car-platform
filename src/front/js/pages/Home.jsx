@@ -138,10 +138,10 @@ export const Home = () => {
 
   return (
     <>
-      <div className="container-fluid vh-100">
+      <div className="container-fluid">
         {/* PRIMERA ROW */}
         <div
-          className="row first-row justify-content-center align-items-center"
+          className="row first-row justify-content-center align-items-center next-page"
           style={firstImg}
         >
           <div className="col-12 col-md-8 text-center position-relative">
@@ -166,8 +166,8 @@ export const Home = () => {
           </div>
         </div>
         {/* SEGUNDA ROW  */}
-        <div className="row h-100 second-row justify-content-center align-items-center">
-          <div className="col-12 second-page col-md-8 position-relative">
+        <div className="row h-100 second-row justify-content-center align-items-center next-page">
+          <div className="col-12 second-page col-md-8 ">
             <div className="before-reasons">
               <h1>100% Secure Purchase</h1>
               <h2>Quick and Efficient</h2>
@@ -200,7 +200,10 @@ export const Home = () => {
           </div>
         </div>
         {/* TECERA ROW */}
-        <div className="row h-100 third-row justify-content-center align-items-center ">
+        <div
+          className="row h-100 third-row justify-content-center align-items-center next-page"
+          style={{ gap: "6rem" }}
+        >
           <div className="col-12 third-page col-md-8 position-relative">
             <h1 className="text-center "> What is DrivenS ?</h1>
             <p className="mt-4">
@@ -217,7 +220,7 @@ export const Home = () => {
           </div>
         </div>
         {/* CUARTA ROW  */}
-        <div className="row fourth-row ">
+        <div className="row fourth-row">
           <div className="col-3">
             <i style={{ color: "#2D749B" }} class="fa-solid fa-gear"></i>
             <p className="fs-5">Vehicle inspection</p>
@@ -236,7 +239,10 @@ export const Home = () => {
           </div>
         </div>
         {/* QUINTA ROW */}
-        <div className="row fifth-row justify-content-center align-items-center ">
+        <div
+          className="row fifth-row justify-content-center align-items-center"
+          style={{ marginBottom: "10rem" }}
+        >
           <div className="col-12">
             <h1 className="text-center search-by"> Search by category</h1>
           </div>
@@ -264,14 +270,16 @@ export const Home = () => {
           </div>
           {/* Fade Background  for category Cars */}
           <div className="background"></div>
-          <div className="col-12 h-25 col-md-8 d-flex justify-content-center align-items-center">
-            <h1
-              className="text-center "
-              style={{ marginTop: "-20vh", color: "#252e7e" }}
-            >
-              Suggested
-            </h1>
-          </div>
+
+        </div>
+
+        <div className="col-12 col-md-8 d-flex justify-content-center align-items-center">
+          <h1
+            className="text-center "
+            style={{ color: "#252e7e", paddingLeft: "31rem", marginBottom: "7rem" }}
+          >
+            Suggested
+          </h1>
         </div>
 
         {/* ---------------------------------------------------------------------------------------- */}

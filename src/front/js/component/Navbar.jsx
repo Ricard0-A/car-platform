@@ -60,9 +60,9 @@ const Navbar = () => {
 
 
   const location = useLocation();
-  const pathdenied = ["/login", "/register"]
+  const pathdenied = ["/login", "/register", "seller/cars/get"]
 
-  if (pathdenied.some(path => location.pathname.startsWith(path))) {
+  if (pathdenied.some(path => location.pathname.includes(path))) {
     return null;
   }
 
@@ -147,12 +147,12 @@ const Navbar = () => {
                 )}
                 {isLoggedIn ? (
                   <Link className="nav-link" to="#" onClick={actions.logOut}>
-                    <i className="me-1 fa-solid fa-right-from-bracket"></i>
+                    <i className="fa-solid fa-right-from-bracket"></i>
                     <span>Log Out</span>
                   </Link>
                 ) : (
-                  <Link className="nav-link" to="/login" >
-                    <i className="me-1 fa-solid fa-right-to-bracket nav-link"></i>
+                  <Link className="nav-link" to="/login" style={{ fontFamily: "Roboto" }}>
+                    <i className="fa-solid fa-right-to-bracket nav-link"></i>
                     Login
                   </Link>
                 )}

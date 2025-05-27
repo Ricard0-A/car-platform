@@ -1,3 +1,24 @@
+.footer-box {
+  border-radius: 10px;
+  color: white;
+  background-color: #006454;
+}
+
+.first-line h4 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.footer-box .col-3 {
+  padding-top: 50px;
+  padding-left: 60px;
+}
+
+.footer-box h4 {
+  font-weight: 400;
+  font-size: 22px;
+}
+
 .first-line div {
   display: flex;
   gap: 20px;
@@ -7,10 +28,12 @@
 .second-line :nth-child(2) {
   margin-bottom: 27px;
 }
+
 .second-line h3 {
   font-family: "emoji";
   color: turquoise;
 }
+
 .second-line img {
   height: 88px;
 }

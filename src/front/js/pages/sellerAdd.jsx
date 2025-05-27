@@ -34,7 +34,7 @@ const AddCar = () => {
         let value = target.value;
         // Me aseguro que se envie los datos del formulario como capitalize antes de pasar a backend
         if (type !== "number" && (name === "model_body" || name === "model_color" || name === "model_engine_fuel")) {
-            // Aqui va codigo para obligar a poner mayuscula por cada palabra 
+            // Mayuscula si o si  
             value = value.split(" ").map(unit => unit.charAt(0).toUpperCase() + unit.slice(1)).join(" ")
         }
 

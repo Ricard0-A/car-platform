@@ -8,16 +8,14 @@ const NavbarSeller = () => {
 	return (
 		<>
 
-			<nav className="col-12 navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
-				<div className="col-12 col-md-8 container-fluid d-flex justify-content-between align-items-center">
+			<nav className="nav-seller-main navbar navbar-dark bg-dark navbar-expand-lg fixed-top ">
+				<div className="nav-seller-container container-fluid d-flex justify-content-between align-items-center">
 					{" "}
 					{/* Flexbox en el container */}
-					<Link className="navbar-brand d-flex align-items-center" to="/">
-						<i className="green fa-brands fa-drupal fs-1 "></i>
-						<i className="fa-brands fa-stumbleupon fs-2 "></i>
-						<h4>DrivenS</h4>
+					<Link className="nav-seller-brand navbar-brand d-flex align-items-center" to="/">
+						<img src="/my-logo-fix.png" alt="Logo" />
 					</Link>
-					<button
+					<butto n
 						className="navbar-toggler"
 						type="button"
 						data-bs-toggle="collapse"
@@ -27,8 +25,9 @@ const NavbarSeller = () => {
 						aria-label="Toggle navigation"
 					>
 						<span className="navbar-toggler-icon"></span>
-					</button>
-					<div className="collapse navbar-collapse" id="navbarNav">
+					</butto>
+					<div className="nav-seller-collapse collapse navbar-collapse" id="navbarNav">
+						{/* Seria 1 <ul/> pero haremos 2  */}
 						<ul
 							className="navbar-nav mx-auto d-flex flex-column flex-lg-row align-items-lg-center"
 							style={{ gap: "50px" }}
@@ -50,12 +49,10 @@ const NavbarSeller = () => {
 							{" "}
 							{/* Login a la derecha */}
 							<li className="nav-item">
-								<i className="fa-solid fa-right-to-bracket nav-link"></i>
-							</li>
-							<li className="nav-item">
 								{
 									store.currentSeller ? (
 										<button className="nav-btn" to="/" onClick={() => { actions.logOutSeller() }}>
+											<i className="fa-solid fa-right-to-bracket nav-link"></i>
 											<Link to="/" className="nav-link">LogOut</Link>
 										</button>
 									) :

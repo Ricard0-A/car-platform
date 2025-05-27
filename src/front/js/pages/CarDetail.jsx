@@ -57,8 +57,8 @@ const CarDetail = () => {
     };
 
     return (
-        <div className="container-fluid" style={{ marginTop: "88px", height: "100vh" }}>
-            <div className="row d-flex justify-content-center" style={{ height: "86%" }}>
+        <div className="container-fluid" style={{ marginTop: "88px" }}>
+            <div className="row d-flex justify-content-center" style={{ height: "86%", paddingTop: "50px" }}>
                 <div className="col-6">
                     <div className="left-side">
                         <img src={carDetail?.model_picture} alt="Main Car Image" />
@@ -205,7 +205,7 @@ const CarDetail = () => {
                             <h1>We also recommend...</h1>
                         </div>
                         <div className="suggested-list">
-                            <div className="row show-cars">
+                            <div className="row show-cars-list">
                                 {store.cars && store.cars.length > 0 ? (
                                     store.cars.slice(4, 7).map((car) => (
                                         <div className="col-lg-4 col-md-6 col-sm-6 position-relative" key={car.id}>
